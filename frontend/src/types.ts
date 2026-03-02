@@ -33,6 +33,7 @@ export interface PramericaTestData {
   middleName: string;
   lastName: string;
   dateOfBirth: string;
+  gender: string;
   email: string;
   address1: string;
   address2: string;

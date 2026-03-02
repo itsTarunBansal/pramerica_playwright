@@ -23,6 +23,9 @@ runTestsRouter.post("/", async (req, res) => {
     try {
       for (const step of steps) {
         switch (step.action) {
+          case "wait":
+            await page.waitForTimeout(Number(step.value));
+            break;
           case "goto":
             await page.goto(step.value, { waitUntil: "domcontentloaded", timeout: 30000 });
             break;

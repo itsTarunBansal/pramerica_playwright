@@ -5,7 +5,7 @@ import { runTestCases } from "../services/api";
 
 const CSV_HEADERS: (keyof PramericaTestData)[] = [
   "agentCode","otp1","otp2","otp3","otp4","otp5","otp6",
-  "proposerPAN","mobileNumber","title","firstName","middleName","lastName",
+  "proposerPAN","mobileNumber","title","firstName","middleName","lastName","gender",
   "dateOfBirth","email","address1","address2","address3","landmark",
   "pinCode","state","city","monthlyIncome","monthlyExpenses","maritalStatus",
   "premiumMode","premiumChannel","premiumFrequency","premiumAmount",
@@ -14,7 +14,7 @@ const CSV_HEADERS: (keyof PramericaTestData)[] = [
 const DEFAULT_ROW: PramericaTestData = {
   agentCode: "70016333", otp1: "1", otp2: "2", otp3: "3", otp4: "1", otp5: "2", otp6: "3",
   proposerPAN: "LLLLL9999H", mobileNumber: "8888888888", title: "MR",
-  firstName: "Testing", middleName: "Testing", lastName: "Testing",
+  firstName: "Testing", middleName: "Testing", lastName: "Testing",gender: "Male",
   dateOfBirth: "22/10/1990", email: "test@pramericalife.in",
   address1: "gggui", address2: "gugiuhg", address3: "huhujh", landmark: "gugiuhgju",
   pinCode: "122018", state: "Haryana", city: "Adampur 1- Haryana",
@@ -107,7 +107,7 @@ export default function TestCaseGeneratorPage() {
 
   const visibleFields: (keyof PramericaTestData)[] = [
     "agentCode","proposerPAN","mobileNumber","title",
-    "firstName","lastName","dateOfBirth","email",
+    "firstName","lastName","gender","dateOfBirth","email",
     "pinCode","state","city","maritalStatus","premiumAmount",
   ];
 
@@ -159,7 +159,11 @@ export default function TestCaseGeneratorPage() {
                 {visibleFields.filter(f => f !== "agentCode").map(f => (
                   <td key={f} style={td}>
                     {f === "title" ? (
-                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "60px" }}>
+                      <select value={row[f]} onChange={e => {
+                        const t = e.target.value;
+                        const gender = t === "MR" ? "Male" : "Female";
+                        setRows(r => r.map((row, ri) => ri === i ? { ...row, title: t, gender } : row));
+                      }} style={{ width: "60px" }}>
                         <option>MR</option><option>MRS</option><option>MS</option>
                       </select>
                     ) : f === "maritalStatus" ? (
