@@ -18,3 +18,35 @@ export interface InsuranceInput {
   premiumExpected?: number;
 }
 
+export interface PramericaTestData {
+  agentCode: string;
+  otp1: string;
+  otp2: string;
+  otp3: string;
+  otp4: string;
+  otp5: string;
+  otp6: string;
+  proposerPAN: string;
+  mobileNumber: string;
+  title: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  dateOfBirth: string;
+  email: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  landmark: string;
+  pinCode: string;
+  state: string;
+  city: string;
+  monthlyIncome: string;
+  monthlyExpenses: string;
+  maritalStatus: string;
+  premiumMode: string;
+  premiumChannel: string;
+  premiumFrequency: string;
+  premiumAmount: string;
+}
+

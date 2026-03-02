@@ -45,6 +45,16 @@ export async function listTestCases(): Promise<Array<{ id: string; name: string;
   }));
 }
 
+export async function runTestCases(testCases: object[]): Promise<{ results: Array<{ testCaseId: number; agentCode: string; proposerPAN: string; firstName: string; lastName: string; applicationNumber: string; status: string; error: string | null }> }> {
+  const response = await fetch(`${API_URL}/api/v1/run-tests`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ testCases }),
+  });
+  if (!response.ok) throw await buildApiError(response, "Failed to run test cases");
+  return response.json();
+}
+
 export async function createTestCase(input: {
   name: string;
   appUrl: string;

@@ -4,6 +4,7 @@ import { config } from "./config.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { executionsRouter } from "./routes/executions.js";
 import { healthRouter } from "./routes/health.js";
+import { runTestsRouter } from "./routes/runTests.js";
 import { testCasesRouter } from "./routes/testCases.js";
 
 export function createApp() {
@@ -24,6 +25,7 @@ export function createApp() {
   app.use("/api/v1", healthRouter);
   app.use("/api/v1/test-cases", testCasesRouter);
   app.use("/api/v1/executions", executionsRouter);
+  app.use("/api/v1/run-tests", runTestsRouter);
 
   app.use(errorHandler);
   return app;

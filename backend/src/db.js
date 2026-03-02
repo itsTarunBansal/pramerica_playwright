@@ -7,6 +7,7 @@ export async function connectToDatabase() {
   await mongoose.connect(config.mongoUri, {
     serverSelectionTimeoutMS: 5000
   });
+  console.log(`MongoDB connected: ${config.mongoUri}`);
 }
 
 export async function closeDatabase() {

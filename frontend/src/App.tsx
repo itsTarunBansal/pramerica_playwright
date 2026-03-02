@@ -1,6 +1,8 @@
 import { Link, Route, Routes } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import TestBuilderPage from "./pages/TestBuilderPage";
+import PramericaTestPage from "./pages/PramericaTestPage";
+import TestCaseGeneratorPage from "./pages/TestCaseGeneratorPage";
 
 export default function App() {
   return (
@@ -10,12 +12,16 @@ export default function App() {
         <nav>
           <Link to="/">Dashboard</Link>
           <Link to="/builder">No-Code Test Builder</Link>
+          <Link to="/pramerica">Pramerica Test</Link>
+          <Link to="/generator">Test Case Generator</Link>
         </nav>
       </header>
       <main className="content">
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/builder" element={<TestBuilderPage />} />
+          <Route path="/pramerica" element={<PramericaTestPage />} />
+          <Route path="/generator" element={<TestCaseGeneratorPage />} />
         </Routes>
       </main>
     </div>
