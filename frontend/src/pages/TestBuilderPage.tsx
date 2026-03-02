@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { createTestCase } from "../services/api";
 import type { TestStep } from "../types";
-
+import React, { useCallback, useEffect } from 'react';
 const defaultSteps: TestStep[] = [
   { order: 1, action: "goto", value: "https://example-insurance-app.com/quote" },
   { order: 2, action: "fill", selector: "#age", value: "35" },
@@ -13,6 +13,9 @@ const defaultSteps: TestStep[] = [
 export default function TestBuilderPage() {
   const [name, setName] = useState("Insurance Premium Validation");
   const [appUrl, setAppUrl] = useState("https://example-insurance-app.com");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [excelFile, setExcelFile] = useState<File | null>(null);
   const [stepsJson, setStepsJson] = useState(JSON.stringify(defaultSteps, null, 2));
 
   const [age, setAge] = useState(35);
@@ -23,6 +26,24 @@ export default function TestBuilderPage() {
 
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (file) setExcelFile(file);
+  }
+
+  // function downloadTemplate() {
+  //   const link = document.createElement("a");
+  //   link.href = "/TestDataTemplate.xlsx";
+  //   link.download = "TestDataTemplate.xlsx";
+  //   link.click();
+  // }
+  const downloadTemplate = useCallback(() => {
+    const link = document.createElement('a');
+    link.href = '/TestDataTemplate.xlsx';
+    link.download = 'TestDataTemplate.xlsx';
+    link.click();
+  }, []);
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -60,6 +81,28 @@ export default function TestBuilderPage() {
           Application URL
           <input value={appUrl} onChange={(e) => setAppUrl(e.target.value)} />
         </label>
+
+        <div className="grid">
+          <label>
+            Id
+            <input value={id} onChange={(e) => setId(e.target.value)} />
+          </label>
+          <label>
+            Password
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+        </div>
+
+        <div className="grid">
+          <label>
+            Upload Excel
+            <input type="file" accept=".xlsx,.xls" onChange={handleFileUpload} />
+            {excelFile && <span style={{fontSize: "0.9em", color: "#666"}}>{excelFile.name}</span>}
+          </label>
+          <div style={{display: "flex", alignItems: "flex-end"}}>
+            <button type="button" onClick={downloadTemplate}>Download Template</button>
+          </div>
+        </div>
 
         <div className="grid">
           <label>
@@ -105,4 +148,5 @@ export default function TestBuilderPage() {
     </section>
   );
 }
+
 
