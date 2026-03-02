@@ -33,7 +33,7 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: `role=option[name='${d.city}']` },
     { action: "check", selector: "#sameAsTempAddress" },
     // { action: "check", selector: "role=checkbox[name='I authorize Pramerica Life']" },
-    { action: "click", selector: "button.border-0.button-filled.ml-2.h-100" },
+    { action: "click", selector: "button.border-0.button-filled.ml-2.h-100 >> nth=1" },
     { action: "click", selector: "text=Copy" },
     { action: "click", selector: "role=button[name='Thank you and Proceed']" },
     { action: "fill", selector: "role=textbox[name='Enter total monthly income']", value: d.monthlyIncome },

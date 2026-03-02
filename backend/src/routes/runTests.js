@@ -10,11 +10,11 @@ runTestsRouter.post("/", async (req, res) => {
   }
 
   const results = [];
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: false, args: ["--start-maximized"] });
 
   for (const tc of testCases) {
     const { testCaseId, testData, steps } = tc;
-    const context = await browser.newContext();
+    const context = await browser.newContext({ viewport: null });
     const page = await context.newPage();
     let applicationNumber = null;
     let status = "success";
