@@ -1,0 +1,337 @@
+{
+  "info": {
+    "_postman_id": "7d34a0c9-47a6-432b-9dea-61ed76ea49c2",
+    "name": "AI Insurance Test Copilot API",
+    "description": "Postman collection for the current Express backend contract.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Root and Health",
+      "item": [
+        {
+          "name": "GET /",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Service root endpoint."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ]
+            },
+            "description": "API health check."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Test Cases",
+      "item": [
+        {
+          "name": "POST /api/v1/test-cases",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "let data = {};",
+                  "try {",
+                  "  data = pm.response.json();",
+                  "} catch (e) {",
+                  "  data = {};",
+                  "}",
+                  "",
+                  "if (data && data.id) {",
+                  "  pm.collectionVariables.set('testCaseId', data.id);",
+                  "}",
+                  "",
+                  "pm.test('Response has id', function () {",
+                  "  pm.expect(data.id).to.be.a('string');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantId\": \"{{tenantId}}\",\n  \"name\": \"Insurance Premium Validation\",\n  \"appUrl\": \"https://example-insurance-app.com\",\n  \"insuranceInput\": {\n    \"age\": 35,\n    \"sumInsured\": 1000000,\n    \"policyType\": \"Term\",\n    \"rider\": \"Critical Illness\",\n    \"premiumExpected\": 15420.5\n  },\n  \"steps\": [\n    {\n      \"order\": 1,\n      \"action\": \"goto\",\n      \"value\": \"https://example-insurance-app.com/quote\"\n    },\n    {\n      \"order\": 2,\n      \"action\": \"fill\",\n      \"selector\": \"#age\",\n      \"value\": \"35\"\n    },\n    {\n      \"order\": 3,\n      \"action\": \"click\",\n      \"selector\": \"#calculatePremium\"\n    },\n    {\n      \"order\": 4,\n      \"action\": \"assert\",\n      \"selector\": \"#premiumValue\",\n      \"expected\": {\n        \"contains\": \"15420\"\n      }\n    }\n  ],\n  \"createdBy\": null\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/test-cases/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "test-cases",
+                ""
+              ]
+            },
+            "description": "Create a test case. Saves returned id to collection variable testCaseId."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/test-cases",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/test-cases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "test-cases"
+              ]
+            },
+            "description": "List all test cases."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/test-cases/:testCaseId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/test-cases/{{testCaseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "test-cases",
+                "{{testCaseId}}"
+              ]
+            },
+            "description": "Get test case by ID. Uses collection variable testCaseId."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Executions",
+      "item": [
+        {
+          "name": "POST /api/v1/executions/run",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "const data = pm.response.json();",
+                  "pm.test('Response is array', function () {",
+                  "  pm.expect(Array.isArray(data)).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantId\": \"{{tenantId}}\",\n  \"testCaseId\": \"{{testCaseId}}\",\n  \"browsers\": [\"chromium\", \"firefox\", \"webkit\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/executions/run",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "executions",
+                "run"
+              ]
+            },
+            "description": "Queue one execution row per browser."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Negative Validation Checks",
+      "item": [
+        {
+          "name": "POST /api/v1/test-cases (invalid tenantId)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantId\": \"not-a-uuid\",\n  \"name\": \"Invalid tenant\",\n  \"appUrl\": \"https://example.com\",\n  \"steps\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/test-cases/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "test-cases",
+                ""
+              ]
+            },
+            "description": "Expected 400 with message: tenantId must be a UUID."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/v1/executions/run (missing testCaseId)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantId\": \"{{tenantId}}\",\n  \"browsers\": [\"chromium\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/executions/run",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "executions",
+                "run"
+              ]
+            },
+            "description": "Expected 400 with message: tenantId and testCaseId are required."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/test-cases/:testCaseId (invalid UUID)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/test-cases/not-a-uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "test-cases",
+                "not-a-uuid"
+              ]
+            },
+            "description": "Expected 400 with message: testCaseId must be a UUID."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "tenantId",
+      "value": "00000000-0000-0000-0000-000000000001"
+    },
+    {
+      "key": "testCaseId",
+      "value": ""
+    }
+  ]
+}
+
