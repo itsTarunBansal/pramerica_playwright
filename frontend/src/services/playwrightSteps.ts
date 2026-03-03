@@ -46,6 +46,7 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "#lb_lifeGoal_2" },
     { action: "click", selector: "#lb_risk_2" },
     { action: "click", selector: "#lb_time_2" },
+     { action: "wait", value: "5000" },
     { action: "click", selector: "role=button[name='Next']" },
     { action: "click", selector: "role=button[name='Buy Now'] >> nth=0" },
     { action: "click", selector: "role=button[name='Next']" },
