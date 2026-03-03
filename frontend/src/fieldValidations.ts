@@ -221,6 +221,13 @@ export const pramericaFieldValidations: Record<string, FieldValidation> = {
     pattern: /^\d+$/,
     errorMessage: 'Must be a valid number'
   },
+  planOption: {
+    name: 'Plan Option',
+    type: 'text',
+    required: true,
+    pattern: /^\d+$/,
+    errorMessage: 'Must be a valid number'
+  },
   premiumAmount: {
     name: 'Premium Amount',
     type: 'text',

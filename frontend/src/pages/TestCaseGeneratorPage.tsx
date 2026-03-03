@@ -8,7 +8,7 @@ const CSV_HEADERS: (keyof PramericaTestData)[] = [
   "proposerPAN","mobileNumber","sameProposer","title","firstName","middleName","lastName","gender",
   "dateOfBirth","email","address1","address2","address3","landmark",
   "pinCode","state","city","monthlyIncome","monthlyExpenses","maritalStatus",
-  "premiumMode","premiumChannel","premiumFrequency","premiumAmount",
+  "premiumMode","premiumChannel","premiumFrequency","planOption","premiumAmount",
   "policyTerm","premiumPayingTerm","education","occupation","natureOfDuty",
   "employerName","employerAddress","designation","annualIncome",
   "spouseName","fatherName","motherName",
@@ -24,7 +24,7 @@ const DEFAULT_ROW: PramericaTestData = {
   address1: "gggui", address2: "gugiuhg", address3: "huhujh", landmark: "gugiuhgju",
   pinCode: "122018", state: "Haryana", city: "Adampur 1- Haryana",
   monthlyIncome: "1,00,0000", monthlyExpenses: "1,0000", maritalStatus: "married",
-  premiumMode: "1", premiumChannel: "19", premiumFrequency: "3", premiumAmount: "5,0000",
+  premiumMode: "1", premiumChannel: "19", premiumFrequency: "3", planOption: "3", premiumAmount: "5,0000",
   policyTerm: "20", premiumPayingTerm: "9",
   education: "PGA", occupation: "SL", natureOfDuty: "MGCN",
   employerName: "", employerAddress: "", designation: "", annualIncome: "",
@@ -52,6 +52,7 @@ export default function TestCaseGeneratorPage() {
   async function runTests() {
     setRunning(true);
     setRunStatus(null);
+    console.log(rows, '----->suryashhhhh')
     try {
       const testCases = rows.map((testData, i) => ({
         testCaseId: i + 1,
@@ -59,6 +60,7 @@ export default function TestCaseGeneratorPage() {
         steps: buildSteps(testData),
         testData,
       }));
+      console.log("Generated test cases:", testCases); // Debug log to verify test case structure
       const { results } = await runTestCases(testCases);
       // Build CSV/Excel content
       const header = "testCaseId,agentCode,proposerPAN,firstName,lastName,applicationNumber,status,error";
@@ -73,6 +75,7 @@ export default function TestCaseGeneratorPage() {
     } finally {
       setRunning(false);
     }
+
   }
 
   function addRows() {
@@ -123,7 +126,7 @@ export default function TestCaseGeneratorPage() {
     "proposerPAN","mobileNumber","sameProposer","title","firstName","middleName","lastName","gender",
     "dateOfBirth","email","address1","address2","address3","landmark",
     "pinCode","state","city","monthlyIncome","monthlyExpenses","maritalStatus",
-    "premiumMode","premiumChannel","premiumFrequency","premiumAmount",
+    "premiumMode","premiumChannel","premiumFrequency","planOption","premiumAmount",
     "policyTerm","premiumPayingTerm","education","occupation","natureOfDuty",
     "employerName","employerAddress","designation","annualIncome",
     "spouseName","fatherName","motherName",
@@ -184,7 +187,7 @@ export default function TestCaseGeneratorPage() {
                         const gender = t === "MR" ? "Male" : "Female";
                         setRows(r => r.map((row, ri) => ri === i ? { ...row, title: t, gender } : row));
                       }} style={{ width: "60px" }}>
-                        <option>MR</option><option>MRS</option><option>MS</option>
+                        <option value="MR">MR</option><option value="MRS">MRS</option><option value="MS">MS</option>
                       </select>
                     ) : f === "sameProposer" ? (
                       <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "60px" }}>
@@ -193,6 +196,18 @@ export default function TestCaseGeneratorPage() {
                     ) : f === "maritalStatus" ? (
                       <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "80px" }}>
                         <option value="married">married</option><option value="single">single</option>
+                      </select>
+                    ) : f === "premiumFrequency" ? (
+                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "90px" }}>
+                        <option value="1">Annual</option>
+                        <option value="2">Semi-Annual</option>
+                        <option value="3">Quarterly</option>
+                        <option value="4">Monthly</option>
+                      </select>
+                    ) : f === "planOption" ? (
+                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "110px" }}>
+                        <option value="3">Fortune Builder</option>
+                        <option value="4">Dream Builder</option>
                       </select>
                     ) : (
                       <input

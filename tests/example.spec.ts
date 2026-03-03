@@ -78,7 +78,7 @@ test('Pramerica Life Insurance - Full Policy Creation Flow', async ({ page }) =>
   await page.locator('#ddlPPT').selectOption('9');
   await page.locator('#dynInput_Mode').selectOption('1');
   await page.locator('#dynPR_CHANNEL').selectOption('19');
-  await page.locator('#divoption0').getByRole('combobox').selectOption('3');
+  await page.locator('#ddlOpt0').getByRole('combobox').selectOption('3');
   await page.getByRole('textbox', { name: 'Premium Amount' }).fill('2,30,00');
   await page.getByRole('button', { name: 'Calculate' }).click();
   await page.getByRole('button', { name: 'Next' }).click();

@@ -55,6 +55,7 @@ export interface PramericaTestData {
   premiumMode: string;
   premiumChannel: string;
   premiumFrequency: string;
+  planOption: string;
   premiumAmount: string;
   policyTerm: string;
   premiumPayingTerm: string;

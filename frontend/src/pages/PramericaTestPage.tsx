@@ -25,6 +25,7 @@ export default function PramericaTestPage() {
   const [premiumMode, setPremiumMode] = useState("1");
   const [premiumChannel, setPremiumChannel] = useState("19");
   const [premiumFrequency, setPremiumFrequency] = useState("3");
+  const [planOption, setPlanOption] = useState("3");
   const [premiumAmount, setPremiumAmount] = useState("5,0000");
 
   const [jsonOutput, setJsonOutput] = useState("");
@@ -40,13 +41,15 @@ export default function PramericaTestPage() {
   function generateJSON() {
     const testData: PramericaTestData = {
       agentCode,
-      otp1: otp[0], otp2: otp[1], otp3: otp[2], otp4: otp[3], otp5: otp[4], otp6: otp[5],
+      otp1: otp[0] ?? "", otp2: otp[1] ?? "", otp3: otp[2] ?? "", otp4: otp[3] ?? "", otp5: otp[4] ?? "", otp6: otp[5] ?? "",
+      sameProposer: "Yes",
       proposerPAN,
       mobileNumber,
       title,
       firstName,
       middleName,
       lastName,
+      gender: title === "MR" ? "Male" : "Female",
       dateOfBirth,
       email,
       address1,
@@ -62,7 +65,31 @@ export default function PramericaTestPage() {
       premiumMode,
       premiumChannel,
       premiumFrequency,
-      premiumAmount
+      planOption,
+      premiumAmount,
+      policyTerm: "",
+      premiumPayingTerm: "",
+      education: "",
+      occupation: "",
+      natureOfDuty: "",
+      employerName: "",
+      employerAddress: "",
+      designation: "",
+      annualIncome: "",
+      spouseName: "",
+      fatherName: "",
+      motherName: "",
+      nomineeRelation: "",
+      nomineeTitle: "",
+      nomineeName: "",
+      nomineeGender: "",
+      nomineeSharePercentage: "",
+      nomineeDOB: "",
+      bankAccountNumber: "",
+      ifscCode: "",
+      weightKgs: "",
+      heightFeet: "",
+      heightInches: "",
     };
 
     const playwrightJSON = {
@@ -111,6 +138,7 @@ export default function PramericaTestPage() {
         { action: "select", selector: "#dynInput_Mode", value: premiumMode },
         { action: "select", selector: "#dynPR_CHANNEL", value: premiumChannel },
         { action: "select", selector: "#divoption0 >> role=combobox", value: premiumFrequency },
+        { action: "select", selector: "#ddlOpt0 >> role=combobox", value: planOption },
         { action: "fill", selector: "role=textbox[name='Premium Amount']", value: premiumAmount },
         { action: "click", selector: "role=button[name='Calculate']" }
       ],

@@ -68,9 +68,11 @@ runTestsRouter.post("/", async (req, res) => {
           case "check":
             await page.locator(step.selector).check();
             break;
-          case "select":
+          case "select": {
+            
             await page.locator(step.selector).selectOption(step.value ?? "");
             break;
+          }
           case "press":
             await page.locator(step.selector).press(step.value ?? "");
             break;

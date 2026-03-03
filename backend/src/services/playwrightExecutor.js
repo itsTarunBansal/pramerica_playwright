@@ -43,6 +43,12 @@ export class PlaywrightExecutor {
         await page.locator(step.selector).fill(step.value ?? "");
       } else if (action === "wait") {
         await page.waitForTimeout(step.timeout_ms ?? 1000);
+      } else if (action === "select") {
+        await page.locator(step.selector).selectOption(step.value ?? "");
+      } else if (action === "check") {
+        await page.locator(step.selector).check();
+      } else if (action === "press") {
+        await page.locator(step.selector).press(step.value ?? "");
       } else if (action === "assert") {
         const text = await page.locator(step.selector).innerText();
         const expectedContains = step.expected?.contains ?? "";
