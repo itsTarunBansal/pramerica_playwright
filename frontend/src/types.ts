@@ -1,4 +1,4 @@
-export type TestAction = "goto" | "click" | "fill" | "wait" | "assert";
+export type TestAction = "goto" | "click" | "fill" | "wait" | "waitForSelector" | "assert" | "check" | "select" | "press";
 
 export interface TestStep {
   order: number;
@@ -19,6 +19,7 @@ export interface InsuranceInput {
 }
 
 export interface PramericaTestData {
+  // Login
   agentCode: string;
   otp1: string;
   otp2: string;
@@ -26,8 +27,11 @@ export interface PramericaTestData {
   otp4: string;
   otp5: string;
   otp6: string;
+  // Proposer
+  sameProposer: string;
   proposerPAN: string;
   mobileNumber: string;
+  // Personal
   title: string;
   firstName: string;
   middleName: string;
@@ -35,6 +39,7 @@ export interface PramericaTestData {
   dateOfBirth: string;
   gender: string;
   email: string;
+  // Address
   address1: string;
   address2: string;
   address3: string;
@@ -42,12 +47,41 @@ export interface PramericaTestData {
   pinCode: string;
   state: string;
   city: string;
+  // Financial
   monthlyIncome: string;
   monthlyExpenses: string;
   maritalStatus: string;
+  // Premium
   premiumMode: string;
   premiumChannel: string;
   premiumFrequency: string;
   premiumAmount: string;
+  policyTerm: string;
+  premiumPayingTerm: string;
+  // Occupation
+  education: string;
+  occupation: string;
+  natureOfDuty: string;
+  employerName: string;
+  employerAddress: string;
+  designation: string;
+  annualIncome: string;
+  // Family
+  spouseName: string;
+  fatherName: string;
+  motherName: string;
+  // Nominee
+  nomineeRelation: string;
+  nomineeTitle: string;
+  nomineeName: string;
+  nomineeGender: string;
+  nomineeSharePercentage: string;
+  nomineeDOB: string;
+  // Bank
+  bankAccountNumber: string;
+  ifscCode: string;
+  // Health
+  weightKgs: string;
+  heightFeet: string;
+  heightInches: string;
 }
-

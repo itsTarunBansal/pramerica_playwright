@@ -4,22 +4,35 @@ import { buildSteps } from "../services/playwrightSteps";
 import { runTestCases } from "../services/api";
 
 const CSV_HEADERS: (keyof PramericaTestData)[] = [
-  "agentCode","otp1","otp2","otp3","otp4","otp5","otp6",
-  "proposerPAN","mobileNumber","title","firstName","middleName","lastName","gender",
+  "agentCode","otp1","otp2","otp3","otp4","otp5","otp6", 
+  "proposerPAN","mobileNumber","sameProposer","title","firstName","middleName","lastName","gender",
   "dateOfBirth","email","address1","address2","address3","landmark",
   "pinCode","state","city","monthlyIncome","monthlyExpenses","maritalStatus",
   "premiumMode","premiumChannel","premiumFrequency","premiumAmount",
+  "policyTerm","premiumPayingTerm","education","occupation","natureOfDuty",
+  "employerName","employerAddress","designation","annualIncome",
+  "spouseName","fatherName","motherName",
+  "nomineeRelation","nomineeTitle","nomineeName","nomineeGender","nomineeSharePercentage","nomineeDOB",
+  "bankAccountNumber","ifscCode","weightKgs","heightFeet","heightInches",
 ];
 
 const DEFAULT_ROW: PramericaTestData = {
-  agentCode: "70016333", otp1: "1", otp2: "2", otp3: "3", otp4: "1", otp5: "2", otp6: "3",
-  proposerPAN: "LLLLL9999H", mobileNumber: "8888888888", title: "MR",
-  firstName: "Testing", middleName: "Testing", lastName: "Testing",gender: "Male",
+  agentCode: "70016333", otp1: "1", otp2: "2", otp3: "3", otp4: "1", otp5: "2", otp6: "3", 
+  proposerPAN: "LLLLL9999H", mobileNumber: "8888888888", sameProposer: "Yes", title: "MR",
+  firstName: "Testing", middleName: "Testing", lastName: "Testing", gender: "Male",
   dateOfBirth: "22/10/1990", email: "test@pramericalife.in",
   address1: "gggui", address2: "gugiuhg", address3: "huhujh", landmark: "gugiuhgju",
   pinCode: "122018", state: "Haryana", city: "Adampur 1- Haryana",
   monthlyIncome: "1,00,0000", monthlyExpenses: "1,0000", maritalStatus: "married",
   premiumMode: "1", premiumChannel: "19", premiumFrequency: "3", premiumAmount: "5,0000",
+  policyTerm: "20", premiumPayingTerm: "9",
+  education: "PGA", occupation: "SL", natureOfDuty: "MGCN",
+  employerName: "", employerAddress: "", designation: "", annualIncome: "",
+  spouseName: "", fatherName: "", motherName: "",
+  nomineeRelation: "FTR", nomineeTitle: "DR", nomineeName: "", nomineeGender: "Male",
+  nomineeSharePercentage: "100", nomineeDOB: "",
+  bankAccountNumber: "", ifscCode: "",
+  weightKgs: "", heightFeet: "5", heightInches: "6",
 };
 
 function downloadFile(content: string, filename: string, mime: string) {
@@ -106,9 +119,16 @@ export default function TestCaseGeneratorPage() {
   }
 
   const visibleFields: (keyof PramericaTestData)[] = [
-    "agentCode","proposerPAN","mobileNumber","title",
-    "firstName","lastName","gender","dateOfBirth","email",
-    "pinCode","state","city","maritalStatus","premiumAmount",
+    "agentCode",
+    "proposerPAN","mobileNumber","sameProposer","title","firstName","middleName","lastName","gender",
+    "dateOfBirth","email","address1","address2","address3","landmark",
+    "pinCode","state","city","monthlyIncome","monthlyExpenses","maritalStatus",
+    "premiumMode","premiumChannel","premiumFrequency","premiumAmount",
+    "policyTerm","premiumPayingTerm","education","occupation","natureOfDuty",
+    "employerName","employerAddress","designation","annualIncome",
+    "spouseName","fatherName","motherName",
+    "nomineeRelation","nomineeTitle","nomineeName","nomineeGender","nomineeSharePercentage","nomineeDOB",
+    "bankAccountNumber","ifscCode","weightKgs","heightFeet","heightInches",
   ];
 
   return (
@@ -166,6 +186,10 @@ export default function TestCaseGeneratorPage() {
                       }} style={{ width: "60px" }}>
                         <option>MR</option><option>MRS</option><option>MS</option>
                       </select>
+                    ) : f === "sameProposer" ? (
+                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "60px" }}>
+                        <option value="Yes">Yes</option><option value="No">No</option>
+                      </select>
                     ) : f === "maritalStatus" ? (
                       <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "80px" }}>
                         <option value="married">married</option><option value="single">single</option>
@@ -189,7 +213,7 @@ export default function TestCaseGeneratorPage() {
       </div>
 
       <p style={{ marginTop: "8px", fontSize: "12px", color: "#888" }}>
-        {rows.length} test case(s) · Export JSON includes all 29 fields and full Playwright steps per row.
+        {rows.length} test case(s) · Export JSON includes all fields and full Playwright steps per row.
       </p>
       {runStatus && <p style={{ marginTop: "8px", fontSize: "13px" }}>{runStatus}</p>}
     </section>
