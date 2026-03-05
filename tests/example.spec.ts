@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 
 test('Pramerica Life Insurance - Full Policy Creation Flow', async ({ page }) => {
+  test.skip(!!process.env.SKIP_E2E, 'Skipped in CI: UAT URL is not publicly accessible');
   await page.goto('https://nvestuat.pramericalife.in/Life/Login.html');
 
   // Login
