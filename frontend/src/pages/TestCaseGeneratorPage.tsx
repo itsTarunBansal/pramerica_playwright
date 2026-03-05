@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { PramericaTestData } from "../types";
 import { buildSteps } from "../services/playwrightSteps";
 import { buildDynamicSteps } from "../services/dynamicSteps";
-import { runTestCases, getFieldConfigs } from "../services/api";
+import { runTestCases, getFieldConfigs, createTestCase } from "../services/api";
 import "./TestCaseGeneratorPage.css";
 
 const CSV_HEADERS: (keyof PramericaTestData)[] = [
@@ -45,13 +45,19 @@ function downloadFile(content: string, filename: string, mime: string) {
   URL.revokeObjectURL(url);
 }
 
+// Per-row extra data for dynamic-only fields (not in PramericaTestData)
+type DynamicExtras = Record<string, string>;
+
 export default function TestCaseGeneratorPage() {
   const [rows, setRows] = useState<PramericaTestData[]>([]);
+  const [dynamicExtras, setDynamicExtras] = useState<DynamicExtras[]>([]);
   const [count, setCount] = useState(1);
   const [running, setRunning] = useState(false);
   const [runStatus, setRunStatus] = useState<string | null>(null);
   const [fieldConfigs, setFieldConfigs] = useState<any[]>([]);
   const [useDynamicFields, setUseDynamicFields] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<string | null>(null);
 
   useEffect(() => {
     loadFieldConfigs();
@@ -94,6 +100,26 @@ export default function TestCaseGeneratorPage() {
     }
   }
 
+  // Check if a fieldName exists in PramericaTestData
+  const isStaticField = (fieldName: string) => fieldName in DEFAULT_ROW;
+
+  function getDynamicValue(rowIdx: number, fieldName: string): string {
+    return dynamicExtras[rowIdx]?.[fieldName] ?? "";
+  }
+
+  function setDynamicValue(rowIdx: number, fieldName: string, value: string) {
+    setDynamicExtras(prev => {
+      const next = [...prev];
+      next[rowIdx] = { ...(next[rowIdx] ?? {}), [fieldName]: value };
+      return next;
+    });
+  }
+
+  // Merge static row + dynamic extras into one object for step building
+  function mergeRowData(rowIdx: number): any {
+    return { ...rows[rowIdx], ...(dynamicExtras[rowIdx] ?? {}) };
+  }
+
   function createRowWithDefaults() {
     const newRow = { ...DEFAULT_ROW };
     if (useDynamicFields && fieldConfigs.length > 0) {
@@ -118,6 +144,28 @@ export default function TestCaseGeneratorPage() {
     }));
   }
 
+  async function saveTestCases() {
+    setSaving(true);
+    setSaveStatus(null);
+    try {
+      await Promise.all(
+        rows.map((testData, i) =>
+          createTestCase({
+            name: `${testData.firstName || "Test"} ${testData.lastName || "Case"} - ${testData.agentCode}`,
+            appUrl: "https://nvestuat.pramericalife.in/Life/Login.html",
+            insuranceInput: { age: 0, sumInsured: 0, policyType: "term" },
+            steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs) : buildSteps(testData),
+          })
+        )
+      );
+      setSaveStatus(`✅ ${rows.length} test case(s) saved`);
+    } catch (err: any) {
+      setSaveStatus(`❌ Save failed: ${err.message}`);
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function runTests() {
     setRunning(true);
     setRunStatus(null);
@@ -126,8 +174,8 @@ export default function TestCaseGeneratorPage() {
       const testCases = rows.map((testData, i) => ({
         testCaseId: i + 1,
         url: "https://nvestuat.pramericalife.in/Life/Login.html",
-        steps: useDynamicFields ? buildDynamicSteps(testData, fieldConfigs) : buildSteps(testData),
-        testData,
+        steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs) : buildSteps(testData),
+        testData: mergeRowData(i),
       }));
       console.log("Generated test cases:", testCases); // Debug log to verify test case structure
       const { results } = await runTestCases(testCases);
@@ -156,6 +204,10 @@ export default function TestCaseGeneratorPage() {
         return newRow;
       })];
     });
+    setDynamicExtras(prev => [
+      ...prev,
+      ...Array.from({ length: count }, () => ({}))
+    ]);
   }
 
   function updateCell(rowIdx: number, field: keyof PramericaTestData, value: string) {
@@ -164,6 +216,7 @@ export default function TestCaseGeneratorPage() {
 
   function deleteRow(idx: number) {
     setRows(r => r.filter((_, i) => i !== idx));
+    setDynamicExtras(prev => prev.filter((_, i) => i !== idx));
   }
 
   function exportCSV() {
@@ -214,17 +267,22 @@ export default function TestCaseGeneratorPage() {
     });
   };
 
-  const renderField = (i: number, field: keyof PramericaTestData, label: string, config?: any) => {
+  const renderField = (i: number, field: string, label: string, config?: any) => {
     const row = rows[i];
-    
+    const isDynOnly = !isStaticField(field);
+    const dynValue = isDynOnly ? getDynamicValue(i, field) : "";
+
     if (config) {
       if (config.inputType === "select" && config.selectOptions?.length > 0) {
+        const val = isDynOnly
+          ? (dynValue || config.defaultValue || "")
+          : (row[field as keyof PramericaTestData] !== undefined && row[field as keyof PramericaTestData] !== "" ? row[field as keyof PramericaTestData] : config.defaultValue || "");
         return (
-          <div className="field-group">
+          <div className="field-group" key={field}>
             <label>{label}</label>
-            <select 
-              value={row[field] !== undefined && row[field] !== "" ? row[field] : config.defaultValue || ""} 
-              onChange={e => updateCell(i, field, e.target.value)}
+            <select
+              value={val}
+              onChange={e => isDynOnly ? setDynamicValue(i, field, e.target.value) : updateCell(i, field as keyof PramericaTestData, e.target.value)}
             >
               <option value="">Select...</option>
               {config.selectOptions.map((opt: string) => (
@@ -234,13 +292,16 @@ export default function TestCaseGeneratorPage() {
           </div>
         );
       }
+      const val = isDynOnly
+        ? (dynValue || config.defaultValue || "")
+        : (row[field as keyof PramericaTestData] !== undefined && row[field as keyof PramericaTestData] !== "" ? row[field as keyof PramericaTestData] : config.defaultValue || "");
       return (
-        <div className="field-group">
+        <div className="field-group" key={field}>
           <label>{label}</label>
           <input
             type={config.inputType === "number" ? "number" : "text"}
-            value={row[field] !== undefined && row[field] !== "" ? row[field] : config.defaultValue || ""}
-            onChange={e => updateCell(i, field, e.target.value)}
+            value={val}
+            onChange={e => isDynOnly ? setDynamicValue(i, field, e.target.value) : updateCell(i, field as keyof PramericaTestData, e.target.value)}
             placeholder={config.defaultValue ? `Default: ${config.defaultValue}` : ""}
           />
         </div>
@@ -250,7 +311,7 @@ export default function TestCaseGeneratorPage() {
       <div className="field-group">
         <label>{label}</label>
         {field === "title" ? (
-          <select value={row[field]} onChange={e => {
+          <select value={row[field as keyof PramericaTestData]} onChange={e => {
             const t = e.target.value;
             const gender = t === "MR" ? "Male" : "Female";
             setRows(r => r.map((row, ri) => ri === i ? { ...row, title: t, gender } : row));
@@ -258,24 +319,24 @@ export default function TestCaseGeneratorPage() {
             <option value="MR">MR</option><option value="MRS">MRS</option><option value="MS">MS</option>
           </select>
         ) : field === "sameProposer" ? (
-          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+          <select value={row[field as keyof PramericaTestData]} onChange={e => updateCell(i, field as keyof PramericaTestData, e.target.value)}>
             <option value="Yes">Yes</option><option value="No">No</option>
           </select>
         ) : field === "maritalStatus" ? (
-          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+          <select value={row[field as keyof PramericaTestData]} onChange={e => updateCell(i, field as keyof PramericaTestData, e.target.value)}>
             <option value="married">Married</option><option value="single">Single</option>
           </select>
         ) : field === "premiumFrequency" ? (
-          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+          <select value={row[field as keyof PramericaTestData]} onChange={e => updateCell(i, field as keyof PramericaTestData, e.target.value)}>
             <option value="1">Annual</option><option value="2">Semi-Annual</option>
             <option value="3">Quarterly</option><option value="4">Monthly</option>
           </select>
         ) : field === "planOption" ? (
-          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+          <select value={row[field as keyof PramericaTestData]} onChange={e => updateCell(i, field as keyof PramericaTestData, e.target.value)}>
             <option value="3">Fortune Builder</option><option value="4">Dream Builder</option>
           </select>
         ) : (
-          <input value={row[field]} onChange={e => updateCell(i, field, e.target.value)} />
+          <input value={row[field as keyof PramericaTestData]} onChange={e => updateCell(i, field as keyof PramericaTestData, e.target.value)} />
         )}
       </div>
     );
@@ -304,6 +365,9 @@ export default function TestCaseGeneratorPage() {
             <input type="number" min={1} max={50} value={count} onChange={e => setCount(Number(e.target.value))} />
             <button onClick={addRows} className="btn-secondary">+ Add Test Cases</button>
           </div>
+          <button onClick={saveTestCases} disabled={saving || rows.length === 0} className="btn-secondary">
+            {saving ? "💾 Saving..." : "💾 Save Test Cases"}
+          </button>
           <button onClick={runTests} disabled={running} className="btn-primary">
             {running ? "⏳ Running..." : "▶ Run Tests"}
           </button>
@@ -313,7 +377,7 @@ export default function TestCaseGeneratorPage() {
       </div>
 
       <div className="stats">
-        {rows.length} test case(s) • {useDynamicFields ? `Dynamic (${fieldConfigs.length} fields)` : "Static"} {runStatus && <span className="status">{runStatus}</span>}
+        {rows.length} test case(s) • {useDynamicFields ? `Dynamic (${fieldConfigs.length} fields)` : "Static"} {runStatus && <span className="status">{runStatus}</span>} {saveStatus && <span className="status">{saveStatus}</span>}
         {!useDynamicFields && fieldConfigs.length > 0 && (
           <span style={{ color: "orange", marginLeft: "10px" }}>⚠️ Enable Dynamic Fields to use Field Manager configurations</span>
         )}
@@ -343,7 +407,7 @@ export default function TestCaseGeneratorPage() {
                       <div className="fields-grid">
                         {fieldConfigs
                           .filter(f => f.section === section)
-                          .map(config => renderField(i, config.fieldName as keyof PramericaTestData, config.label, config))}
+                          .map(config => renderField(i, config.fieldName, config.label, config))}
                       </div>
                     </div>
                   ))

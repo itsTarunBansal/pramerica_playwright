@@ -1,13 +1,14 @@
 import { createApp } from "./app.js";
 import { config } from "./config.js";
 import { closeDatabase, connectToDatabase } from "./db.js";
-import { seedDemoTenant } from "./startup/seed.js";
+import { seedDemoTenant, seedFieldConfigsIfEmpty } from "./startup/seed.js";
 
 async function bootstrap() {
   const app = createApp();
 
   await connectToDatabase();
   await seedDemoTenant();
+  await seedFieldConfigsIfEmpty();
 
   const server = app.listen(config.port, () => {
     console.log(`Backend listening on port ${config.port}`);

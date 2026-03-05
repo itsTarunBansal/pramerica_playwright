@@ -102,10 +102,10 @@ export function buildSteps(d: PramericaTestData) {
     { action: "wait", value: "10000" },
     { action: "select", selector: "#Drd_NomineeRelation", value: d.nomineeRelation },
     { action: "select", selector: "#drd_NomineeTitle", value: d.nomineeTitle },
-    { action: "fill", selector: "role=textbox", value: d.nomineeName },
-    { action: "wait", value: "10000" },
-    { action: "fill", selector: "role=textbox", value: d.nomineeSharePercentage },
-    { action: "fill", selector: "role=textbox[name='DD/MM/YYYY']", value: d.nomineeDOB },
+    { action: "fill", selector: "#Txt_NomineeName", value: d.nomineeName },
+    { action: "wait", value: "20000" },
+    { action: "fill", selector: "#Txt_SharePercentage", value: d.nomineeSharePercentage },
+    { action: "fill", selector: "#Txt_NomineeDOB", value: d.nomineeDOB },
     { action: "wait", value: "30000" },
     { action: "click", selector: "role=button[name='Save Nominee']" },
 
@@ -114,8 +114,8 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "#Drd_ResidentOfIndia > div:nth-child(2) > .text-center" },
 
     // Bank Details
-    { action: "fill", selector: "role=textbox[name='Please Enter Account number']", value: d.bankAccountNumber },
-    { action: "fill", selector: "role=textbox[name='Please Enter IFSC code']", value: d.ifscCode },
+    { action: "fill", selector: "#Txt_PayerAccNumber", value: d.bankAccountNumber },
+    { action: "fill", selector: "#Txt_PayerBankIFSCCode", value: d.ifscCode },
     { action: "wait", value: "15000" },
     { action: "click", selector: "#rad_BankConsent > div:nth-child(2) > .text-center" },
 
@@ -127,7 +127,7 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "role=button[name='NEXT']" },
 
     // Health
-    { action: "fill", selector: "role=textbox[name='Please Enter Weight (kgs)']", value: d.weightKgs },
+    { action: "fill", selector: "#Txt_Weight", value: d.weightKgs },
     { action: "select", selector: "#Txt_Height_feetDrd", value: d.heightFeet },
     { action: "select", selector: "#Txt_Height_InchesDrd", value: d.heightInches },
     { action: "click", selector: "#rad_isTobaccoConsumed > div > .text-center > .p-0 >> nth=0" },
@@ -145,8 +145,8 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "role=button[name='NEXT']" },
 
     // Final Submission
-    { action: "check", selector: "role=checkbox[name='I have reviewed the policy ']" },
-    { action: "check", selector: "role=checkbox[name='I agree, confirm and enroll ']" },
+    { action: "check", selector: "#checkboxsummry1" },
+    { action: "check", selector: "#checkboxsummry2" },
     { action: "check", selector: "#medicalradioN" },
     { action: "click", selector: "role=button[name='Submit']" },
     { action: "click", selector: ".slider" },

@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { validate as isUuid, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { Tenant } from "../models/tenant.js";
 import { TestCase } from "../models/testCase.js";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const isUuid = (v) => UUID_RE.test(v);
 
 export const testCasesRouter = Router();
 

@@ -296,7 +296,7 @@ export default function FieldManagerPage() {
 
             <div className="modal-actions">
               <button onClick={closeModal} className="btn-secondary">Cancel</button>
-              <button onClick={saveField} className="btn-primary">Save</button>
+              <button onClick={saveField} className="btn-primary">{editingField.id ? "Update" : "Save"}</button>
             </div>
           </div>
         </div>
