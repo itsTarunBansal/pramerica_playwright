@@ -77,3 +77,47 @@ export async function createTestCase(input: {
   }
   return response.json();
 }
+
+export async function getFieldConfigs() {
+  const response = await fetch(`${API_URL}/api/v1/field-configs?tenantId=${DEMO_TENANT_ID}`);
+  if (!response.ok) throw await buildApiError(response, "Failed to fetch field configs");
+  return response.json();
+}
+
+export async function createFieldConfig(data: any) {
+  const response = await fetch(`${API_URL}/api/v1/field-configs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...data, tenantId: DEMO_TENANT_ID })
+  });
+  if (!response.ok) throw await buildApiError(response, "Failed to create field config");
+  return response.json();
+}
+
+export async function updateFieldConfig(id: string, data: any) {
+  const response = await fetch(`${API_URL}/api/v1/field-configs/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!response.ok) throw await buildApiError(response, "Failed to update field config");
+  return response.json();
+}
+
+export async function deleteFieldConfig(id: string) {
+  const response = await fetch(`${API_URL}/api/v1/field-configs/${id}`, {
+    method: "DELETE"
+  });
+  if (!response.ok) throw await buildApiError(response, "Failed to delete field config");
+  return response.json();
+}
+
+export async function reorderFieldConfigs(fieldIds: string[]) {
+  const response = await fetch(`${API_URL}/api/v1/field-configs/reorder`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fieldIds })
+  });
+  if (!response.ok) throw await buildApiError(response, "Failed to reorder fields");
+  return response.json();
+}

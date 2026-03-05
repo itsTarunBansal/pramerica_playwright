@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "seed:fields": "node src/seedFields.js",
+    "check:fields": "node src/checkFields.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

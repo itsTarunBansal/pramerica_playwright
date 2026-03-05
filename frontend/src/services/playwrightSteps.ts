@@ -50,7 +50,7 @@ export function buildSteps(d: PramericaTestData) {
     { action: "check", selector: "#checkboxkyc2" },
     { action: "check", selector: "#sameProposerYes" },
     { action: "click", selector: "button.border-0.button-filled.ml-2.h-100 >> nth=1" },
-    { action: "wait", value: "10000" },
+    { action: "wait", value: "5000" },
     { action: "click", selector: "role=button[name='Thank you and Proceed']" },
 
     // Financial
@@ -60,11 +60,11 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "#lb_lifeGoal_2" },
     { action: "click", selector: "#lb_risk_2" },
     { action: "click", selector: "#lb_time_2" },
-    { action: "wait", value: "5000" },
+    { action: "wait", value: "3000" },
     { action: "click", selector: "role=button[name='Next']" },
 
     // Product
-    { action: "wait", value: "5000" },
+    { action: "wait", value: "3000" },
     { action: "click", selector: "role=button[name='Buy Now'] >> nth=0" },
     { action: "fill", selector: "role=textbox[name='DD/MM/YYYY']", value: d.dateOfBirth },
     // { action: "wait", value: "30000" },
@@ -72,11 +72,8 @@ export function buildSteps(d: PramericaTestData) {
     { action: "select", selector: "#dynInput_Mode", value: d.premiumMode },
     { action: "select", selector: "#ddlPT", value: d.policyTerm },
     { action: "select", selector: "#ddlPPT", value: d.premiumPayingTerm },
-    // { action: "select", selector: "#divoption0 >> role=combobox", value: d.premiumFrequency },
     { action: "select", selector: "#dynInput_Mode", value: d.premiumFrequency },
     { action: "select", selector: "#dynPR_CHANNEL", value: d.premiumChannel },
-    // { action: "wait", value: "10000" },
-    // { action: "select", selector: "#ddlOpt0", value: "3"},
     { action: "select", selector: "#ddlOpt0", value: d.planOption},
     { action: "fill", selector: "role=textbox[name='Premium Amount']", value: d.premiumAmount },
     { action: "click", selector: "role=button[name='Calculate']" },
@@ -84,6 +81,7 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "role=button[name='Submit & Continue']" },
 
     // Occupation / Proposer Details
+    
     { action: "select", selector: "#Drd_Education", value: d.education },
     { action: "select", selector: "#Drd_Occupation", value: d.occupation },
     { action: "select", selector: "#Drd_ExactNatureOfDuty", value: d.natureOfDuty },
@@ -91,20 +89,24 @@ export function buildSteps(d: PramericaTestData) {
     { action: "fill", selector: "role=textbox[name='Please Enter Address']", value: d.employerAddress },
     { action: "fill", selector: "role=textbox[name='Please Enter Designation']", value: d.designation },
     { action: "click", selector: "role=button[name='NEXT']" },
-    { action: "click", selector: "role=button[name='NEXT']" },
-    { action: "click", selector: "role=button[name='OK']" },
+    // { action: "click", selector: "role=button[name='NEXT']" },
+    // { action: "click", selector: "role=button[name='OK']" },
 
     // Family
+    
     { action: "fill", selector: "#Txt_SpouseNAME", value: d.spouseName },
     { action: "fill", selector: "#Txt_FatherNAME", value: d.fatherName },
     { action: "fill", selector: "#TxtMotherName", value: d.motherName },
 
     // Nominee
+    { action: "wait", value: "10000" },
     { action: "select", selector: "#Drd_NomineeRelation", value: d.nomineeRelation },
     { action: "select", selector: "#drd_NomineeTitle", value: d.nomineeTitle },
-    { action: "fill", selector: "role=textbox[name='Please Enter First and Last ']", value: d.nomineeName },
-    { action: "fill", selector: "role=textbox[name='Please Enter Nominee Share ']", value: d.nomineeSharePercentage },
+    { action: "fill", selector: "role=textbox", value: d.nomineeName },
+    { action: "wait", value: "10000" },
+    { action: "fill", selector: "role=textbox", value: d.nomineeSharePercentage },
     { action: "fill", selector: "role=textbox[name='DD/MM/YYYY']", value: d.nomineeDOB },
+    { action: "wait", value: "30000" },
     { action: "click", selector: "role=button[name='Save Nominee']" },
 
     // FATCA
@@ -114,13 +116,14 @@ export function buildSteps(d: PramericaTestData) {
     // Bank Details
     { action: "fill", selector: "role=textbox[name='Please Enter Account number']", value: d.bankAccountNumber },
     { action: "fill", selector: "role=textbox[name='Please Enter IFSC code']", value: d.ifscCode },
+    { action: "wait", value: "15000" },
     { action: "click", selector: "#rad_BankConsent > div:nth-child(2) > .text-center" },
 
     // EIA
     { action: "click", selector: "#rad_OpenEIA > div > .text-center > .p-0 >> nth=0" },
-    { action: "click", selector: "role=button[name='NEXT']" },
-    { action: "click", selector: "role=button[name='OK']" },
-    { action: "click", selector: "#rad_OpenEIA > div > .text-center > .p-0 >> nth=0" },
+    // { action: "click", selector: "role=button[name='NEXT']" },
+    // { action: "click", selector: "role=button[name='OK']" },
+    // { action: "click", selector: "#rad_OpenEIA > div > .text-center > .p-0 >> nth=0" },
     { action: "click", selector: "role=button[name='NEXT']" },
 
     // Health

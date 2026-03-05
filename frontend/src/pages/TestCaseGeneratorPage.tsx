@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { PramericaTestData } from "../types";
 import { buildSteps } from "../services/playwrightSteps";
-import { runTestCases } from "../services/api";
+import { buildDynamicSteps } from "../services/dynamicSteps";
+import { runTestCases, getFieldConfigs } from "../services/api";
+import "./TestCaseGeneratorPage.css";
 
 const CSV_HEADERS: (keyof PramericaTestData)[] = [
   "agentCode","otp1","otp2","otp3","otp4","otp5","otp6", 
@@ -24,7 +26,7 @@ const DEFAULT_ROW: PramericaTestData = {
   address1: "gggui", address2: "gugiuhg", address3: "huhujh", landmark: "gugiuhgju",
   pinCode: "122018", state: "Haryana", city: "Adampur 1- Haryana",
   monthlyIncome: "1,00,0000", monthlyExpenses: "1,0000", maritalStatus: "married",
-  premiumMode: "1", premiumChannel: "19", premiumFrequency: "3", planOption: "3", premiumAmount: "5,0000",
+  premiumMode: "1", premiumChannel: "19", premiumFrequency: "1", planOption: "3", premiumAmount: "5,0000",
   policyTerm: "20", premiumPayingTerm: "9",
   education: "PGA", occupation: "SL", natureOfDuty: "MGCN",
   employerName: "", employerAddress: "", designation: "", annualIncome: "",
@@ -44,10 +46,77 @@ function downloadFile(content: string, filename: string, mime: string) {
 }
 
 export default function TestCaseGeneratorPage() {
-  const [rows, setRows] = useState<PramericaTestData[]>([{ ...DEFAULT_ROW }]);
+  const [rows, setRows] = useState<PramericaTestData[]>([]);
   const [count, setCount] = useState(1);
   const [running, setRunning] = useState(false);
   const [runStatus, setRunStatus] = useState<string | null>(null);
+  const [fieldConfigs, setFieldConfigs] = useState<any[]>([]);
+  const [useDynamicFields, setUseDynamicFields] = useState(false);
+
+  useEffect(() => {
+    loadFieldConfigs();
+  }, []);
+
+  useEffect(() => {
+    // Initialize first row when field configs are loaded or when toggling dynamic fields
+    if (fieldConfigs.length > 0) {
+      if (rows.length === 0) {
+        // Create initial row
+        const initialRow = createRowWithDefaults();
+        setRows([initialRow]);
+      } else {
+        // Apply default values to existing rows when field configs change or dynamic fields toggle
+        setRows(prevRows => prevRows.map(row => {
+          const updatedRow = { ...row };
+          if (useDynamicFields) {
+            fieldConfigs.forEach(config => {
+              if (config.defaultValue && config.fieldName in updatedRow) {
+                // Only apply default if field is empty or matches old default
+                const currentValue = updatedRow[config.fieldName as keyof PramericaTestData];
+                if (!currentValue || currentValue === DEFAULT_ROW[config.fieldName as keyof PramericaTestData]) {
+                  (updatedRow as any)[config.fieldName] = config.defaultValue;
+                }
+              }
+            });
+          }
+          return updatedRow;
+        }));
+      }
+    }
+  }, [fieldConfigs, useDynamicFields]);
+
+  async function loadFieldConfigs() {
+    try {
+      const configs = await getFieldConfigs();
+      setFieldConfigs(configs);
+    } catch (err) {
+      console.error("Failed to load field configs:", err);
+    }
+  }
+
+  function createRowWithDefaults() {
+    const newRow = { ...DEFAULT_ROW };
+    if (useDynamicFields && fieldConfigs.length > 0) {
+      fieldConfigs.forEach(config => {
+        if (config.defaultValue && config.fieldName in newRow) {
+          (newRow as any)[config.fieldName] = config.defaultValue;
+        }
+      });
+    }
+    return newRow;
+  }
+
+  function applyDefaultsToAllRows() {
+    setRows(prevRows => prevRows.map(row => {
+      const updatedRow = { ...row };
+      fieldConfigs.forEach(config => {
+        if (config.defaultValue && config.fieldName in updatedRow) {
+          (updatedRow as any)[config.fieldName] = config.defaultValue;
+        }
+      });
+      return updatedRow;
+    }));
+  }
 
   async function runTests() {
     setRunning(true);
@@ -57,7 +126,7 @@ export default function TestCaseGeneratorPage() {
       const testCases = rows.map((testData, i) => ({
         testCaseId: i + 1,
         url: "https://nvestuat.pramericalife.in/Life/Login.html",
-        steps: buildSteps(testData),
+        steps: useDynamicFields ? buildDynamicSteps(testData, fieldConfigs) : buildSteps(testData),
         testData,
       }));
       console.log("Generated test cases:", testCases); // Debug log to verify test case structure
@@ -81,10 +150,11 @@ export default function TestCaseGeneratorPage() {
   function addRows() {
     setRows(r => {
       const lastCode = parseInt(r[r.length - 1]?.agentCode || DEFAULT_ROW.agentCode);
-      return [...r, ...Array.from({ length: count }, (_, i) => ({
-        ...DEFAULT_ROW,
-        agentCode: String(lastCode + i + 1),
-      }))];
+      return [...r, ...Array.from({ length: count }, (_, i) => {
+        const newRow = createRowWithDefaults();
+        newRow.agentCode = String(lastCode + i + 1);
+        return newRow;
+      })];
     });
   }
 
@@ -134,106 +204,270 @@ export default function TestCaseGeneratorPage() {
     "bankAccountNumber","ifscCode","weightKgs","heightFeet","heightInches",
   ];
 
-  return (
-    <section className="panel">
-      <h2>Test Case Generator</h2>
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set([0]));
 
-      <div style={{ display: "flex", gap: "10px", marginBottom: "16px", alignItems: "center" }}>
-        <label>
-          Add rows:&nbsp;
+  const toggleCard = (idx: number) => {
+    setExpandedCards(prev => {
+      const next = new Set(prev);
+      next.has(idx) ? next.delete(idx) : next.add(idx);
+      return next;
+    });
+  };
+
+  const renderField = (i: number, field: keyof PramericaTestData, label: string, config?: any) => {
+    const row = rows[i];
+    
+    if (config) {
+      if (config.inputType === "select" && config.selectOptions?.length > 0) {
+        return (
+          <div className="field-group">
+            <label>{label}</label>
+            <select 
+              value={row[field] !== undefined && row[field] !== "" ? row[field] : config.defaultValue || ""} 
+              onChange={e => updateCell(i, field, e.target.value)}
+            >
+              <option value="">Select...</option>
+              {config.selectOptions.map((opt: string) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+        );
+      }
+      return (
+        <div className="field-group">
+          <label>{label}</label>
           <input
-            type="number" min={1} max={50} value={count}
-            onChange={e => setCount(Number(e.target.value))}
-            style={{ width: "60px" }}
+            type={config.inputType === "number" ? "number" : "text"}
+            value={row[field] !== undefined && row[field] !== "" ? row[field] : config.defaultValue || ""}
+            onChange={e => updateCell(i, field, e.target.value)}
+            placeholder={config.defaultValue ? `Default: ${config.defaultValue}` : ""}
           />
-        </label>
-        <button type="button" onClick={addRows}>+ Add</button>
-        <button type="button" onClick={runTests} disabled={running} style={{ background: "#1a7f37", color: "#fff", border: "none", padding: "6px 14px", borderRadius: "4px", cursor: running ? "not-allowed" : "pointer" }}>
-          {running ? "⏳ Running..." : "▶ Run Test Cases"}
-        </button>
-        <button type="button" onClick={exportCSV} style={{ marginLeft: "auto" }}>⬇ Export CSV</button>
-        <button type="button" onClick={exportJSON}>⬇ Export JSON</button>
+        </div>
+      );
+    }
+    return (
+      <div className="field-group">
+        <label>{label}</label>
+        {field === "title" ? (
+          <select value={row[field]} onChange={e => {
+            const t = e.target.value;
+            const gender = t === "MR" ? "Male" : "Female";
+            setRows(r => r.map((row, ri) => ri === i ? { ...row, title: t, gender } : row));
+          }}>
+            <option value="MR">MR</option><option value="MRS">MRS</option><option value="MS">MS</option>
+          </select>
+        ) : field === "sameProposer" ? (
+          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+            <option value="Yes">Yes</option><option value="No">No</option>
+          </select>
+        ) : field === "maritalStatus" ? (
+          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+            <option value="married">Married</option><option value="single">Single</option>
+          </select>
+        ) : field === "premiumFrequency" ? (
+          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+            <option value="1">Annual</option><option value="2">Semi-Annual</option>
+            <option value="3">Quarterly</option><option value="4">Monthly</option>
+          </select>
+        ) : field === "planOption" ? (
+          <select value={row[field]} onChange={e => updateCell(i, field, e.target.value)}>
+            <option value="3">Fortune Builder</option><option value="4">Dream Builder</option>
+          </select>
+        ) : (
+          <input value={row[field]} onChange={e => updateCell(i, field, e.target.value)} />
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div className="test-generator">
+      <div className="header">
+        <h1>Test Case Generator</h1>
+        <div className="actions">
+          <label style={{ display: "flex", alignItems: "center", gap: "8px", marginRight: "16px" }}>
+            <input
+              type="checkbox"
+              checked={useDynamicFields}
+              onChange={(e) => setUseDynamicFields(e.target.checked)}
+            />
+            Use Dynamic Fields ({fieldConfigs.length})
+          </label>
+          <button onClick={applyDefaultsToAllRows} className="btn-secondary" title="Apply default values to all test cases">
+            🔄 Apply Defaults
+          </button>
+          <div className="add-section">
+            <input type="number" min={1} max={50} value={count} onChange={e => setCount(Number(e.target.value))} />
+            <button onClick={addRows} className="btn-secondary">+ Add Test Cases</button>
+          </div>
+          <button onClick={runTests} disabled={running} className="btn-primary">
+            {running ? "⏳ Running..." : "▶ Run Tests"}
+          </button>
+          <button onClick={exportCSV} className="btn-secondary">⬇ CSV</button>
+          <button onClick={exportJSON} className="btn-secondary">⬇ JSON</button>
+        </div>
       </div>
 
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ borderCollapse: "collapse", width: "100%", fontSize: "12px" }}>
-          <thead>
-            <tr>
-              <th style={th}>#</th>
-              <th style={th}>agentCode</th>
-              <th style={th}>otp</th>
-              {visibleFields.filter(f => f !== "agentCode").map(f => <th key={f} style={th}>{f}</th>)}
-              <th style={th}>Del</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <tr key={i}>
-                <td style={td}>{i + 1}</td>
-                <td style={td}><input value={row.agentCode} onChange={e => updateCell(i, "agentCode", e.target.value)} style={{ width: "90px" }} /></td>
-                <td style={td}>
-                  <input
-                    value={`${row.otp1}${row.otp2}${row.otp3}${row.otp4}${row.otp5}${row.otp6}`}
-                    onChange={e => updateOtp(i, e.target.value)}
-                    maxLength={6}
-                    style={{ width: "60px" }}
-                  />
-                </td>
-                {visibleFields.filter(f => f !== "agentCode").map(f => (
-                  <td key={f} style={td}>
-                    {f === "title" ? (
-                      <select value={row[f]} onChange={e => {
-                        const t = e.target.value;
-                        const gender = t === "MR" ? "Male" : "Female";
-                        setRows(r => r.map((row, ri) => ri === i ? { ...row, title: t, gender } : row));
-                      }} style={{ width: "60px" }}>
-                        <option value="MR">MR</option><option value="MRS">MRS</option><option value="MS">MS</option>
-                      </select>
-                    ) : f === "sameProposer" ? (
-                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "60px" }}>
-                        <option value="Yes">Yes</option><option value="No">No</option>
-                      </select>
-                    ) : f === "maritalStatus" ? (
-                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "80px" }}>
-                        <option value="married">married</option><option value="single">single</option>
-                      </select>
-                    ) : f === "premiumFrequency" ? (
-                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "90px" }}>
-                        <option value="1">Annual</option>
-                        <option value="2">Semi-Annual</option>
-                        <option value="3">Quarterly</option>
-                        <option value="4">Monthly</option>
-                      </select>
-                    ) : f === "planOption" ? (
-                      <select value={row[f]} onChange={e => updateCell(i, f, e.target.value)} style={{ width: "110px" }}>
-                        <option value="3">Fortune Builder</option>
-                        <option value="4">Dream Builder</option>
-                      </select>
-                    ) : (
+      <div className="stats">
+        {rows.length} test case(s) • {useDynamicFields ? `Dynamic (${fieldConfigs.length} fields)` : "Static"} {runStatus && <span className="status">{runStatus}</span>}
+      </div>
+
+      <div className="cards-container">
+        {rows.map((row, i) => (
+          <div key={i} className={`test-card ${expandedCards.has(i) ? 'expanded' : ''}`}>
+            <div className="card-header" onClick={() => toggleCard(i)}>
+              <div className="card-title">
+                <span className="card-number">#{i + 1}</span>
+                <span className="card-info">{row.firstName || "Test"} {row.lastName || "Case"} - {row.agentCode || "N/A"}</span>
+              </div>
+              <div className="card-actions">
+                <button onClick={(e) => { e.stopPropagation(); deleteRow(i); }} className="btn-delete">Delete</button>
+                <span className="expand-icon">{expandedCards.has(i) ? '▼' : '▶'}</span>
+              </div>
+            </div>
+
+            {expandedCards.has(i) && (
+              <div className="card-body">
+                {useDynamicFields ? (
+                  // Dynamic fields from database
+                  [...new Set(fieldConfigs.map(f => f.section))].map(section => (
+                    <div key={section} className="section">
+                      <h3>{section}</h3>
+                      <div className="fields-grid">
+                        {fieldConfigs
+                          .filter(f => f.section === section)
+                          .map(config => renderField(i, config.fieldName as keyof PramericaTestData, config.label, config))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  // Static hardcoded fields
+                  <>
+                <div className="section">
+                  <h3>Login Details</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "agentCode", "Agent Code")}
+                    <div className="field-group">
+                      <label>OTP</label>
                       <input
-                        value={row[f]}
-                        onChange={e => updateCell(i, f, e.target.value)}
-                        style={{ width: f === "email" || f === "city" ? "160px" : "90px" }}
+                        value={`${row.otp1}${row.otp2}${row.otp3}${row.otp4}${row.otp5}${row.otp6}`}
+                        onChange={e => updateOtp(i, e.target.value)}
+                        maxLength={6}
+                        placeholder="6-digit OTP"
                       />
-                    )}
-                  </td>
-                ))}
-                <td style={td}>
-                  <button type="button" onClick={() => deleteRow(i)} style={{ color: "red" }}>✕</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                    </div>
+                  </div>
+                </div>
 
-      <p style={{ marginTop: "8px", fontSize: "12px", color: "#888" }}>
-        {rows.length} test case(s) · Export JSON includes all fields and full Playwright steps per row.
-      </p>
-      {runStatus && <p style={{ marginTop: "8px", fontSize: "13px" }}>{runStatus}</p>}
-    </section>
+                <div className="section">
+                  <h3>Personal Information</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "proposerPAN", "PAN")}
+                    {renderField(i, "mobileNumber", "Mobile")}
+                    {renderField(i, "sameProposer", "Same Proposer")}
+                    {renderField(i, "title", "Title")}
+                    {renderField(i, "firstName", "First Name")}
+                    {renderField(i, "middleName", "Middle Name")}
+                    {renderField(i, "lastName", "Last Name")}
+                    {renderField(i, "gender", "Gender")}
+                    {renderField(i, "dateOfBirth", "Date of Birth")}
+                    {renderField(i, "email", "Email")}
+                    {renderField(i, "maritalStatus", "Marital Status")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Address</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "address1", "Address Line 1")}
+                    {renderField(i, "address2", "Address Line 2")}
+                    {renderField(i, "address3", "Address Line 3")}
+                    {renderField(i, "landmark", "Landmark")}
+                    {renderField(i, "pinCode", "Pin Code")}
+                    {renderField(i, "state", "State")}
+                    {renderField(i, "city", "City")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Financial Details</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "monthlyIncome", "Monthly Income")}
+                    {renderField(i, "monthlyExpenses", "Monthly Expenses")}
+                    {renderField(i, "annualIncome", "Annual Income")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Policy Details</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "premiumMode", "Premium Mode")}
+                    {renderField(i, "premiumChannel", "Premium Channel")}
+                    {renderField(i, "premiumFrequency", "Premium Frequency")}
+                    {renderField(i, "planOption", "Plan Option")}
+                    {renderField(i, "premiumAmount", "Premium Amount")}
+                    {renderField(i, "policyTerm", "Policy Term")}
+                    {renderField(i, "premiumPayingTerm", "Premium Paying Term")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Occupation</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "education", "Education")}
+                    {renderField(i, "occupation", "Occupation")}
+                    {renderField(i, "natureOfDuty", "Nature of Duty")}
+                    {renderField(i, "employerName", "Employer Name")}
+                    {renderField(i, "employerAddress", "Employer Address")}
+                    {renderField(i, "designation", "Designation")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Family Details</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "spouseName", "Spouse Name")}
+                    {renderField(i, "fatherName", "Father Name")}
+                    {renderField(i, "motherName", "Mother Name")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Nominee Details</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "nomineeRelation", "Relation")}
+                    {renderField(i, "nomineeTitle", "Title")}
+                    {renderField(i, "nomineeName", "Name")}
+                    {renderField(i, "nomineeGender", "Gender")}
+                    {renderField(i, "nomineeSharePercentage", "Share %")}
+                    {renderField(i, "nomineeDOB", "Date of Birth")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Bank Details</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "bankAccountNumber", "Account Number")}
+                    {renderField(i, "ifscCode", "IFSC Code")}
+                  </div>
+                </div>
+
+                <div className="section">
+                  <h3>Health Information</h3>
+                  <div className="fields-grid">
+                    {renderField(i, "weightKgs", "Weight (kg)")}
+                    {renderField(i, "heightFeet", "Height (feet)")}
+                    {renderField(i, "heightInches", "Height (inches)")}
+                  </div>
+                </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
-
-const th: React.CSSProperties = { border: "1px solid #ccc", padding: "4px 6px", background: "#f5f5f5", whiteSpace: "nowrap" };
-const td: React.CSSProperties = { border: "1px solid #eee", padding: "2px 4px" };

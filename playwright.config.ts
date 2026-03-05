@@ -9,7 +9,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: 'https://nvestuat.pramericalife.in',
-    headless: false,
+    headless: true,
     trace: 'on',
     screenshot: 'on',
     video: 'on',
