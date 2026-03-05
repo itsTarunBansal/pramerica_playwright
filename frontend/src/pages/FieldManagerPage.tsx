@@ -71,14 +71,19 @@ export default function FieldManagerPage() {
     if (!editingField) return;
 
     try {
+      console.log("Saving field:", editingField);
       if (editingField.id) {
-        await updateFieldConfig(editingField.id, editingField);
+        const result = await updateFieldConfig(editingField.id, editingField);
+        console.log("Update result:", result);
       } else {
-        await createFieldConfig(editingField);
+        const result = await createFieldConfig(editingField);
+        console.log("Create result:", result);
       }
       await loadFields();
       closeModal();
+      alert("Field saved successfully!");
     } catch (err: any) {
+      console.error("Save error:", err);
       alert("Failed to save field: " + err.message);
     }
   }

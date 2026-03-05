@@ -297,6 +297,9 @@ export default function TestCaseGeneratorPage() {
           <button onClick={applyDefaultsToAllRows} className="btn-secondary" title="Apply default values to all test cases">
             🔄 Apply Defaults
           </button>
+          <button onClick={loadFieldConfigs} className="btn-secondary" title="Refresh field configurations">
+            🔄 Refresh Fields
+          </button>
           <div className="add-section">
             <input type="number" min={1} max={50} value={count} onChange={e => setCount(Number(e.target.value))} />
             <button onClick={addRows} className="btn-secondary">+ Add Test Cases</button>
@@ -311,6 +314,9 @@ export default function TestCaseGeneratorPage() {
 
       <div className="stats">
         {rows.length} test case(s) • {useDynamicFields ? `Dynamic (${fieldConfigs.length} fields)` : "Static"} {runStatus && <span className="status">{runStatus}</span>}
+        {!useDynamicFields && fieldConfigs.length > 0 && (
+          <span style={{ color: "orange", marginLeft: "10px" }}>⚠️ Enable Dynamic Fields to use Field Manager configurations</span>
+        )}
       </div>
 
       <div className="cards-container">
