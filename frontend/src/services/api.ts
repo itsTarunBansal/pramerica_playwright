@@ -28,11 +28,29 @@ export async function listTestCases(): Promise<Array<{ id: string; name: string;
   return payload.map((item: any) => ({ id: item.id, name: item.name, appUrl: item.appUrl }));
 }
 
-export async function runTestCases(testCases: object[]): Promise<{ results: Array<{ testCaseId: number; agentCode: string; proposerPAN: string; firstName: string; lastName: string; applicationNumber: string; status: string; error: string | null }> }> {
+export async function getApiLogs(projectId: string): Promise<any[]> {
+  const response = await fetch(`${API_URL}/api/v1/api-logs/${projectId}`);
+  if (!response.ok) throw await buildApiError(response, "Failed to fetch API logs");
+  return response.json();
+}
+
+export async function deleteProjectApiLogs(projectId: string) {
+  const response = await fetch(`${API_URL}/api/v1/api-logs/${projectId}`, { method: "DELETE" });
+  if (!response.ok) throw await buildApiError(response, "Failed to delete API logs");
+  return response.json();
+}
+
+export async function deleteApiLogRun(projectId: string, runId: string) {
+  const response = await fetch(`${API_URL}/api/v1/api-logs/${projectId}/run/${encodeURIComponent(runId)}`, { method: "DELETE" });
+  if (!response.ok) throw await buildApiError(response, "Failed to delete run");
+  return response.json();
+}
+
+export async function runTestCases(testCases: object[], projectId?: string): Promise<{ results: Array<{ testCaseId: number; agentCode: string; proposerPAN: string; firstName: string; lastName: string; applicationNumber: string; status: string; error: string | null }>; runId?: string }> {
   const response = await fetch(`${API_URL}/api/v1/run-tests`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ testCases }),
+    body: JSON.stringify({ testCases, projectId }),
   });
   if (!response.ok) throw await buildApiError(response, "Failed to run test cases");
   return response.json();

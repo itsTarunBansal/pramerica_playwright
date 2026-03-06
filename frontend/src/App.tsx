@@ -12,6 +12,7 @@ import TestBuilderPage from "./pages/TestBuilderPage";
 import PramericaTestPage from "./pages/PramericaTestPage";
 import TestCaseGeneratorPage from "./pages/TestCaseGeneratorPage";
 import FieldManagerPage from "./pages/FieldManagerPage";
+import ApiLogDashboard from "./pages/ApiLogDashboard";
 
 // Wrapper: loads project by id from URL param and renders tool
 function ProjectToolWrapper({ tool }: { tool: "generator" | "field-manager" }) {
@@ -58,11 +59,12 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/new" element={<NewProjectPage />} />
-            <Route path="/projects/nvest" element={<ProjectPage />} />
-            {/* Dynamic project routes */}
-            <Route path="/projects/:projectId" element={<DynamicProjectPage />} />
+            {/* Dynamic project routes — specific paths before param routes */}
             <Route path="/projects/:projectId/generator" element={<ProjectToolWrapper tool="generator" />} />
             <Route path="/projects/:projectId/field-manager" element={<ProjectToolWrapper tool="field-manager" />} />
+            <Route path="/projects/:projectId/api-logs" element={<ApiLogDashboard />} />
+            <Route path="/projects/nvest" element={<ProjectPage />} />
+            <Route path="/projects/:projectId" element={<DynamicProjectPage />} />
             {/* Legacy routes */}
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/builder" element={<TestBuilderPage />} />

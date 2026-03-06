@@ -14,7 +14,19 @@ const fieldConfigSchema = new mongoose.Schema(
     defaultValue: { type: String, default: "" },
     order: { type: Number, required: true },
     isRequired: { type: Boolean, default: false },
-    isActive: { type: Boolean, default: true }
+    isActive: { type: Boolean, default: true },
+    isSkipped: { type: Boolean, default: false },
+    captureAs: { type: String, default: "" },
+    conditions: { type: [{ ref: String, equals: String }], default: [] },
+    isSkipped: { type: Boolean, default: false },
+    captureAs: { type: String, default: "" },
+    conditions: {
+      type: [{
+        ref: { type: String, required: true },
+        equals: { type: String, required: true }
+      }],
+      default: []
+    }
   },
   {
     versionKey: false,

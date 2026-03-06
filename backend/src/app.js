@@ -8,6 +8,7 @@ import { fieldConfigRouter } from "./routes/fieldConfig.js";
 import { healthRouter } from "./routes/health.js";
 import { runTestsRouter } from "./routes/runTests.js";
 import { testCasesRouter } from "./routes/testCases.js";
+import { apiLogsRouter } from "./routes/apiLogs.js";
 
 export function createApp() {
   const app = express();
@@ -30,6 +31,7 @@ export function createApp() {
   app.use("/api/v1/run-tests", runTestsRouter);
   app.use("/api/v1/projects", projectsRouter);
   app.use("/api/v1/field-configs", fieldConfigRouter);
+  app.use("/api/v1/api-logs", apiLogsRouter);
 
   app.use(errorHandler);
   return app;

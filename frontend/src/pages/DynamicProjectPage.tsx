@@ -61,7 +61,6 @@ export default function DynamicProjectPage() {
     setRecordMsg(null);
     try {
       await startRecording(project.id, true);
-      // browser is now open — user must click Done
     } catch (err: any) {
       setRecordMsg(`❌ Failed to start: ${err.message}`);
       setRecording(false);
@@ -161,8 +160,17 @@ export default function DynamicProjectPage() {
             </div>
             <span className="lcard-arrow">→</span>
           </div>
+          <div className="tool-card" onClick={() => navigate(`/projects/${project.id}/api-logs`)}>
+            <div className="tool-icon">🌐</div>
+            <div>
+              <h4>API Log Dashboard</h4>
+              <p>View API calls, timings and failures from test runs.</p>
+            </div>
+            <span className="lcard-arrow">→</span>
+          </div>
         </div>
       </div>
+
     </div>
   );
 }

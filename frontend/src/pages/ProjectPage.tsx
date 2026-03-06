@@ -78,6 +78,14 @@ export default function ProjectPage() {
             </div>
             <span className="lcard-arrow">→</span>
           </div>
+          <div className="tool-card" onClick={() => navigate("/projects/nvest/api-logs")}>
+            <div className="tool-icon">🌐</div>
+            <div>
+              <h4>API Log Dashboard</h4>
+              <p>View API calls, timings and failures from test runs.</p>
+            </div>
+            <span className="lcard-arrow">→</span>
+          </div>
         </div>
       </div>
     </div>

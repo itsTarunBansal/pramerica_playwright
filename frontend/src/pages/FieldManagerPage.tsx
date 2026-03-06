@@ -16,6 +16,9 @@ interface FieldConfig {
   defaultValue: string;
   order: number;
   isRequired: boolean;
+  isSkipped: boolean;
+  captureAs: string;
+  conditions: { ref: string; equals: string }[];
 }
 
 export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
@@ -55,7 +58,13 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
 
   function openModal(field?: FieldConfig) {
     if (field) {
-      setEditingField({ ...field });
+      setEditingField({
+        ...field,
+        selectOptions: field.selectOptions ?? [],
+        isSkipped: field.isSkipped ?? false,
+        captureAs: field.captureAs ?? "",
+        conditions: field.conditions ?? []
+      });
     } else {
       setEditingField({
         id: "",
@@ -68,7 +77,10 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
         selectOptions: [],
         defaultValue: "",
         order: fields.length,
-        isRequired: false
+        isRequired: false,
+        isSkipped: false,
+        captureAs: "",
+        conditions: []
       });
     }
     setShowModal(true);
@@ -170,7 +182,15 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
           <div key={section} className="section-group">
             <h2 className="section-header" onClick={() => toggleSection(section)} style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               {section}
-              <span style={{ fontSize: "12px", color: "#6b7280" }}>{expandedSections.has(section) ? "▼" : "▶"} {fields.filter(f => f.section === section).length} fields</span>
+              <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                {expandedSections.has(section) && (
+                  <>
+                    <button onClick={(e) => { e.stopPropagation(); setExpandedSections(new Set(sections)); }} className="btn-secondary" style={{ padding: "2px 8px", fontSize: "11px" }}>Expand All</button>
+                    <button onClick={(e) => { e.stopPropagation(); setExpandedSections(new Set()); }} className="btn-secondary" style={{ padding: "2px 8px", fontSize: "11px" }}>Collapse All</button>
+                  </>
+                )}
+                <span style={{ fontSize: "12px", color: "#6b7280" }}>{expandedSections.has(section) ? "▼" : "▶"} {fields.filter(f => f.section === section).length} fields</span>
+              </span>
             </h2>
             {expandedSections.has(section) && <div className="fields-list">
               {fields.filter(f => f.section === section).map((field, idx) => {
@@ -191,6 +211,9 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
                         <span className="badge">{field.actionType}</span>
                         <span className="field-key">{field.fieldName}</span>
                         {field.inputType !== "text" && <span className="badge-secondary">{field.inputType}</span>}
+                        {field.isSkipped && <span className="badge-skipped">⏭ Skipped</span>}
+                        {field.captureAs && <span className="badge-capture">📌 {field.captureAs}</span>}
+                        {field.conditions?.length > 0 && <span className="badge-condition">🔀 {field.conditions.length} condition(s)</span>}
                       </div>
                       {field.selector && <div className="field-selector">{field.selector}</div>}
                     </div>
@@ -307,6 +330,113 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
                   />
                   Required Field
                 </label>
+              </div>
+
+              {/* Skip Toggle */}
+              <div className="form-group">
+                <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span>Skip this step</span>
+                  <div
+                    onClick={() => setEditingField({ ...editingField, isSkipped: !editingField.isSkipped })}
+                    style={{
+                      width: "44px", height: "24px", borderRadius: "12px", cursor: "pointer",
+                      background: editingField.isSkipped ? "#ef4444" : "#d1d5db",
+                      position: "relative", transition: "background 0.2s"
+                    }}
+                  >
+                    <div style={{
+                      width: "18px", height: "18px", borderRadius: "50%", background: "white",
+                      position: "absolute", top: "3px",
+                      left: editingField.isSkipped ? "23px" : "3px",
+                      transition: "left 0.2s"
+                    }} />
+                  </div>
+                  {editingField.isSkipped && <span style={{ color: "#ef4444", fontSize: "12px" }}>Field will be skipped during test</span>}
+                </label>
+              </div>
+
+              {/* Capture As */}
+              <div className="form-group">
+                <label>Save answer as context variable (optional)</label>
+                <input
+                  value={editingField.captureAs}
+                  onChange={(e) => setEditingField({ ...editingField, captureAs: e.target.value })}
+                  placeholder="e.g., isSmoker"
+                />
+                <small style={{ color: "#6b7280" }}>Other fields can depend on this value</small>
+              </div>
+
+              {/* Conditions */}
+              <div className="form-group full-width">
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                  <span>Has conditions (show only if)</span>
+                  <div
+                    onClick={() => {
+                      if (editingField.conditions.length === 0) {
+                        setEditingField({ ...editingField, conditions: [{ ref: "", equals: "" }] });
+                      } else {
+                        setEditingField({ ...editingField, conditions: [] });
+                      }
+                    }}
+                    style={{
+                      width: "44px", height: "24px", borderRadius: "12px", cursor: "pointer",
+                      background: editingField.conditions.length > 0 ? "#2563eb" : "#d1d5db",
+                      position: "relative", transition: "background 0.2s"
+                    }}
+                  >
+                    <div style={{
+                      width: "18px", height: "18px", borderRadius: "50%", background: "white",
+                      position: "absolute", top: "3px",
+                      left: editingField.conditions.length > 0 ? "23px" : "3px",
+                      transition: "left 0.2s"
+                    }} />
+                  </div>
+                </label>
+
+                {editingField.conditions.length > 0 && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {editingField.conditions.map((cond, ci) => (
+                      <div key={ci} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                        <span style={{ fontSize: "13px", color: "#6b7280", minWidth: "30px" }}>{ci === 0 ? "IF" : "AND"}</span>
+                        <select
+                          value={cond.ref}
+                          onChange={(e) => {
+                            const updated = [...editingField.conditions];
+                            updated[ci] = { ...updated[ci], ref: e.target.value };
+                            setEditingField({ ...editingField, conditions: updated });
+                          }}
+                          style={{ flex: 1, padding: "6px", border: "1px solid #d1d5db", borderRadius: "4px" }}
+                        >
+                          <option value="">Select field...</option>
+                          {fields.map(f => (
+                            <option key={f.id} value={f.fieldName}>{f.label} ({f.fieldName})</option>
+                          ))}
+                        </select>
+                        <span style={{ fontSize: "13px", color: "#6b7280" }}>equals</span>
+                        <input
+                          value={cond.equals}
+                          onChange={(e) => {
+                            const updated = [...editingField.conditions];
+                            updated[ci] = { ...updated[ci], equals: e.target.value };
+                            setEditingField({ ...editingField, conditions: updated });
+                          }}
+                          placeholder="value"
+                          style={{ width: "100px", padding: "6px", border: "1px solid #d1d5db", borderRadius: "4px" }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setEditingField({ ...editingField, conditions: editingField.conditions.filter((_, i) => i !== ci) })}
+                          style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontSize: "16px" }}
+                        >✕</button>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => setEditingField({ ...editingField, conditions: [...editingField.conditions, { ref: "", equals: "" }] })}
+                      style={{ alignSelf: "flex-start", background: "none", border: "1px dashed #2563eb", color: "#2563eb", padding: "4px 12px", borderRadius: "4px", cursor: "pointer", fontSize: "13px" }}
+                    >+ Add condition</button>
+                  </div>
+                )}
               </div>
             </div>
 

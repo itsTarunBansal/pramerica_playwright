@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { chromium } from "playwright";
+import { attachNetworkLogger, exportApiLogsToExcel, clearApiLogs, saveLogsToDb, apiLogs } from "../services/apiLogger.js";
 
 export const runTestsRouter = Router();
 
@@ -31,24 +32,41 @@ function formatPlaywrightError(message) {
 }
 
 runTestsRouter.post("/", async (req, res) => {
-  const { testCases } = req.body;
+  const { testCases, projectId } = req.body;
   if (!Array.isArray(testCases) || testCases.length === 0) {
     return res.status(400).json({ error: "testCases[] is required" });
   }
 
   const results = [];
+  clearApiLogs();
   const browser = await chromium.launch({ headless: false, args: ["--start-maximized"] });
 
   for (const tc of testCases) {
     const { testCaseId, testData, steps } = tc;
     const context = await browser.newContext({ viewport: null });
     const page = await context.newPage();
+    const flushApiLogs = attachNetworkLogger(page, testCaseId);
     let applicationNumber = null;
     let status = "success";
     let error = null;
 
     try {
+      const stepContext = { ...(testData ?? {}) };
       for (const step of steps) {
+        // Skip if marked
+        if (step.isSkipped) continue;
+
+        // Evaluate conditions — all must pass (AND logic)
+        if (step.conditions && step.conditions.length > 0) {
+          const allMet = step.conditions.every(cond => stepContext[cond.ref] === cond.equals);
+          if (!allMet) continue;
+        }
+
+        // Capture value into context
+        if (step.captureAs && step.value) {
+          stepContext[step.captureAs] = step.value;
+        }
+
         switch (step.action) {
           case "wait":
             await page.waitForTimeout(Number(step.value));
@@ -115,6 +133,8 @@ runTestsRouter.post("/", async (req, res) => {
       status = "failed";
       error = formatPlaywrightError(err.message);
     } finally {
+      // Flush all in-flight async response body reads before closing
+      if (flushApiLogs) await flushApiLogs();
       await context.close();
     }
 
@@ -131,5 +151,18 @@ runTestsRouter.post("/", async (req, res) => {
   }
 
   await browser.close();
-  return res.json({ results });
+
+  const runId = new Date().toISOString();
+  console.log(`[API Logger] Run complete. Total logs captured: ${apiLogs.length}, projectId=${projectId}`);
+  let apiReportPath = null;
+  try {
+    if (projectId) await saveLogsToDb(projectId, runId);
+    else console.warn("[API Logger] No projectId in request — logs not saved to DB");
+    apiReportPath = await exportApiLogsToExcel();
+    if (apiReportPath) console.log(`[API Logger] Report saved: ${apiReportPath}`);
+  } catch (err) {
+    console.error("[API Logger] Failed to save logs:", err.message);
+  }
+
+  return res.json({ results, apiReportPath, runId });
 });

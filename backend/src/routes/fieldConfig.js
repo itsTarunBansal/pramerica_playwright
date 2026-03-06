@@ -24,7 +24,7 @@ fieldConfigRouter.get("/", async (req, res, next) => {
 
 fieldConfigRouter.post("/", async (req, res, next) => {
   try {
-    const { tenantId, fieldName, label, section, actionType, selector, inputType, selectOptions, defaultValue, order, isRequired } = req.body;
+    const { tenantId, fieldName, label, section, actionType, selector, inputType, selectOptions, defaultValue, order, isRequired, isSkipped, captureAs, conditions } = req.body;
 
     if (!tenantId || !fieldName || !label || !section || !actionType || order === undefined) {
       return res.status(400).json({ error: "tenantId, fieldName, label, section, actionType, and order are required" });
@@ -43,7 +43,10 @@ fieldConfigRouter.post("/", async (req, res, next) => {
       defaultValue: defaultValue || "",
       order,
       isRequired: isRequired || false,
-      isActive: true
+      isActive: true,
+      isSkipped: isSkipped || false,
+      captureAs: captureAs || "",
+      conditions: conditions || []
     });
 
     return res.status(201).json(created.toObject());

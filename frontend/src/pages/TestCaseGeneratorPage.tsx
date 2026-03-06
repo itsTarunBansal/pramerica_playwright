@@ -47,6 +47,7 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
   const [count, setCount] = useState(1);
   const [running, setRunning] = useState(false);
   const [runStatus, setRunStatus] = useState<string | null>(null);
+  const [lastRunId, setLastRunId] = useState<string | null>(null);
   const [fieldConfigs, setFieldConfigs] = useState<any[]>([]);
   const [useDynamicFields, setUseDynamicFields] = useState(isDynamicProject);
   const [saving, setSaving] = useState(false);
@@ -152,7 +153,7 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
         rows.map((testData, i) =>
           createTestCase({
             name: `${testData.firstName || "Test"} ${testData.lastName || "Case"} - ${testData.agentCode}`,
-            appUrl: projectUrl,
+            appUrl: activeProjectUrl,
             tenantId: activeTenantId,
             insuranceInput: { age: 0, sumInsured: 0, policyType: "term" },
             steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs, activeProjectUrl) : buildSteps(testData, activeProjectUrl),
@@ -178,7 +179,8 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
         testData: mergeRowData(i),
       }));
       console.log("Generated test cases:", testCases);
-      const { results } = await runTestCases(testCases);
+      const { results, runId } = await runTestCases(testCases, activeTenantId);
+      if (runId) setLastRunId(runId);
       // Build CSV/Excel content
       const header = "testCaseId,agentCode,proposerPAN,firstName,lastName,applicationNumber,status,error";
       const body = results.map(r =>
@@ -309,10 +311,30 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
+  const getSections = (isDynamic: boolean) => isDynamic
+    ? [...new Set(fieldConfigs.map(f => f.section))]
+    : ["Login Details","Personal Information","Address","Financial Details","Policy Details","Occupation","Family Details","Nominee Details","Bank Details","Health Information"];
+
   const toggleCard = (idx: number) => {
     setExpandedCards(prev => {
       const next = new Set(prev);
       next.has(idx) ? next.delete(idx) : next.add(idx);
+      return next;
+    });
+  };
+
+  const expandAllSections = (idx: number) => {
+    setExpandedSections(prev => {
+      const next = new Set(prev);
+      getSections(useDynamicFields).forEach(s => next.add(`${idx}-${s}`));
+      return next;
+    });
+  };
+
+  const collapseAllSections = (idx: number) => {
+    setExpandedSections(prev => {
+      const next = new Set(prev);
+      getSections(useDynamicFields).forEach(s => next.delete(`${idx}-${s}`));
       return next;
     });
   };
@@ -332,6 +354,18 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
     const row = rows[i];
     const isDynOnly = !isStaticField(field);
     const dynValue = isDynOnly ? getDynamicValue(i, field) : "";
+
+    // Show skipped fields as disabled with tooltip
+    if (config?.isSkipped) {
+      return (
+        <div className="field-group" key={field} title="Field marked as skipped">
+          <label style={{ color: "#9ca3af" }}>
+            {label} <span style={{ fontSize: "11px", background: "#fee2e2", color: "#ef4444", padding: "1px 6px", borderRadius: "4px", marginLeft: "4px" }}>⏭ Skipped</span>
+          </label>
+          <input disabled value="" placeholder="Field marked as skipped" style={{ background: "#f9fafb", color: "#9ca3af", cursor: "not-allowed" }} />
+        </div>
+      );
+    }
 
     if (config) {
       if (config.inputType === "select" && config.selectOptions?.length > 0) {
@@ -448,6 +482,12 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
       <div className="stats">
         {rows.length} test case(s) • {useDynamicFields ? `Dynamic (${fieldConfigs.length} fields)` : "Static"}
         {runStatus && <span className="status">{runStatus}</span>}
+        {lastRunId && activeTenantId && (
+          <a href={`/projects/${activeTenantId === NVEST_TENANT_ID ? "nvest" : activeTenantId}/api-logs`} className="status"
+            style={{ color: "#2563eb", textDecoration: "underline", cursor: "pointer" }}>
+            🌐 View API Logs
+          </a>
+        )}
         {saveStatus && <span className="status">{saveStatus}</span>}
         {uploadStatus && <span className="status">{uploadStatus}</span>}
         {!useDynamicFields && fieldConfigs.length > 0 && (
@@ -464,6 +504,12 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
                 <span className="card-info">{row.firstName || "Test"} {row.lastName || "Case"} - {row.agentCode || "N/A"}</span>
               </div>
               <div className="card-actions">
+                {expandedCards.has(i) && (
+                  <>
+                    <button onClick={(e) => { e.stopPropagation(); expandAllSections(i); }} className="btn-secondary" style={{ padding: "2px 8px", fontSize: "11px" }}>Expand All</button>
+                    <button onClick={(e) => { e.stopPropagation(); collapseAllSections(i); }} className="btn-secondary" style={{ padding: "2px 8px", fontSize: "11px" }}>Collapse All</button>
+                  </>
+                )}
                 <button onClick={(e) => { e.stopPropagation(); deleteRow(i); }} className="btn-delete">Delete</button>
                 <span className="expand-icon">{expandedCards.has(i) ? '▼' : '▶'}</span>
               </div>

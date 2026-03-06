@@ -112,6 +112,30 @@
   font-size: 12px;
 }
 
+.badge-skipped {
+  background: #fee2e2;
+  color: #ef4444;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.badge-capture {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.badge-condition {
+  background: #ede9fe;
+  color: #5b21b6;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
 .field-actions {
   display: flex;
   gap: 8px;

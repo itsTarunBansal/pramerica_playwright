@@ -29,3 +29,5 @@ Thumbs.db
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+/backend/reports
