@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getFieldConfigs, createFieldConfig, updateFieldConfig, deleteFieldConfig, reorderFieldConfigs } from "../services/api";
 import "./FieldManagerPage.css";
 
+const DEMO_TENANT_ID = "00000000-0000-0000-0000-000000000001";
+
 interface FieldConfig {
   id: string;
   fieldName: string;
@@ -16,21 +18,31 @@ interface FieldConfig {
   isRequired: boolean;
 }
 
-export default function FieldManagerPage() {
+export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
+  const activeTenantId = tenantId || DEMO_TENANT_ID;
   const [fields, setFields] = useState<FieldConfig[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingField, setEditingField] = useState<FieldConfig | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+
+  function toggleSection(section: string) {
+    setExpandedSections(prev => {
+      const next = new Set(prev);
+      next.has(section) ? next.delete(section) : next.add(section);
+      return next;
+    });
+  }
 
   useEffect(() => {
     loadFields();
-  }, []);
+  }, [activeTenantId]);
 
   async function loadFields() {
     try {
       console.log("Loading fields...");
-      const data = await getFieldConfigs();
+      const data = await getFieldConfigs(activeTenantId);
       console.log("Fields loaded:", data);
       setFields(data);
     } catch (err: any) {
@@ -76,7 +88,7 @@ export default function FieldManagerPage() {
         const result = await updateFieldConfig(editingField.id, editingField);
         console.log("Update result:", result);
       } else {
-        const result = await createFieldConfig(editingField);
+        const result = await createFieldConfig({ ...editingField, tenantId: activeTenantId });
         console.log("Create result:", result);
       }
       await loadFields();
@@ -156,8 +168,11 @@ export default function FieldManagerPage() {
       <div className="sections-container">
         {sections.map(section => (
           <div key={section} className="section-group">
-            <h2>{section}</h2>
-            <div className="fields-list">
+            <h2 className="section-header" onClick={() => toggleSection(section)} style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              {section}
+              <span style={{ fontSize: "12px", color: "#6b7280" }}>{expandedSections.has(section) ? "▼" : "▶"} {fields.filter(f => f.section === section).length} fields</span>
+            </h2>
+            {expandedSections.has(section) && <div className="fields-list">
               {fields.filter(f => f.section === section).map((field, idx) => {
                 const globalIdx = fields.indexOf(field);
                 return (
@@ -186,7 +201,7 @@ export default function FieldManagerPage() {
                   </div>
                 );
               })}
-            </div>
+            </div>}
           </div>
         ))}
       </div>
@@ -217,11 +232,12 @@ export default function FieldManagerPage() {
 
               <div className="form-group">
                 <label>Section</label>
-                <input
+                <select
                   value={editingField.section}
                   onChange={(e) => setEditingField({ ...editingField, section: e.target.value })}
-                  placeholder="e.g., Personal Information"
-                />
+                >
+                  {sections.map(s => <option key={s} value={s}>{s}</option>)}
+                </select>
               </div>
 
               <div className="form-group">

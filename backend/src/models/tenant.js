@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const tenantSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true, index: true },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    url: { type: String, default: "" }
   },
   {
     versionKey: false,

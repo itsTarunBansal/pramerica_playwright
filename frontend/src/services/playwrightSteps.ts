@@ -1,13 +1,15 @@
 import type { PramericaTestData } from "../types";
 
-export function buildSteps(d: PramericaTestData) {
+const FALLBACK_URL = "https://nvestuat.pramericalife.in/Life/Login.html";
+
+export function buildSteps(d: PramericaTestData, baseUrl?: string) {
   const otpSteps = [d.otp1, d.otp2, d.otp3, d.otp4, d.otp5, d.otp6].map((v, i) => ({
     action: "fill", selector: `#agentotp${i + 1}`, value: v,
   }));
 
   return [
     // Login
-    { action: "goto", value: "https://nvestuat.pramericalife.in/Life/Login.html" },
+    { action: "goto", value: baseUrl || FALLBACK_URL },
     { action: "fill", selector: "role=textbox[name='Enter Code']", value: d.agentCode },
     { action: "press", selector: "role=textbox[name='Enter Code']", value: "Tab" },
     ...otpSteps,
@@ -151,5 +153,6 @@ export function buildSteps(d: PramericaTestData) {
     { action: "click", selector: "role=button[name='Submit']" },
     { action: "click", selector: ".slider" },
     { action: "click", selector: "role=button[name='Next']" },
+    { action: "captureAppNumber" },
   ];
 }

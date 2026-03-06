@@ -1,10 +1,11 @@
 import type { PramericaTestData } from "../types";
 import { buildSteps } from "./playwrightSteps";
 
-export function buildDynamicSteps(testData: any, fieldConfigs: any[]) {
-  // Start with goto step
+const FALLBACK_URL = "https://nvestuat.pramericalife.in/Life/Login.html";
+
+export function buildDynamicSteps(testData: any, fieldConfigs: any[], baseUrl?: string) {
   const steps: any[] = [
-    { action: "goto", value: "https://nvestuat.pramericalife.in/Life/Login.html" }
+    { action: "goto", value: baseUrl || FALLBACK_URL }
   ];
   
   // Sort field configs by order and build steps

@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import { config } from "./config.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { projectsRouter } from "./routes/projects.js";
 import { executionsRouter } from "./routes/executions.js";
 import { fieldConfigRouter } from "./routes/fieldConfig.js";
 import { healthRouter } from "./routes/health.js";
@@ -27,6 +28,7 @@ export function createApp() {
   app.use("/api/v1/test-cases", testCasesRouter);
   app.use("/api/v1/executions", executionsRouter);
   app.use("/api/v1/run-tests", runTestsRouter);
+  app.use("/api/v1/projects", projectsRouter);
   app.use("/api/v1/field-configs", fieldConfigRouter);
 
   app.use(errorHandler);

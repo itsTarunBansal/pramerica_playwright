@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 test('Pramerica Life Insurance - Full Policy Creation Flow', async ({ page }) => {
   test.skip(!!process.env.SKIP_E2E, 'Skipped in CI: UAT URL is not publicly accessible');
@@ -164,4 +164,15 @@ test('Pramerica Life Insurance - Full Policy Creation Flow', async ({ page }) =>
   await page.getByRole('button', { name: 'Submit' }).click();
   await page.locator('.slider').click();
   await page.getByRole('button', { name: 'Next' }).click();
+
+  // Capture application number after final submission
+  await page.waitForTimeout(3000);
+  let applicationNumber = 'N/A';
+  try {
+    const bodyText = await page.locator('body').innerText();
+    const match = bodyText.match(/Application\s*(?:No|Number|#)[:\s]*([A-Z0-9\-]+)/i);
+    if (match) applicationNumber = match[1].trim();
+  } catch (_) {}
+  console.log(`Application Number: ${applicationNumber}`);
+  expect(applicationNumber).not.toBe('N/A');
 });

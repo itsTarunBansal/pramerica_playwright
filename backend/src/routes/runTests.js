@@ -3,6 +3,33 @@ import { chromium } from "playwright";
 
 export const runTestsRouter = Router();
 
+function formatPlaywrightError(message) {
+  if (!message) return "Unknown error occurred";
+  if (message.includes("Timeout") && message.includes("exceeded")) {
+    const selectorMatch = message.match(/waiting for (.*?)\n/);
+    const selector = selectorMatch ? selectorMatch[1].trim() : "an element";
+    return `Element not found or not clickable: ${selector}. The page may not have loaded correctly or the element is missing.`;
+  }
+  if (message.includes("net::ERR") || message.includes("Navigation failed")) {
+    return `Page failed to load. Check your internet connection or the application URL.`;
+  }
+  if (message.includes("strict mode violation")) {
+    const selectorMatch = message.match(/resolved to (\d+) elements/);
+    const count = selectorMatch ? selectorMatch[1] : "multiple";
+    return `Found ${count} matching elements on page — selector is ambiguous. Please update the field selector in Field Manager.`;
+  }
+  if (message.includes("selectOption")) {
+    const valueMatch = message.match(/option with value "(.*?)"/);
+    const value = valueMatch ? `"${valueMatch[1]}"` : "the provided value";
+    return `Dropdown option ${value} not found. Check the field value matches available options.`;
+  }
+  if (message.includes("fill")) {
+    return `Could not fill a form field. The field may be disabled, hidden, or the selector is incorrect.`;
+  }
+  const firstLine = message.split("\n").find(l => l.trim() && !l.includes("at ") && !l.includes("playwright"));
+  return firstLine?.trim() || message.split("\n")[0];
+}
+
 runTestsRouter.post("/", async (req, res) => {
   const { testCases } = req.body;
   if (!Array.isArray(testCases) || testCases.length === 0) {
@@ -35,68 +62,58 @@ runTestsRouter.post("/", async (req, res) => {
           case "logButtons": {
             const buttons = await page.locator("button").all();
             const names = await Promise.all(buttons.map(b => b.innerText()));
-            console.log("Visible buttons before Next:", names.map(n => n.trim()).filter(Boolean));
+            console.log("Visible buttons:", names.map(n => n.trim()).filter(Boolean));
             break;
           }
           case "scrollIntoView":
             await page.locator(step.selector).scrollIntoViewIfNeeded();
             break;
-          case "click": {
-            console.log('suryashhhhh', step.selector);
-            const btns = await page.locator("button:visible").all();
-            const btnInfos = await Promise.all(btns.map(async b => {
-              const text = (await b.innerText()).trim();
-              const id = await b.getAttribute("id");
-              const cls = await b.getAttribute("class");
-              const name = await b.getAttribute("name");
-              const type = await b.getAttribute("type");
-              return {
-                text,
-                attrs: { id, class: cls, name, type },
-                selectors: [
-                  text && `role=button[name='${text}']`,
-                  id && `#${id}`,
-                  name && `button[name='${name}']`,
-                  cls && `button.${cls.trim().split(/\s+/).join('.')}`,
-                ].filter(Boolean),
-              };
-            }));
-            console.log("Visible buttons:", JSON.stringify(btnInfos, null, 2));
+          case "click":
             await page.locator(step.selector).click({ timeout: 15000 });
             break;
-          }
           case "check":
             await page.locator(step.selector).check();
             break;
-          case "select": {
-            
+          case "select":
             await page.locator(step.selector).selectOption(step.value ?? "");
             break;
-          }
           case "press":
             await page.locator(step.selector).press(step.value ?? "");
             break;
+          case "captureAppNumber": {
+            try {
+              await page.waitForTimeout(3000);
+              const selectors = [
+                "[id*='appNo']", "[id*='AppNo']", "[id*='ApplicationNo']",
+                "[class*='appNo']", "[class*='app-number']", "[class*='applicationNumber']",
+                "td:has-text('Application No')", "span:has-text('Application No')",
+                "label:has-text('Application No')"
+              ];
+              for (const sel of selectors) {
+                try {
+                  const el = page.locator(sel).first();
+                  if (await el.count() > 0) {
+                    const text = (await el.innerText()).trim();
+                    if (text) { applicationNumber = text; break; }
+                  }
+                } catch (_) {}
+              }
+              if (!applicationNumber) {
+                const bodyText = await page.locator("body").innerText();
+                const match = bodyText.match(/Application\s*(?:No|Number|#)[:\s]*([A-Z0-9\-]+)/i);
+                if (match) applicationNumber = match[1].trim();
+              }
+            } catch (_) {}
+            break;
+          }
         }
       }
 
-      // Try to capture application number from page after test completes
-      try {
-        await page.waitForTimeout(2000);
-        const appNumEl = await page.$("[id*='application'], [id*='Application'], [class*='appNo'], [class*='app-number']");
-        if (appNumEl) {
-          applicationNumber = await appNumEl.innerText();
-        }
-        // Fallback: grab from URL if present
-        if (!applicationNumber) {
-          const url = page.url();
-          const match = url.match(/[?&](?:appNo|applicationNo|appId)=([^&]+)/i);
-          if (match) applicationNumber = match[1];
-        }
-      } catch (_) {}
+      // Application number is captured via captureAppNumber step in the journey
 
     } catch (err) {
       status = "failed";
-      error = err.message;
+      error = formatPlaywrightError(err.message);
     } finally {
       await context.close();
     }
