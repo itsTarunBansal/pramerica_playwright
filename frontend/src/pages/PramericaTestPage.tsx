@@ -90,6 +90,8 @@ export default function PramericaTestPage() {
       weightKgs: "",
       heightFeet: "",
       heightInches: "",
+      paymentUrl: "",
+      fundTransferNumber: "",
     };
 
     const playwrightJSON = {

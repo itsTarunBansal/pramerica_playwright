@@ -23,6 +23,7 @@ const DEFAULT_ROW: PramericaTestData = {
   nomineeSharePercentage: "100", nomineeDOB: "",
   bankAccountNumber: "", ifscCode: "",
   weightKgs: "", heightFeet: "5", heightInches: "6",
+  paymentUrl: "", fundTransferNumber: "",
 };
 
 function downloadFile(content: string, filename: string, mime: string) {
@@ -314,7 +315,7 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
 
   const getSections = (isDynamic: boolean) => isDynamic
     ? [...new Set(fieldConfigs.map(f => f.section))]
-    : ["Login Details","Personal Information","Address","Financial Details","Policy Details","Occupation","Family Details","Nominee Details","Bank Details","Health Information"];
+    : ["Login Details","Personal Information","Address","Financial Details","Policy Details","Occupation","Family Details","Nominee Details","Bank Details","Health Information","Payment Details"];
 
   const toggleCard = (idx: number) => {
     setExpandedCards(prev => {
@@ -643,6 +644,14 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
                     {renderField(i, "weightKgs", "Weight (kg)")}
                     {renderField(i, "heightFeet", "Height (feet)")}
                     {renderField(i, "heightInches", "Height (inches)")}
+                  </div>}
+                </div>
+
+                <div className="section">
+                  <h3 onClick={() => toggleSection(i, "Payment Details")} style={{ cursor:"pointer", display:"flex", justifyContent:"space-between" }}>Payment Details <span style={{ fontSize:"12px", color:"#6b7280" }}>{isSec(i, "Payment Details") ? "▼" : "▶"}</span></h3>
+                  {isSec(i, "Payment Details") && <div className="fields-grid">
+                    {renderField(i, "paymentUrl", "Payment URL")}
+                    {renderField(i, "fundTransferNumber", "Fund Transfer Number")}
                   </div>}
                 </div>
                   </>

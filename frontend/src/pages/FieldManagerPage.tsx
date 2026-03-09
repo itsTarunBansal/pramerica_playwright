@@ -47,7 +47,7 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
     try {
       const data = await getFieldConfigs(activeTenantId);
       setFields(data);
-      setExpandedSections(new Set([...new Set(data.map((f: any) => f.section))]));
+      setExpandedSections(new Set<string>(data.map((f: any) => f.section)));
       setError(null);
     } catch (err: any) {
       setError("Failed to load fields: " + err.message);
@@ -290,6 +290,8 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
                   <option value="check">Check</option>
                   <option value="press">Press</option>
                   <option value="wait">Wait</option>
+                  <option value="uploadFile">Upload File</option>
+                  <option value="goto">Goto</option>
                 </select>
               </div>
 

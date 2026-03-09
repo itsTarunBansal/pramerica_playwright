@@ -144,6 +144,50 @@ const allFields = [
   { fieldName: "finalSubmitBtn", label: "Final Submit Button", section: "Final Submission", actionType: "click", selector: "role=button[name='Submit']", inputType: "text", defaultValue: "click", order: 109 },
   { fieldName: "sliderClick", label: "Slider Click", section: "Final Submission", actionType: "click", selector: ".slider", inputType: "text", defaultValue: "click", order: 110 },
   { fieldName: "finalNextBtn", label: "Final Next Button", section: "Final Submission", actionType: "click", selector: "role=button[name='Next']", inputType: "text", defaultValue: "click", order: 111 },
+
+  // Document Upload
+  { fieldName: "docUploadClick", label: "Document Upload Click", section: "Document Upload", actionType: "click", selector: "role=textbox[name='Please Select Document']", inputType: "text", defaultValue: "click", order: 112 },
+  { fieldName: "docUploadFile", label: "Document Upload File", section: "Document Upload", actionType: "uploadFile", selector: "role=textbox[name='Please Select Document']", inputType: "text", defaultValue: "Screenshot (1).png", order: 113 },
+  { fieldName: "docUploadOk", label: "Document Upload OK", section: "Document Upload", actionType: "click", selector: "role=button[name='OK']", inputType: "text", defaultValue: "click", order: 114 },
+  { fieldName: "agreeReceiveCheck", label: "Agree to Receive Checkbox", section: "Document Upload", actionType: "check", selector: "role=checkbox[name='I agree, to receive any form ']", inputType: "checkbox", defaultValue: "check", order: 115 },
+  { fieldName: "docNextBtn", label: "Next Button (Doc)", section: "Document Upload", actionType: "click", selector: "role=button[name='Next']", inputType: "text", defaultValue: "click", order: 116 },
+  { fieldName: "confirmBtn", label: "Confirm Button", section: "Document Upload", actionType: "click", selector: "role=button[name='Confirm']", inputType: "text", defaultValue: "click", order: 117 },
+  { fieldName: "docNextBtn2", label: "Next Button (Doc 2)", section: "Document Upload", actionType: "click", selector: "role=button[name='Next']", inputType: "text", defaultValue: "click", order: 118 },
+  { fieldName: "digitalToggleYes", label: "Digital Toggle Yes", section: "Document Upload", actionType: "click", selector: "#digitaltoggle >> text=Yes", inputType: "text", defaultValue: "click", order: 119 },
+  { fieldName: "physicalBtn", label: "Physical Button", section: "Document Upload", actionType: "click", selector: "role=button[name='PHYSICAL']", inputType: "text", defaultValue: "click", order: 120 },
+  { fieldName: "physicalToggleYes", label: "Physical Toggle Yes", section: "Document Upload", actionType: "click", selector: "#physicaltoggle >> text=Yes", inputType: "text", defaultValue: "click", order: 121 },
+  { fieldName: "viewDownloadBtn", label: "View and Download Button", section: "Document Upload", actionType: "click", selector: "role=button[name='View and Download']", inputType: "text", defaultValue: "click", order: 122 },
+  { fieldName: "closeBtn", label: "Close Button", section: "Document Upload", actionType: "click", selector: "role=button[name='Close']", inputType: "text", defaultValue: "click", order: 123 },
+  { fieldName: "docNextBtn3", label: "NEXT Button (Doc 3)", section: "Document Upload", actionType: "click", selector: "role=button[name='NEXT']", inputType: "text", defaultValue: "click", order: 124 },
+
+  // Payment
+  { fieldName: "paymentUrl", label: "Payment URL", section: "Payment", actionType: "goto", selector: "", inputType: "text", defaultValue: "", order: 125 },
+  { fieldName: "fundTransferBtn", label: "Fund Transfer Button", section: "Payment", actionType: "click", selector: "role=button[name='Fund Transfer']", inputType: "text", defaultValue: "click", order: 126 },
+  { fieldName: "fundTransferNumber", label: "Fund Transfer Number", section: "Payment", actionType: "fill", selector: "role=textbox[name='Enter Transfer Number']", inputType: "text", defaultValue: "", order: 127 },
+  { fieldName: "fundTransferNext", label: "Fund Transfer Next", section: "Payment", actionType: "click", selector: "role=group[name='Fund Transfer'] >> role=button[name='Next']", inputType: "text", defaultValue: "click", order: 128 },
+  { fieldName: "paymentNextBtn", label: "Payment Next Button", section: "Payment", actionType: "click", selector: "role=button[name='Next']", inputType: "text", defaultValue: "click", order: 129 },
+
+  // KYC Documents
+  { fieldName: "identityProof", label: "Identity Proof", section: "KYC Documents", actionType: "select", selector: "#drd_IdentityProof", inputType: "select", selectOptions: ["LUIDAI"], defaultValue: "LUIDAI", order: 130 },
+  { fieldName: "last4Digits", label: "Last 4 Digits", section: "KYC Documents", actionType: "fill", selector: "role=textbox[name='Please Enter Last 4 Digits']", inputType: "text", defaultValue: "1234", order: 131 },
+  { fieldName: "fileInput104Click", label: "Identity Proof Upload Click", section: "KYC Documents", actionType: "click", selector: "#fileInput_104", inputType: "text", defaultValue: "click", order: 132 },
+  { fieldName: "fileInput104", label: "Identity Proof Upload", section: "KYC Documents", actionType: "uploadFile", selector: "#fileInput_104", inputType: "text", defaultValue: "Screenshot (1).png", order: 133 },
+  { fieldName: "fileInput104Ok", label: "Identity Proof OK", section: "KYC Documents", actionType: "click", selector: "role=button[name='OK']", inputType: "text", defaultValue: "click", order: 134 },
+  { fieldName: "addressProof", label: "Address Proof", section: "KYC Documents", actionType: "select", selector: "#drd_AddressProof", inputType: "select", selectOptions: ["LUIDAI"], defaultValue: "LUIDAI", order: 135 },
+  { fieldName: "fileInput302Click", label: "Address Proof Upload Click", section: "KYC Documents", actionType: "click", selector: "#fileInput_302", inputType: "text", defaultValue: "click", order: 136 },
+  { fieldName: "fileInput302", label: "Address Proof Upload", section: "KYC Documents", actionType: "uploadFile", selector: "#fileInput_302", inputType: "text", defaultValue: "Screenshot (1).png", order: 137 },
+  { fieldName: "fileInput302Ok", label: "Address Proof OK", section: "KYC Documents", actionType: "click", selector: "role=button[name='OK']", inputType: "text", defaultValue: "click", order: 138 },
+  { fieldName: "fileInput309Click", label: "Document 3 Upload Click", section: "KYC Documents", actionType: "click", selector: "#fileInput_309", inputType: "text", defaultValue: "click", order: 139 },
+  { fieldName: "fileInput309", label: "Document 3 Upload", section: "KYC Documents", actionType: "uploadFile", selector: "#fileInput_309", inputType: "text", defaultValue: "Screenshot (1).png", order: 140 },
+  { fieldName: "fileInput309Ok", label: "Document 3 OK", section: "KYC Documents", actionType: "click", selector: "role=button[name='OK']", inputType: "text", defaultValue: "click", order: 141 },
+  { fieldName: "fileInput312Click", label: "Document 4 Upload Click", section: "KYC Documents", actionType: "click", selector: "#fileInput_312", inputType: "text", defaultValue: "click", order: 142 },
+  { fieldName: "fileInput312", label: "Document 4 Upload", section: "KYC Documents", actionType: "uploadFile", selector: "#fileInput_312", inputType: "text", defaultValue: "Screenshot (1).png", order: 143 },
+  { fieldName: "fileInput312Ok", label: "Document 4 OK", section: "KYC Documents", actionType: "click", selector: "role=button[name='OK']", inputType: "text", defaultValue: "click", order: 144 },
+  { fieldName: "confirmAllCheck", label: "Confirm All Checkbox", section: "KYC Documents", actionType: "check", selector: "role=checkbox[name='I confirm that all the ']", inputType: "checkbox", defaultValue: "check", order: 145 },
+  { fieldName: "kycDocNextBtn", label: "NEXT Button (KYC Docs)", section: "KYC Documents", actionType: "click", selector: "role=button[name='NEXT']", inputType: "text", defaultValue: "click", order: 146 },
+  { fieldName: "declareCheck", label: "Declaration Checkbox", section: "KYC Documents", actionType: "check", selector: "#declare", inputType: "checkbox", defaultValue: "check", order: 147 },
+  { fieldName: "finalKycSubmitBtn", label: "Final KYC Submit Button", section: "KYC Documents", actionType: "click", selector: "role=button[name='Submit']", inputType: "text", defaultValue: "click", order: 148 },
+  { fieldName: "appSuccessClick", label: "Application Successful Click", section: "KYC Documents", actionType: "click", selector: "#ApplicationSuccessfull", inputType: "text", defaultValue: "click", order: 149 },
 ];
 
 async function seedFieldConfigs() {

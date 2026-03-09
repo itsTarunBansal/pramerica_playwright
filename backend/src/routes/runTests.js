@@ -99,6 +99,9 @@ runTestsRouter.post("/", async (req, res) => {
           case "press":
             await page.locator(step.selector).press(step.value ?? "");
             break;
+          case "uploadFile":
+            await page.locator(step.selector).setInputFiles(step.value ?? "");
+            break;
           case "captureAppNumber": {
             try {
               await page.waitForTimeout(3000);

@@ -7,7 +7,7 @@ const fieldConfigSchema = new mongoose.Schema(
     fieldName: { type: String, required: true },
     label: { type: String, required: true },
     section: { type: String, required: true },
-    actionType: { type: String, enum: ["fill", "click", "select", "check", "press", "wait"], required: true },
+    actionType: { type: String, enum: ["fill", "click", "select", "check", "press", "wait", "uploadFile", "goto"], required: true },
     selector: { type: String, default: "" },
     inputType: { type: String, enum: ["text", "number", "select", "checkbox", "date"], default: "text" },
     selectOptions: { type: [String], default: [] },

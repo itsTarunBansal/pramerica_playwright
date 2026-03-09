@@ -85,4 +85,7 @@ export interface PramericaTestData {
   weightKgs: string;
   heightFeet: string;
   heightInches: string;
+  // Payment
+  paymentUrl: string;
+  fundTransferNumber: string;
 }
