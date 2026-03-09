@@ -1,5 +1,5 @@
 {
-  "name": "ai-insurance-test-copilot-backend",
+  "name": "kryptonite-backend",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,7 +7,8 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed:fields": "node src/seedFields.js",
-    "check:fields": "node src/checkFields.js"
+    "check:fields": "node src/checkFields.js",
+    "backfill:reports": "node src/backfill-reports.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

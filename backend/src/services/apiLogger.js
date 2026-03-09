@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 import { ApiLog } from "../models/apiLog.js";
 
@@ -8,6 +9,25 @@ const REPORTS_DIR = path.resolve(__dirname, "../../reports");
 
 // Central accumulator for the entire test run
 const apiLogs = [];
+
+// ─── Third-Party API Capture (dashboard layer — non-breaking) ───────────────
+// Accumulates only third-party API logs for dashboard JSON reports
+const thirdPartyLogs = [];
+
+/** Extract hostname from a URL string, returns null on failure */
+function getHostname(url) {
+  try { return new URL(url).hostname; } catch { return null; }
+}
+
+/** Returns true if requestUrl is on a different domain than appBaseUrl */
+function isThirdParty(requestUrl, appBaseUrl) {
+  const reqHost = getHostname(requestUrl);
+  const appHost = getHostname(appBaseUrl);
+  if (!reqHost || !appHost) return false;
+  // Strip www. prefix for comparison
+  const normalize = (h) => h.replace(/^www\./, "");
+  return normalize(reqHost) !== normalize(appHost);
+}
 
 // Derive a short tag from URL path segment (e.g. 'login', 'kyc', 'policy')
 function deriveTag(url) {
@@ -67,13 +87,41 @@ export function attachNetworkLogger(page, testCaseName) {
     };
     apiLogs.push(entry);
 
-    // Attempt async body read — update entry in place if it succeeds
-    const contentType = response.headers()["content-type"] ?? "";
-    if (contentType.includes("application/json")) {
-      const p = response.text().then(text => {
-        entry.responseBody = text.length > 500 ? text.slice(0, 500) + "\u2026" : text;
-      }).catch(() => {});
-      pendingResponses.push(p);
+    // ── Dashboard: capture third-party API entry (non-breaking addition) ──
+    const appBase = page.url();
+    if (isThirdParty(pending.url, appBase)) {
+      const tpEntry = {
+        testCase: testCaseName,
+        pageUrl: appBase,
+        apiEndpoint: pending.url,
+        apiDomain: getHostname(pending.url),
+        method: pending.method,
+        statusCode: response.status(),
+        startTime: new Date(pending.startTime).toISOString(),
+        endTime: new Date(endTime).toISOString(),
+        responseTime,
+        requestPayload: pending.postData,
+        responseBody: null,
+      };
+      thirdPartyLogs.push(tpEntry);
+      // Reuse the same async body read promise
+      const contentType = response.headers()["content-type"] ?? "";
+      if (contentType.includes("application/json")) {
+        const p = response.text().then(text => {
+          entry.responseBody = text.length > 500 ? text.slice(0, 500) + "\u2026" : text;
+          tpEntry.responseBody = entry.responseBody;
+        }).catch(() => {});
+        pendingResponses.push(p);
+      }
+    } else {
+      // Attempt async body read — update entry in place if it succeeds
+      const contentType = response.headers()["content-type"] ?? "";
+      if (contentType.includes("application/json")) {
+        const p = response.text().then(text => {
+          entry.responseBody = text.length > 500 ? text.slice(0, 500) + "\u2026" : text;
+        }).catch(() => {});
+        pendingResponses.push(p);
+      }
     }
   });
 
@@ -83,7 +131,7 @@ export function attachNetworkLogger(page, testCaseName) {
     pendingRequests.delete(request);
 
     const endTime = Date.now();
-    apiLogs.push({
+    const failedEntry = {
       testCase: testCaseName,
       pageUrl: page.url(),
       apiEndpoint: pending.url,
@@ -95,7 +143,13 @@ export function attachNetworkLogger(page, testCaseName) {
       requestPayload: pending.postData,
       responseBody: request.failure()?.errorText ?? null,
       tags: deriveTag(pending.url),
-    });
+    };
+    apiLogs.push(failedEntry);
+
+    // ── Dashboard: capture failed third-party requests too ──
+    if (isThirdParty(pending.url, page.url())) {
+      thirdPartyLogs.push({ ...failedEntry, apiDomain: getHostname(pending.url) });
+    }
   });
 
   // Call this before closing the page to await all in-flight body reads
@@ -166,6 +220,75 @@ export async function saveLogsToDb(projectId, runId) {
 /** Clear logs between runs */
 export function clearApiLogs() {
   apiLogs.length = 0;
+  thirdPartyLogs.length = 0;
+}
+
+/**
+ * Generate JSON report files for the dashboard.
+ * Called after test run completes — does NOT affect Excel export or DB save.
+ */
+export async function generateDashboardReports(testResults = []) {
+  fs.mkdirSync(REPORTS_DIR, { recursive: true });
+
+  // third-party-api-report.json — raw third-party logs
+  fs.writeFileSync(
+    path.join(REPORTS_DIR, "third-party-api-report.json"),
+    JSON.stringify(thirdPartyLogs, null, 2)
+  );
+
+  // api-detailed-report.json — all captured logs
+  fs.writeFileSync(
+    path.join(REPORTS_DIR, "api-detailed-report.json"),
+    JSON.stringify(apiLogs, null, 2)
+  );
+
+  // api-performance-report.json — per-endpoint aggregation of third-party APIs
+  const perfMap = {};
+  for (const l of thirdPartyLogs) {
+    if (!perfMap[l.apiEndpoint]) {
+      perfMap[l.apiEndpoint] = { apiEndpoint: l.apiEndpoint, apiDomain: l.apiDomain, method: l.method, times: [], calls: 0 };
+    }
+    perfMap[l.apiEndpoint].times.push(l.responseTime);
+    perfMap[l.apiEndpoint].calls++;
+  }
+  const perfReport = Object.values(perfMap).map((e) => ({
+    apiEndpoint: e.apiEndpoint,
+    apiDomain: e.apiDomain,
+    method: e.method,
+    totalCalls: e.calls,
+    avgResponseTime: Math.round(e.times.reduce((a, b) => a + b, 0) / e.times.length),
+    minResponseTime: Math.min(...e.times),
+    maxResponseTime: Math.max(...e.times),
+  }));
+  fs.writeFileSync(
+    path.join(REPORTS_DIR, "api-performance-report.json"),
+    JSON.stringify(perfReport, null, 2)
+  );
+
+  // test-execution-summary.json — test results summary
+  const passed = testResults.filter((t) => t.status === "success" || t.status === "passed").length;
+  const failed = testResults.filter((t) => t.status === "failed").length;
+  const skipped = testResults.filter((t) => t.status === "skipped").length;
+  const summary = {
+    total: testResults.length,
+    passed,
+    failed,
+    skipped,
+    totalDuration: testResults.reduce((a, t) => a + (t.duration ?? 0), 0),
+    generatedAt: new Date().toISOString(),
+    tests: testResults.map((t) => ({
+      testCaseId: t.testCaseId,
+      status: t.status === "success" ? "passed" : t.status,
+      duration: t.duration ?? 0,
+      error: t.error ?? null,
+    })),
+  };
+  fs.writeFileSync(
+    path.join(REPORTS_DIR, "test-execution-summary.json"),
+    JSON.stringify(summary, null, 2)
+  );
+
+  console.log(`[Dashboard] Reports generated in ${REPORTS_DIR}`);
 }
 
 export { apiLogs };

@@ -91,8 +91,9 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
     try {
       const configs = await getFieldConfigs(activeTenantId);
       setFieldConfigs(configs);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to load field configs:", err);
+      setSaveStatus(`❌ Failed to load field configs: ${err.message}`);
     }
   }
 

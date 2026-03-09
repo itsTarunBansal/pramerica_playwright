@@ -30,4 +30,8 @@ Thumbs.db
 /playwright/.cache/
 /playwright/.auth/
 
-/backend/reports
+/backend/reports/*.xlsx
+
+# Dashboard
+automation-dashboard/.next/
+automation-dashboard/node_modules/

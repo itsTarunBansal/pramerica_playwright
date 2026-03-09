@@ -7,7 +7,7 @@ export default function LandingPage() {
     <div className="landing">
       <div className="landing-hero">
         <div className="landing-badge">AI-Powered</div>
-        <h1 className="landing-title">Insurance Test Copilot</h1>
+        <h1 className="landing-title">Kryptonite</h1>
         <p className="landing-sub">Automate, manage and run insurance journey tests with zero friction.</p>
       </div>
 

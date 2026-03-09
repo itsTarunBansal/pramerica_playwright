@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { chromium } from "playwright";
-import { attachNetworkLogger, exportApiLogsToExcel, clearApiLogs, saveLogsToDb, apiLogs } from "../services/apiLogger.js";
+import { attachNetworkLogger, exportApiLogsToExcel, clearApiLogs, saveLogsToDb, apiLogs, generateDashboardReports } from "../services/apiLogger.js";
 
 export const runTestsRouter = Router();
 
@@ -49,6 +49,7 @@ runTestsRouter.post("/", async (req, res) => {
     let applicationNumber = null;
     let status = "success";
     let error = null;
+    const tcStart = Date.now();
 
     try {
       const stepContext = { ...(testData ?? {}) };
@@ -147,6 +148,7 @@ runTestsRouter.post("/", async (req, res) => {
       applicationNumber: applicationNumber ?? "N/A",
       status,
       error,
+      duration: Date.now() - tcStart,
     });
   }
 
@@ -160,6 +162,7 @@ runTestsRouter.post("/", async (req, res) => {
     else console.warn("[API Logger] No projectId in request — logs not saved to DB");
     apiReportPath = await exportApiLogsToExcel();
     if (apiReportPath) console.log(`[API Logger] Report saved: ${apiReportPath}`);
+    await generateDashboardReports(results);
   } catch (err) {
     console.error("[API Logger] Failed to save logs:", err.message);
   }

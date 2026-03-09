@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* ── Kryptonite Theme Variables ── */
+[data-theme="kryptonite"] {
+  --k: #39ff14;
+  --km: #22cc44;
+  --kd: #0a6622;
+  --kdd: #043d12;
+  --kg: rgba(57,255,20,0.35);
+  --k10: rgba(57,255,20,0.10);
+  --k06: rgba(57,255,20,0.06);
+  --k03: rgba(57,255,20,0.03);
+  --border-k: rgba(57,255,20,0.08);
+  --border-kh: rgba(57,255,20,0.18);
+}
+
+/* ── Kryptonite Body ── */
+[data-theme="kryptonite"] body {
+  background: #040706 !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  color: rgba(57,255,20,0.75) !important;
+}
+
+/* ── Kryptonite Nav ── */
+[data-theme="kryptonite"] nav {
+  background: rgba(10,15,12,0.92) !important;
+  border-bottom: 1px solid rgba(57,255,20,0.08) !important;
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+[data-theme="kryptonite"] nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(57,255,20,0.06) 20%, rgba(57,255,20,0.12) 50%, rgba(57,255,20,0.06) 80%, transparent);
+}
+[data-theme="kryptonite"] nav span {
+  font-family: 'Orbitron', monospace !important;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #39ff14 !important;
+  text-shadow: 0 0 15px rgba(57,255,20,0.35);
+}
+[data-theme="kryptonite"] nav a {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: rgba(57,255,20,0.45) !important;
+  transition: color 0.2s;
+}
+[data-theme="kryptonite"] nav a:hover {
+  color: rgba(57,255,20,0.85) !important;
+}
+
+/* ── Kryptonite Main bg ── */
+[data-theme="kryptonite"] main {
+  background: radial-gradient(ellipse 70% 60% at 15% 90%, rgba(10,40,15,0.35) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 40% at 85% 85%, rgba(10,40,15,0.25) 0%, transparent 55%),
+              #040706;
+}
+
+/* ── Kryptonite headings ── */
+[data-theme="kryptonite"] h1,
+[data-theme="kryptonite"] h2 {
+  font-family: 'Orbitron', monospace !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(57,255,20,0.85) !important;
+}
+
+/* ── Kryptonite stat cards ── */
+[data-theme="kryptonite"] .k-stat-card {
+  background: #0e1512;
+  border: 1px solid rgba(57,255,20,0.08);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+[data-theme="kryptonite"] .k-stat-card:hover {
+  border-color: rgba(57,255,20,0.18);
+  box-shadow: 0 0 30px rgba(57,255,20,0.04);
+}
+[data-theme="kryptonite"] .k-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 2px; height: 100%;
+  background: linear-gradient(180deg, #39ff14, #0a6622, transparent);
+  opacity: 0.5;
+}
+[data-theme="kryptonite"] .k-stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, rgba(57,255,20,0.15), transparent 40%);
+}
+[data-theme="kryptonite"] .k-stat-label {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 8px !important;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(57,255,20,0.3) !important;
+}
+[data-theme="kryptonite"] .k-stat-value {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 28px !important;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(57,255,20,0.15);
+}
+
+/* ── Kryptonite chart containers ── */
+[data-theme="kryptonite"] .k-chart-wrap {
+  background: #0e1512 !important;
+  border: 1px solid rgba(57,255,20,0.08) !important;
+  border-radius: 2px !important;
+  position: relative;
+}
+[data-theme="kryptonite"] .k-chart-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(57,255,20,0.08) 30%, rgba(57,255,20,0.08) 70%, transparent);
+}
+
+/* ── Kryptonite table ── */
+[data-theme="kryptonite"] .k-table-wrap {
+  border: 1px solid rgba(57,255,20,0.08) !important;
+  border-radius: 2px !important;
+  background: #0e1512;
+}
+[data-theme="kryptonite"] .k-table-wrap table thead tr {
+  background: rgba(57,255,20,0.03) !important;
+}
+[data-theme="kryptonite"] .k-table-wrap table thead th {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 8px !important;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(57,255,20,0.3) !important;
+  border-bottom: 1px solid rgba(57,255,20,0.08) !important;
+}
+[data-theme="kryptonite"] .k-table-wrap table tbody td {
+  font-family: 'Rajdhani', sans-serif !important;
+  letter-spacing: 1px;
+  color: rgba(57,255,20,0.55) !important;
+  border-bottom: 1px solid rgba(57,255,20,0.04) !important;
+}
+[data-theme="kryptonite"] .k-table-wrap table tbody tr:hover td {
+  color: rgba(57,255,20,0.8) !important;
+  background: rgba(57,255,20,0.03) !important;
+}
+
+/* ── Kryptonite search input ── */
+[data-theme="kryptonite"] .k-search {
+  background: rgba(4,12,6,0.8) !important;
+  border: 1px solid rgba(57,255,20,0.12) !important;
+  border-radius: 2px !important;
+  color: rgba(57,255,20,0.75) !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  letter-spacing: 1px;
+}
+[data-theme="kryptonite"] .k-search:focus {
+  border-color: rgba(57,255,20,0.3) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(57,255,20,0.05);
+}
+[data-theme="kryptonite"] .k-search::placeholder {
+  color: rgba(57,255,20,0.2) !important;
+}
+
+/* ── Kryptonite scrollbar ── */
+[data-theme="kryptonite"] ::-webkit-scrollbar { width: 4px; height: 4px; }
+[data-theme="kryptonite"] ::-webkit-scrollbar-track { background: transparent; }
+[data-theme="kryptonite"] ::-webkit-scrollbar-thumb { background: rgba(57,255,20,0.1); border-radius: 2px; }
+[data-theme="kryptonite"] ::-webkit-scrollbar-thumb:hover { background: rgba(57,255,20,0.2); }
+
+/* ── Kryptonite AutoRefresh ── */
+[data-theme="kryptonite"] .k-autorefresh {
+  font-family: 'Rajdhani', sans-serif;
+  color: rgba(57,255,20,0.45);
+}
+[data-theme="kryptonite"] .k-autorefresh label { color: rgba(57,255,20,0.45); }
+[data-theme="kryptonite"] .k-autorefresh span { color: rgba(57,255,20,0.7); }
+
+/* ── Kryptonite record count text ── */
+[data-theme="kryptonite"] .k-record-count {
+  color: rgba(57,255,20,0.25) !important;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* ── Kryptonite alert/notice boxes ── */
+[data-theme="kryptonite"] .k-notice-warn {
+  background: rgba(255,170,0,0.06) !important;
+  border-color: rgba(255,170,0,0.2) !important;
+  color: #ffaa00 !important;
+  border-radius: 2px !important;
+}
+[data-theme="kryptonite"] .k-notice-ok {
+  background: rgba(57,255,20,0.05) !important;
+  border-color: rgba(57,255,20,0.15) !important;
+  color: rgba(57,255,20,0.7) !important;
+  border-radius: 2px !important;
+}
+
+/* ── Toggle Button ── */
+.k-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(57,255,20,0.06);
+  border: 1px solid rgba(57,255,20,0.2);
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: rgba(57,255,20,0.65);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.k-toggle:hover {
+  background: rgba(57,255,20,0.12);
+  color: #39ff14;
+  border-color: rgba(57,255,20,0.4);
+}
+.k-toggle--active {
+  background: rgba(57,255,20,0.10);
+  border-color: rgba(57,255,20,0.4);
+  color: #39ff14;
+  box-shadow: 0 0 14px rgba(57,255,20,0.15);
+  animation: kPulse 3s ease-in-out infinite;
+}
+[data-theme="kryptonite"] .k-toggle {
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+@keyframes kPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(57,255,20,0.1); }
+  50% { box-shadow: 0 0 20px rgba(57,255,20,0.28); }
+}

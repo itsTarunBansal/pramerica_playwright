@@ -15,7 +15,7 @@ export function createApp() {
 
   app.use(
     cors({
-      origin: config.corsOrigins,
+      origin: true,
       credentials: true
     })
   );

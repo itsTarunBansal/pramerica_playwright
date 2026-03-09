@@ -1,0 +1,93 @@
+[
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/Login.html",
+    "apiEndpoint": "https://api.ipify.org/?format=json",
+    "method": "GET",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:25:14.327Z",
+    "endTime": "2026-03-06T11:25:14.862Z",
+    "responseTime": 535,
+    "requestPayload": null,
+    "responseBody": "{\"ip\":\"203.110.90.234\"}",
+    "apiDomain": "api.ipify.org"
+  },
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/Home.html?n=5BYoJZcYPjw/ZHqx0ZgqT3o8TNAFuPy7wsdwRZN8tNf8674npdm+X0wshVfqwSTTpEmwTP8YHZejFbFMhpMbYJxZ+KmFBo7+zKVXT6ZGoZ5ts4Wykb0AlG7OJkpcqjHymhj8aXbuocqWgQlw0801wUXN1itssrD49HLlFXpHdPo=",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc//GetDedupe",
+    "method": "POST",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:25:23.952Z",
+    "endTime": "2026-03-06T11:25:24.380Z",
+    "responseTime": 428,
+    "requestPayload": "{\"pan\":\"LLLLL9999H\",\"mobile\":\"8888888888\",\"duId\":117350,\"sessionId\":\"260306165516748808\"}",
+    "responseBody": "{\"ErrorMsg\":null,\"ExtraData\":null,\"Responce\":null,\"StatusCode\":500,\"StatusMsg\":\"No customer data found for the provided PAN\"}",
+    "apiDomain": "nvestservuat.pramericalife.in"
+  },
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/kyc.html?n=5BYoJZcYPjw/ZHqx0ZgqT3o8TNAFuPy7wsdwRZN8tNf8674npdm+X0wshVfqwSTTpEmwTP8YHZejFbFMhpMbYJxZ+KmFBo7+zKVXT6ZGoZ5ts4Wykb0AlG7OJkpcqjHymhj8aXbuocqWgQlw0801weC6RVJ0l45NB9wXbo8/Qngf1Cm11fCTAcwC2LUu+WbPDbTth9soYOO+ow0hT1RHPju3IfDj26lOVqX8xrigN9e8a2Vuu7R1glrFyL1p8baWAAUFpMNwQD1HZLOK3P1ZLZXStIP5H4fHgm6nkEA4aVA0HVkfQmbur9+o2eDvLKoGmAhFBD/b6slsEv/u19Vi8Q==",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GenerateAppNo?DuId=117350",
+    "method": "GET",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:25:27.417Z",
+    "endTime": "2026-03-06T11:25:27.857Z",
+    "responseTime": 440,
+    "requestPayload": null,
+    "responseBody": "{\"ErrorMsg\":\"\",\"Responce\":\"ZN1633304282\",\"StatusCode\":200,\"StatusMsg\":\"Success\"}",
+    "apiDomain": "nvestservuat.pramericalife.in"
+  },
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/kycDetails.html?n=5BYoJZcYPjw/ZHqx0ZgqT3o8TNAFuPy7wsdwRZN8tNf8674npdm+X0wshVfqwSTTpEmwTP8YHZejFbFMhpMbYJxZ+KmFBo7+zKVXT6ZGoZ5ts4Wykb0AlG7OJkpcqjHymhj8aXbuocqWgQlw0801weC6RVJ0l45NB9wXbo8/Qngf1Cm11fCTAcwC2LUu+WbPDbTth9soYOO+ow0hT1RHPju3IfDj26lOVqX8xrigN9e8a2Vuu7R1glrFyL1p8baWAAUFpMNwQD1HZLOK3P1ZLZXStIP5H4fHgm6nkEA4aVA0HVkfQmbur9+o2eDvLKoGCE/Bf3qiBmmMnl44YwWdokWFIT8X1B6aSQcBGi1MlpzgZwGgAErXX4yW+Ka5eoY0/sMmvdGhEpOSl6BId7nBT4ufAQGT61SELJnzUCrXZk6kOJrz29Ev21sNalJ6iJzJB7i5iBu5iFcc1tG2hW8otvm2JstxtkdTnjE4LS+WHd4=",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/SaveDigijourneyInputs?duid=117350&AppNo=ZN1633304282",
+    "method": "POST",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:25:36.535Z",
+    "endTime": "2026-03-06T11:25:36.914Z",
+    "responseTime": 379,
+    "requestPayload": "[{\"Keyword\":\"@IPKW_LA_PH_SAME\",\"Value\":\"Y\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_SALUTATION\",\"Value\":\"MR\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_FIRSTNAME\",\"Value\":\"Testing\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_MIDDLENAME\",\"Value\":\"Testing\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_LASTNAME\",\"Value\":\"Testing\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_GENDER\",\"Value\":\"M\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_DOB\",\"Value\":null,\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_SERVICE_TYPE\",\"Value\":\"-1\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_SERVICE_BRANCH\",\"Value\":\"-1\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_INDICATE_CAT\",\"Value\":\"-1\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PLIL_EmpCode\",\"Value\":\"\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_MOBILENO\",\"Value\":\"8888888888\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_ALTERNATENUMBER\",\"Value\":\"\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_EMAILID\",\"Value\":\"test@pramericalife.in\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_ADD_LINE_1\",\"Value\":\"gggui\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_ADD_LINE_2\",\"Value\":\"gugiuhg\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_ADD_LINE_3\",\"Value\":\"huhujh\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_ADD_LINE_4\",\"Value\":\"gugiuhgju\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_PINCODE\",\"Value\":\"122018\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_STATE\",\"Value\":\"6\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_CITY\",\"Value\":\"AZNM\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PERM_COMM_ADD_SAME\",\"Value\":\"Y\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_ADD_LINE_1\",\"Value\":\"gggui\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_ADD_LINE_2\",\"Value\":\"gugiuhg\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_ADD_LINE_3\",\"Value\":\"huhujh\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_ADD_LINE_4\",\"Value\":\"gugiuhgju\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_PINCODE\",\"Value\":\"122018\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_STATE\",\"Value\":\"6\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_COMMS_CITY\",\"Value\":\"AZNM\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_KYC_TYPE\",\"Value\":\"\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_AADHAAR_NUMBER\",\"Value\":\"\",\"IsEditable\":false,\"Source\":\"KYC_EDITED\"},{\"Keyword\":\"@IPKW_PH_PAN\",\"Value\":\"LLLLL9999H\",\"IsEditable\":false,\"Source\":\"PAN_DEDUPE\"},{\"Keyword\":\"@IPKW_LA_PAN\",\"Value\":\"LLLLL9999H\",\"IsEditable\":false,\"Source\":\"PAN_DEDUPE\"}]",
+    "responseBody": "{\"ErrorMsg\":null,\"Responce\":33,\"StatusCode\":200,\"StatusMsg\":\"Success\"}",
+    "apiDomain": "nvestservuat.pramericalife.in"
+  },
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/Advisory.html?n=5BYoJZcYPjw/ZHqx0ZgqT3o8TNAFuPy7wsdwRZN8tNf8674npdm+X0wshVfqwSTTpEmwTP8YHZejFbFMhpMbYJxZ+KmFBo7+zKVXT6ZGoZ5ts4Wykb0AlG7OJkpcqjHymhj8aXbuocqWgQlw0801weC6RVJ0l45NB9wXbo8/Qngf1Cm11fCTAcwC2LUu+WbPDbTth9soYOO+ow0hT1RHPju3IfDj26lOVqX8xrigN9e8a2Vuu7R1glrFyL1p8baWAAUFpMNwQD1HZLOK3P1ZLZXStIP5H4fHgm6nkEA4aVA0HVkfQmbur9+o2eDvLKoGCE/Bf3qiBmmMnl44YwWdokWFIT8X1B6aSQcBGi1MlpzgZwGgAErXX4yW+Ka5eoY0/sMmvdGhEpOSl6BId7nBT4ufAQGT61SELJnzUCrXZk6kOJrz29Ev21sNalJ6iJzJB7i5iBu5iFcc1tG2hW8otvm2JstxtkdTnjE4LS+WHd4=",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GetAdivoryDataOnPageLoad",
+    "method": "POST",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:25:48.405Z",
+    "endTime": "2026-03-06T11:25:48.656Z",
+    "responseTime": 251,
+    "requestPayload": "\"117350\"",
+    "responseBody": "{\"ErrorMsg\":null,\"Responce\":null,\"StatusCode\":200,\"StatusMsg\":\"Success\"}",
+    "apiDomain": "nvestservuat.pramericalife.in"
+  },
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/input.html?n=5BYoJZcYPjw/ZHqx0ZgqT3o8TNAFuPy7wsdwRZN8tNf8674npdm+X0wshVfqwSTTpEmwTP8YHZejFbFMhpMbYJxZ+KmFBo7+zKVXT6ZGoZ5ts4Wykb0AlG7OJkpcqjHymhj8aXbuocqWgQlw0801weC6RVJ0l45NB9wXbo8/Qngf1Cm11fCTAcwC2LUu+WbPDbTth9soYOO+ow0hT1RHPju3IfDj26lOVqX8xrigN9e8a2Vuu7R1glrFyL1p8baWAAUFpMNwQD1HZLOK3P1ZLZXStIP5H4fHgm6nkEA4aVA0HVkfQmbur9+o2eDvLKoG2xp2UrGhgI5LajMqZOaPRDuUY5RqUlT0tvmOuzPZPUtArVNtoMAMetBOHluvv47hxhoWu96tS2x9sUM7/oAPRUiRVjWqPrFtTIEEGYsNItlsKQhZgmAuRFPi8s6289UJ",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GetAdivoryDataOnPageLoad",
+    "method": "POST",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:25:55.742Z",
+    "endTime": "2026-03-06T11:25:56.167Z",
+    "responseTime": 425,
+    "requestPayload": "\"117350\"",
+    "responseBody": "{\"ErrorMsg\":null,\"Responce\":{\"DU_ID\":\"117350\",\"Parameters\":\"{\\\"SubChannel\\\":\\\"\\\",\\\"LifeGoal\\\":\\\"2\\\",\\\"Display_LifeGoal\\\":\\\"Regular Income\\\",\\\"PinCode\\\":\\\"\\\",\\\"MobileNo\\\":\\\"~\\\",\\\"EmailId\\\":\\\"\\\",\\\"LifeStage\\\":\\\"2\\\",\\\"Display_LifeStage\\\":\\\"Married\\\",\\\"RiskAppetite\\\":\\\"2\\\",\\\"Display_RiskAppetite\\\":\\\"Medium Risk\\\",\\\"TimeHorizone\\\":\\\"2\\\",\\\"Display_TimeHorizone\\\":\\\"Medium Term\\\",\\\"Monthly_Income\\\":1000000,\\\"Monthly_Expenses\\\":10000,\\\"Monthly_Surplus\\\":990000}\"},\"StatusCode\":200,\"StatusMsg\":\"Success\"}",
+    "apiDomain": "nvestservuat.pramericalife.in"
+  },
+  {
+    "testCase": "1",
+    "pageUrl": "https://nvestuat.pramericalife.in/Life/input.html?n=5BYoJZcYPjw/ZHqx0ZgqT3o8TNAFuPy7wsdwRZN8tNf8674npdm+X0wshVfqwSTTpEmwTP8YHZejFbFMhpMbYJxZ+KmFBo7+zKVXT6ZGoZ5ts4Wykb0AlG7OJkpcqjHymhj8aXbuocqWgQlw0801weC6RVJ0l45NB9wXbo8/Qngf1Cm11fCTAcwC2LUu+WbPDbTth9soYOO+ow0hT1RHPju3IfDj26lOVqX8xrigN9e8a2Vuu7R1glrFyL1p8baWAAUFpMNwQD1HZLOK3P1ZLZXStIP5H4fHgm6nkEA4aVA0HVkfQmbur9+o2eDvLKoG2xp2UrGhgI5LajMqZOaPRDuUY5RqUlT0tvmOuzPZPUtArVNtoMAMetBOHluvv47hxhoWu96tS2x9sUM7/oAPRUiRVjWqPrFtTIEEGYsNItlsKQhZgmAuRFPi8s6289UJ",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GetAdivoryDataOnPageLoad",
+    "method": "POST",
+    "statusCode": 200,
+    "startTime": "2026-03-06T11:26:00.466Z",
+    "endTime": "2026-03-06T11:26:00.677Z",
+    "responseTime": 211,
+    "requestPayload": "\"117350\"",
+    "responseBody": "{\"ErrorMsg\":null,\"Responce\":{\"DU_ID\":\"117350\",\"Parameters\":\"{\\\"SubChannel\\\":\\\"\\\",\\\"LifeGoal\\\":\\\"2\\\",\\\"Display_LifeGoal\\\":\\\"Regular Income\\\",\\\"PinCode\\\":\\\"\\\",\\\"MobileNo\\\":\\\"~\\\",\\\"EmailId\\\":\\\"\\\",\\\"LifeStage\\\":\\\"2\\\",\\\"Display_LifeStage\\\":\\\"Married\\\",\\\"RiskAppetite\\\":\\\"2\\\",\\\"Display_RiskAppetite\\\":\\\"Medium Risk\\\",\\\"TimeHorizone\\\":\\\"2\\\",\\\"Display_TimeHorizone\\\":\\\"Medium Term\\\",\\\"Monthly_Income\\\":1000000,\\\"Monthly_Expenses\\\":10000,\\\"Monthly_Surplus\\\":990000}\"},\"StatusCode\":200,\"StatusMsg\":\"Success\"}",
+    "apiDomain": "nvestservuat.pramericalife.in"
+  }
+]

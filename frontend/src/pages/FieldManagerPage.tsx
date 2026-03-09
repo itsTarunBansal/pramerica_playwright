@@ -29,6 +29,7 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
   const [showModal, setShowModal] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+  const [error, setError] = useState<string | null>(null);
 
   function toggleSection(section: string) {
     setExpandedSections(prev => {
@@ -44,13 +45,12 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
 
   async function loadFields() {
     try {
-      console.log("Loading fields...");
       const data = await getFieldConfigs(activeTenantId);
-      console.log("Fields loaded:", data);
       setFields(data);
+      setExpandedSections(new Set([...new Set(data.map((f: any) => f.section))]));
+      setError(null);
     } catch (err: any) {
-      console.error("Error loading fields:", err);
-      alert("Failed to load fields: " + err.message);
+      setError("Failed to load fields: " + err.message);
     } finally {
       setLoading(false);
     }
@@ -154,6 +154,21 @@ export default function FieldManagerPage({ tenantId }: { tenantId?: string }) {
   const sections = [...new Set(fields.map(f => f.section))];
 
   if (loading) return <div className="field-manager">Loading...</div>;
+
+  if (error) {
+    return (
+      <div className="field-manager">
+        <div className="header">
+          <h1>Field Configuration Manager</h1>
+          <button onClick={loadFields} className="btn-primary">Retry</button>
+        </div>
+        <div style={{ padding: "40px", textAlign: "center", color: "#ef4444" }}>
+          <p>{error}</p>
+          <p style={{ fontSize: "14px", marginTop: "8px", color: "#6b7280" }}>Make sure the backend is running on port 8000</p>
+        </div>
+      </div>
+    );
+  }
 
   if (fields.length === 0) {
     return (

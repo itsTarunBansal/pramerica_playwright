@@ -27,9 +27,9 @@
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 16px 0;
-  color: #1f2937;
+  color: var(--ink);
   padding-bottom: 8px;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--border);
 }
 
 .fields-list {
@@ -43,20 +43,20 @@
   align-items: center;
   gap: 16px;
   padding: 16px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: 8px;
   cursor: move;
   transition: all 0.2s;
 }
 
 .field-item:hover {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border-color: #2563eb;
+  box-shadow: 0 4px 6px -1px var(--card-shadow);
+  border-color: var(--accent);
 }
 
 .drag-handle {
-  color: #9ca3af;
+  color: var(--muted);
   font-size: 20px;
   cursor: grab;
 }
@@ -71,7 +71,7 @@
 .field-name {
   font-weight: 600;
   font-size: 15px;
-  color: #1f2937;
+  color: var(--ink);
 }
 
 .field-meta {
@@ -83,14 +83,14 @@
 .field-key {
   font-family: monospace;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--muted);
 }
 
 .field-selector {
   font-family: monospace;
   font-size: 12px;
-  color: #9ca3af;
-  background: #f9fafb;
+  color: var(--muted);
+  background: var(--mono-bg);
   padding: 4px 8px;
   border-radius: 4px;
 }
@@ -113,16 +113,16 @@
 }
 
 .badge-skipped {
-  background: #fee2e2;
-  color: #ef4444;
+  background: var(--error-bg);
+  color: var(--danger);
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 12px;
 }
 
 .badge-capture {
-  background: #d1fae5;
-  color: #065f46;
+  background: var(--success-bg);
+  color: var(--success-text);
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 12px;
@@ -142,9 +142,9 @@
 }
 
 .btn-edit {
-  background: white;
-  color: #2563eb;
-  border: 1px solid #2563eb;
+  background: var(--panel);
+  color: var(--accent);
+  border: 1px solid var(--accent);
   padding: 6px 14px;
   border-radius: 4px;
   cursor: pointer;
@@ -153,8 +153,8 @@
 }
 
 .btn-edit:hover {
-  background: #2563eb;
-  color: white;
+  background: var(--accent);
+  color: #040706;
 }
 
 .modal-overlay {
@@ -171,19 +171,21 @@
 }
 
 .modal-content {
-  background: white;
+  background: var(--panel);
   padding: 32px;
   border-radius: 12px;
   max-width: 700px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  border: 1px solid var(--border);
 }
 
 .modal-content h2 {
   margin: 0 0 24px 0;
   font-size: 24px;
   font-weight: 600;
+  color: var(--ink);
 }
 
 .form-grid {
@@ -206,22 +208,24 @@
 .form-group label {
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: var(--ink);
 }
 
 .form-group input,
 .form-group select {
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--input-border);
   border-radius: 6px;
   font-size: 14px;
+  background: var(--input-bg);
+  color: var(--ink);
 }
 
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(57,255,20,0.1);
 }
 
 .modal-actions {
