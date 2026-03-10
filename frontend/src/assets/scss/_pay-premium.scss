@@ -1,0 +1,179 @@
+.pay-premium-box {
+  &:before {
+    content: '';
+    background-color: #e2f4ff;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 120px;
+  }
+  margin-bottom: 60px;
+}
+
+.pay-premium-body {
+  // background-color: #fff;
+  // border-radius: 8px;
+  // box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+  padding: 24px 0 0 0;
+  .form-group-new {
+    .user-options {
+      padding-top: 10px;
+    }
+  }
+  .action-btns {
+    padding-top: 8px;
+  }
+  .customer-login-wrapper {
+    h5 {
+      margin-bottom: 12px;
+    }
+    .customer-titles {
+      margin-bottom: 16px;
+    }
+  }
+  .reach-details {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background-color: #fbf4e9;
+    margin: 8px 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    p {
+      margin-bottom: 0px;
+    }
+    .btn-links {
+      font-size: 12px;
+      line-height: 22px;
+      padding-right: 15px;
+      &:before {
+        font-size: 10px;
+      }
+    }
+    .reach-left {
+      width: calc(100% - 131px);
+      padding-right: 18px;
+    }
+    .reach-or-text {
+      display: flex;
+      flex-wrap: wrap;
+      min-width: 131px;
+      p {
+        padding-right: 18px;
+      }
+    }
+  }
+}
+
+.pay-premium-row {
+  display: flex;
+  flex-wrap: wrap;
+  .pay-pre-left {
+    width: 200px;
+  }
+  .pay-pre-right {
+    width: calc(100% - 200px);
+    padding-left: 42px;
+  }
+}
+
+.pay-premium-datails {
+  padding: 16px 20px 1px;
+  border-radius: 12px;
+  background-color: #fbf4e9;
+  margin-bottom: 28px;
+  .pay-premiums-rows {
+    padding-top: 20px;
+
+    &:first-child {
+      padding-top: 0px;
+    }
+  }
+  .pay-pre-heads {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+    h5 {
+      margin-right: 17px;
+    }
+    .btn-links {
+      text-decoration: underline;
+    }
+  }
+  p {
+    color: #111;
+  }
+}
+
+.pay-premium-condition {
+  h5 {
+    margin-bottom: 16px;
+  }
+  .saving-options {
+    margin-bottom: 27px;
+  }
+  .custom-checkbox {
+    label {
+      line-height: 18px;
+    }
+  }
+}
+
+.faq-gaps {
+  padding-top: 50px;
+}
+
+@media (max-width: 991px) {
+  .pay-premium-box {
+    margin-bottom: 30px;
+  }
+  .pay-premium-row {
+    .pay-pre-left {
+      display: none;
+    }
+    .pay-pre-right {
+      padding-left: 0px;
+      width: 100%;
+    }
+  }
+  .faq-gaps {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pay-premium-body {
+    .reach-details {
+      padding: 12px;
+      text-align: center;
+      .reach-left {
+        padding-right: 0px;
+        width: 100%;
+      }
+      .reach-or-text {
+        width: 100%;
+        display: block;
+        p {
+          padding-right: 0px;
+          margin: 8px 0 5px;
+        }
+      }
+    }
+  }
+
+  .pay-premium-datails {
+    padding: 16px 16px 1px;
+  }
+  .pay-premium-condition {
+    .saving-options {
+      flex-direction: row;
+    }
+  }
+  .pay-premium-box {
+    margin-bottom: 26px;
+  }
+  .faq-gaps {
+    padding-top: 16px;
+  }
+}

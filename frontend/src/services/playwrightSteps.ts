@@ -119,7 +119,9 @@ export function buildSteps(d: PramericaTestData, baseUrl?: string) {
     { action: "fill", selector: "#Txt_PayerAccNumber", value: d.bankAccountNumber },
     { action: "fill", selector: "#Txt_PayerBankIFSCCode", value: d.ifscCode },
     { action: "wait", value: "15000" },
-    { action: "click", selector: "#rad_BankConsent > div:nth-child(2) > .text-center" },
+    // { action: "click", selector: "#rad_BankConsent > div:nth-child(2) > .text-center" },
+    { action: "click", selector: "#Button_PennyDrop_LA"},
+    { action: "click", selector: "role=button[name='OK']" },
 
     // EIA
     { action: "click", selector: "#rad_OpenEIA > div > .text-center > .p-0 >> nth=0" },

@@ -1,0 +1,179 @@
+.customer-service-box {
+  .select2-dropdown {
+    margin-top: -1px;
+    border: 1px solid #e8e8e8;
+    border-top: none;
+  }
+  .customer-service-wrap {
+    display: flex;
+  }
+
+  .customer-service-left {
+    width: calc(100% - 328px);
+  }
+
+  .customer-service-right {
+    width: 328px;
+    padding-left: 32px;
+  }
+
+  .customer-service-info {
+    padding: 24px 105px 24px 24px;
+    border-radius: 12px;
+    background: #007bc3;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bg-image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    content: '';
+    width: 130px;
+    height: 162px;
+    z-index: -1;
+  }
+
+  .cs-para {
+    p {
+      margin-bottom: 13px;
+
+      span {
+        font-family: $OpenSansSemiBold;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .customer-service-form {
+    padding: 24px;
+    border-radius: 12px;
+    background: #fbf4e9;
+
+    .btn-controls {
+      padding-top: 14px;
+    }
+
+    h5 {
+      margin-bottom: 8px;
+    }
+  }
+
+  .customer-service-bottom {
+    padding-top: 24px;
+  }
+
+  .customer-service-top {
+    h5 {
+      display: inline-block;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .size-14 {
+      color: #ffffff;
+    }
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .customer-service-box {
+    .customer-service-left {
+      width: calc(100% - 290px);
+    }
+
+    .customer-service-right {
+      width: 290px;
+      padding-left: 16px;
+    }
+
+    .customer-service-info {
+      padding: 24px;
+    }
+
+    .cs-para {
+      p {
+        max-width: 150px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .customer-service-box {
+    .saving-options {
+      flex-direction: row;
+    }
+    .customer-service-wrap {
+      flex-wrap: wrap;
+    }
+
+    .customer-service-left {
+      width: 100%;
+    }
+
+    .customer-service-right {
+      width: 100%;
+      padding-top: 24px;
+      padding-left: 0;
+    }
+
+    .customer-service-info {
+      padding: 24px;
+    }
+
+    .cs-para {
+      padding-right: 106px;
+      p {
+        max-width: initial;
+      }
+    }
+
+    .customer-service-form {
+      padding: 24px;
+      border-radius: 12px;
+      background: #fbf4e9;
+
+      .btn-controls {
+        padding-top: 14px;
+        .btn {
+          width: 100%;
+        }
+      }
+
+      h5 {
+        margin-bottom: 8px;
+      }
+    }
+
+    .customer-service-bottom {
+      padding-top: 24px;
+    }
+
+    .customer-service-top {
+      h5 {
+        display: inline-block;
+        color: #ffffff;
+        margin-bottom: 16px;
+      }
+
+      .size-14 {
+        color: #ffffff;
+      }
+
+      img {
+        display: none;
+        vertical-align: middle;
+      }
+    }
+  }
+}

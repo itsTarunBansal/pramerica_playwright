@@ -1,0 +1,135 @@
+.protection-xperts-work-box {
+  padding: 64px 0;
+  background-color: $lightBlue;
+  .xpert-work-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -45px;
+  }
+  .xpert-work-row {
+    width: 33.33%;
+    padding: 0 45px;
+    &:last-child {
+      .imager-inner {
+        &::after {
+          content: none;
+        }
+        &::before {
+          content: none;
+        }
+      }
+    }
+  }
+  .imager-inner {
+    max-width: 246px;
+    margin: 0 auto;
+    position: relative;
+    &::after {
+      position: absolute;
+      left: 100%;
+      content: '';
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px dashed #007bc3;
+      height: 1px;
+      width: calc(100% + 50px);
+    }
+    &::before {
+      position: absolute;
+      content: '\e968';
+      right: -50%;
+      font-family: 'icomoon';
+      top: 50%;
+      transform: translateY(-50%);
+      color: #007bc3;
+    }
+  }
+  .xpert-image-wrapper {
+    max-width: 346px;
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 50%;
+    background-color: $lightSkyBlue4;
+    img {
+      margin: 0 auto;
+    }
+  }
+  .xpert-content-wrap {
+    margin-top: -26px;
+    position: relative;
+    z-index: 2;
+  }
+  .xpert-description {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .protection-xperts-work-box {
+    .xpert-work-inner {
+      margin: 0 -20px;
+    }
+    .xpert-work-row {
+      padding: 0 20px;
+    }
+    .imager-inner {
+      z-index: 1;
+      &::after {
+        width: calc(100% + 30px);
+      }
+      &::before {
+        right: calc(-50% + 50px);
+      }
+    }
+    .xpert-image-wrapper {
+      padding: 30px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .protection-xperts-work-box {
+    .xpert-work-inner {
+      margin: -15px 0 0;
+    }
+    .xpert-work-row {
+      width: 100%;
+      padding: 15px 0 0;
+    }
+    .imager-inner {
+      z-index: 1;
+      &::after {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 100%;
+        width: 1px;
+        z-index: -1;
+        height: calc(100% + 30px);
+      }
+      &::before {
+        top: auto;
+        bottom: calc(-100% + 70px);
+        right: initial;
+        left: 50%;
+        color: #007bc3;
+        transform: translate(-50%, 0) rotate(90deg);
+      }
+    }
+    .xpert-image-wrapper {
+      max-width: 346px;
+      margin: 0 auto;
+    }
+    .xpert-content-wrap {
+      margin-top: 15px;
+      position: relative;
+      z-index: 2;
+      background-color: $lightBlue;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .protection-xperts-work-box {
+    padding: 40px 0;
+  }
+}

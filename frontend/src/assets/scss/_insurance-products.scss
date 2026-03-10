@@ -1,0 +1,41 @@
+.insurance-products-box {
+  .card-body {
+    padding: 16px;
+  }
+  .plan-detail {
+    padding: 10px;
+    background-color: $lightSkyBlue2;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .recommended-texts {
+    top: 13px;
+    right: 0;
+    left: auto !important;
+    padding: 3px 5px !important;
+    border-radius: 4px 0 0 4px !important;
+  }
+  .plan-heading,
+  .plan-description {
+    color: $blackColorScale-1;
+  }
+  .plan-heading {
+    font-family: $PrudentialBold;
+  }
+  .plan-description {
+    font-family: $PrudentialSemiBold;
+    font-weight: 500;
+    margin-top: 3px;
+  }
+  .blog-card .card-footer {
+    padding: 0 16px 16px;
+  }
+}
+
+@media (max-width: 1399px) {
+  .insurance-products-box {
+    .action-holder {
+      margin-top: 34px;
+    }
+  }
+}

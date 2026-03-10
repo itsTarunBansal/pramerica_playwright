@@ -1,0 +1,43 @@
+.how-it-works {
+  .works-row {
+    margin-top: -8px;
+  }
+  .works-col {
+    margin-top: 8px;
+  }
+  .div-cards {
+    padding: 24px 16px;
+    height: 100%;
+  }
+  p {
+    color: #111;
+  }
+  .counting {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: $whiteColor;
+    border: 1px solid $darkYellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 26px;
+    line-height: 31px;
+    letter-spacing: -0.78px;
+    font-family: $PrudentialBold;
+    color: $darkYellow;
+  }
+}
+
+@media (max-width: 767px) {
+  .how-it-works {
+    .works-card {
+      padding: 16px;
+    }
+    .works-text {
+      font-size: 18px;
+      line-height: 21px;
+    }
+  }
+}

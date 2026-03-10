@@ -1,0 +1,87 @@
+.calculator-box {
+  > .row {
+    > * {
+      &:first-child {
+        padding-bottom: 36px;
+      }
+    }
+  }
+  .calculator-block {
+    padding-right: 32px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  .white-card {
+    height: 100%;
+    border-radius: 12px;
+    padding: 32px 24px;
+    margin-right: -32px;
+    position: relative;
+  }
+  .tab-content {
+    box-shadow: 0px 6px 30px 0px $secondaryScale-2;
+    background-color: $secondaryScale-2;
+    height: 100%;
+    border-radius: 0 12px 12px 0;
+    padding-left: 56px;
+  }
+}
+.block-heading {
+  margin-bottom: 32px;
+}
+
+@media (max-width: 991px) {
+  .calculator-box {
+    > .row {
+      > * {
+        &:first-child {
+          padding-bottom: 0px;
+        }
+      }
+    }
+    .calculator-block {
+      padding: 24px;
+    }
+    .white-card {
+      height: auto;
+      margin-right: 0px;
+      padding: 0;
+      box-shadow: none;
+      background-color: transparent;
+      margin-bottom: 24px;
+    }
+    .tab-content {
+      height: auto;
+      border-radius: 12px;
+      padding: 0px;
+    }
+  }
+  .block-heading {
+    margin-bottom: 32px;
+  }
+
+  .product-cals {
+    .calculating-result {
+      display: block;
+      margin-top: 24px;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .block-heading {
+    margin-bottom: 24px;
+  }
+  .medium-sm {
+    font-family: $OpenSansMedium;
+  }
+  .semibold-sm {
+    font-family: $OpenSansSemiBold;
+  }
+
+  .product-cals {
+    .calculating-result {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+}

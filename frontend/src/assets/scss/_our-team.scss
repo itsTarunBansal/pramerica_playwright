@@ -1,0 +1,197 @@
+.our-team-box {
+  overflow: hidden;
+  padding-top: 24px;
+  .leadership-wrapper {
+    padding-top: 40px;
+    padding-bottom: 100px;
+    position: relative;
+    background-color: $whiteColor;
+    z-index: 1;
+    &::before {
+      position: absolute;
+      content: '';
+      left: -5000px;
+      width: 5000px;
+      height: 100%;
+      top: 0;
+      background-color: $whiteColor;
+      z-index: -1;
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      right: -5000px;
+      width: 5000px;
+      height: 100%;
+      top: 0;
+      background-color: $whiteColor;
+      z-index: -1;
+    }
+  }
+  .management-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -32px -16px 0;
+  }
+  .management-row {
+    width: 25%;
+    padding: 32px 16px 0;
+  }
+  .div-cards {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    min-height: 151px;
+    &:hover {
+      box-shadow: 0px 13px 28px 0px rgba(0, 102, 204, 0.13);
+    }
+  }
+  .top-content {
+    flex-grow: 1;
+  }
+  .member-name {
+    margin-bottom: 0;
+    color: $blackColorScale-1;
+  }
+  .member-designation {
+    margin-top: 16px;
+    letter-spacing: -0.28px;
+  }
+  .view-details {
+    margin-top: 16px;
+  }
+}
+
+.leadership-wrapper {
+  .leadership-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -32px -16px 0;
+  }
+  .leadership-row {
+    width: 25%;
+    padding: 32px 16px 0;
+  }
+}
+.leadership-col {
+  background-color: #e6e6e6;
+  border-radius: 12px;
+  padding: 25px 16px 87px;
+  box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+  position: relative;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.4s;
+  &:hover {
+    background-color: #e2f4ff;
+    .view-details {
+      display: block;
+    }
+  }
+  .leaders-details {
+    padding: 20px;
+    background-color: $whiteColor;
+    border-radius: 12px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+  }
+  .leader-description {
+    margin-bottom: 0;
+    margin-top: 8px;
+    letter-spacing: -0.28px;
+  }
+  .leaders-images {
+    height: 231px;
+    img {
+      height: 100%;
+      margin: 0 auto;
+      object-fit: cover;
+    }
+  }
+  .view-details {
+    display: none;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .our-team-box {
+    .management-inner {
+      margin: -32px -16px 0;
+    }
+    .management-row {
+      width: 33.33%;
+      padding: 32px 16px 0;
+    }
+  }
+  .leadership-wrapper {
+    .leadership-inner {
+      margin: -24px -12px 0;
+      justify-content: center;
+    }
+    .leadership-row {
+      width: 33.33%;
+      padding: 24px 12px 0;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .our-team-box {
+    .management-inner {
+      margin: -16px -8px 0;
+    }
+    .tab-content {
+      padding-top: 24px;
+      padding-bottom: 56px;
+    }
+    .management-row {
+      width: 50%;
+      padding: 16px 8px 0;
+    }
+    .leadership-wrapper {
+      .leadership-row {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .our-team-box {
+    padding-top: 16px;
+    .management-inner {
+      margin: -16px 0px 0;
+    }
+    .management-row {
+      width: 100%;
+      padding: 16px 0px 0;
+    }
+    .div-cards {
+      min-height: auto;
+    }
+    .member-designation {
+      margin-top: 12px;
+    }
+    .leadership-wrapper {
+      padding-top: 24px;
+      padding-bottom: 56px;
+      .leadership-inner {
+        margin: -24px 0px 0;
+      }
+      .leadership-row {
+        width: 100%;
+        padding: 24px 0px 0;
+      }
+    }
+  }
+  .leadership-col {
+    padding-top: 20px;
+    .view-details {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+.meet-our-team-box {
+  .leadership-row {
+    padding: 32px 16px 32px;
+
+    &:first-child {
+      .leadership-col {
+        .meet-team-img {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
+  }
+
+  .leadership-col {
+    border-radius: 12px;
+    background: $whiteColor;
+    box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+    padding: 24px 24px 286px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+
+    &:hover {
+      .view-details-wrap {
+        transform: translateY(0%);
+      }
+    }
+  }
+
+  .view-details-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    transition: all 0.3s;
+  }
+
+  .view-details-text {
+    padding: 23px;
+    background: rgba(0, 123, 195, 0.3);
+    text-align: center;
+    display: block;
+    color: $whiteColor;
+    font-family: $OpenSansBold;
+  }
+
+  .meet-team-img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .leader-name {
+    color: $blackColorScale-1;
+    margin-bottom: 0;
+    font-family: $PrudentialBold;
+  }
+
+  .leader-profile {
+    color: rgba($color: $blackColorScale-9, $alpha: 0.7);
+    margin-top: 2px;
+    font-family: $OpenSansSemiBold;
+  }
+
+  .all-members-wrap {
+    text-align: center;
+    padding-top: 20px;
+  }
+}

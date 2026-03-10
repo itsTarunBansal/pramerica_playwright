@@ -1,0 +1,200 @@
+.get-updates-box {
+  .get-updates-wrap {
+    padding-bottom: 32px;
+    margin: 0 -16px;
+  }
+  .get-updates-item {
+    padding: 40px 185px 36px 36px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 16px;
+    z-index: 1;
+    &:last-child {
+      margin-right: 0;
+    }
+    &.dark-bg {
+      background-color: #001f45;
+      color: $whiteColor;
+    }
+    &.light-blue {
+      background-color: #7ecaf2;
+      color: $blackColorScale-1;
+      .heading32 {
+        color: $blackColorScale-1;
+      }
+    }
+    .btn-controls {
+      padding-top: 32px;
+    }
+    .bg-image {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .heading32 {
+      margin-bottom: 20px;
+      color: $whiteColor;
+      span {
+        position: relative;
+        display: inline-block;
+        &:before {
+          content: '';
+          position: absolute;
+          background-image: url('../images/dash-bg.svg');
+          left: 0;
+          top: calc(100% - 6px);
+          z-index: 8;
+          width: 112px;
+          height: 10px;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+    .whatsapp-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      color: $blackColorScale-1;
+      img {
+        width: 30px;
+        margin-right: 5px;
+      }
+    }
+    .updates-list {
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: $blackColorScale-1;
+        padding-left: 30px;
+        position: relative;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        span {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 25px;
+          height: 25px;
+          margin-right: 9px;
+          border-radius: 50%;
+          font-size: 16px;
+          line-height: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $secondary;
+          color: $linkColor;
+        }
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          height: 13px;
+          margin: 0;
+          width: auto;
+        }
+        p {
+          color: $blackColorScale-1;
+        }
+      }
+    }
+    .heading20 {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .get-updates-box {
+    padding-top: 40px;
+    padding-bottom: 82px;
+    .get-updates-wrap {
+      padding-bottom: 16px;
+    }
+    .great-place-bg {
+      height: 108px;
+      width: auto;
+    }
+    .get-updates-item {
+      margin: 0 8px;
+      padding: 20px 166px 20px 20px;
+      border-radius: 10px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      &.light-blue {
+        .heading32 {
+          margin-bottom: 8px;
+        }
+      }
+      .btn-controls {
+        padding-top: 25px;
+      }
+      .heading32 {
+        font-size: 22px;
+        margin-bottom: 26px;
+        span {
+          &:before {
+            top: calc(100% - 3px);
+            width: 78px;
+            height: 6px;
+          }
+        }
+      }
+      .whatsapp-section {
+        margin-bottom: 8px;
+        img {
+          width: 24px;
+        }
+      }
+      .updates-list {
+        li {
+          padding-left: 20px;
+          margin-bottom: 8px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          span {
+            top: 3px;
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+          }
+          img {
+            height: 10px;
+          }
+        }
+      }
+      .heading20 {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .get-updates-box {
+    .container {
+      padding: 0 16px;
+    }
+    .get-updates-item {
+      padding: 20px 110px 20px 20px;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .get-updates-box {
+    .get-updates-item {
+      padding: 20px 100px 20px 20px;
+    }
+  }
+}

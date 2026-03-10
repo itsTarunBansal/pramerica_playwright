@@ -1,0 +1,13 @@
+.discover-branch-box {
+  background-color: $secondary;
+  padding: 24px 0 41px;
+  .branch-locate-text {
+    color: $blackColorScale-1;
+  }
+}
+
+@media (max-width: 767px) {
+  .discover-branch-box {
+    padding: 16px 0 24px;
+  }
+}

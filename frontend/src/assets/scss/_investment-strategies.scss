@@ -1,0 +1,111 @@
+.investment-strategies-box {
+  padding-bottom: 50px;
+  .lift-stage-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px;
+    border-radius: 12px;
+    background: $whiteColor;
+    box-shadow: 0 3px 36px 0 rgba($blackColor, 0.1);
+  }
+  .lift-stage-left {
+    display: flex;
+    width: 45%;
+    flex-wrap: wrap;
+    margin: -16px -8px 0;
+    .lift-stage-col {
+      padding: 16px 8px 0;
+    }
+  }
+  .lift-stage-mid {
+    width: 25%;
+    margin-top: -23px;
+    margin-bottom: -23px;
+  }
+  .lift-stage-right {
+    width: 30%;
+  }
+  .lift-stage-info {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: $secondary;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .lift-stage-point {
+      flex-grow: 1;
+      ul {
+        li {
+          color: $blackColorScale-3;
+          margin-bottom: 24px;
+          line-height: 1;
+          position: relative;
+          padding-left: 18px;
+          &.yellow {
+            &:before {
+              background-color: $yellowScale-1;
+            }
+          }
+          &.orange {
+            &:before {
+              background-color: $orange;
+            }
+          }
+          &:before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .btn-controls {
+      padding-top: 37px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .investment-strategies-box {
+    padding-bottom: 28px;
+    .lift-stage-wrap {
+      padding: 24px;
+      flex-wrap: wrap;
+    }
+    .lift-stage-left {
+      width: 100%;
+      margin: -8px -4px 0;
+      .lift-stage-col {
+        padding: 8px 4px 0;
+      }
+    }
+    .lift-stage-mid {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .lift-stage-right {
+      width: 100%;
+    }
+    .lift-stage-info {
+      padding: 16px;
+      .lift-stage-point {
+        flex-grow: initial;
+      }
+      .btn-controls {
+        padding-top: 16px;
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -4,44 +4,62 @@
     "apiDomain": "api.ipify.org",
     "method": "GET",
     "totalCalls": 1,
-    "avgResponseTime": 535,
-    "minResponseTime": 535,
-    "maxResponseTime": 535
+    "avgResponseTime": 690,
+    "minResponseTime": 690,
+    "maxResponseTime": 690
   },
   {
     "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc//GetDedupe",
     "apiDomain": "nvestservuat.pramericalife.in",
     "method": "POST",
     "totalCalls": 1,
-    "avgResponseTime": 428,
-    "minResponseTime": 428,
-    "maxResponseTime": 428
+    "avgResponseTime": 815,
+    "minResponseTime": 815,
+    "maxResponseTime": 815
   },
   {
-    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GenerateAppNo?DuId=117350",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GenerateAppNo?DuId=117444",
     "apiDomain": "nvestservuat.pramericalife.in",
     "method": "GET",
     "totalCalls": 1,
-    "avgResponseTime": 440,
-    "minResponseTime": 440,
-    "maxResponseTime": 440
+    "avgResponseTime": 452,
+    "minResponseTime": 452,
+    "maxResponseTime": 452
   },
   {
-    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/SaveDigijourneyInputs?duid=117350&AppNo=ZN1633304282",
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/SaveDigijourneyInputs?duid=117444&AppNo=ZN1633304329",
     "apiDomain": "nvestservuat.pramericalife.in",
     "method": "POST",
     "totalCalls": 1,
-    "avgResponseTime": 379,
-    "minResponseTime": 379,
-    "maxResponseTime": 379
+    "avgResponseTime": 446,
+    "minResponseTime": 446,
+    "maxResponseTime": 446
   },
   {
     "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/GetAdivoryDataOnPageLoad",
     "apiDomain": "nvestservuat.pramericalife.in",
     "method": "POST",
     "totalCalls": 3,
-    "avgResponseTime": 296,
-    "minResponseTime": 211,
-    "maxResponseTime": 425
+    "avgResponseTime": 257,
+    "minResponseTime": 195,
+    "maxResponseTime": 326
+  },
+  {
+    "apiEndpoint": "https://equoteservuat.pramericalife.in/Nsureservices.svc/SaveQuotationData",
+    "apiDomain": "equoteservuat.pramericalife.in",
+    "method": "POST",
+    "totalCalls": 1,
+    "avgResponseTime": 483,
+    "minResponseTime": 483,
+    "maxResponseTime": 483
+  },
+  {
+    "apiEndpoint": "https://nvestservuat.pramericalife.in/DigiServices.svc/UpdateAppDetails",
+    "apiDomain": "nvestservuat.pramericalife.in",
+    "method": "POST",
+    "totalCalls": 1,
+    "avgResponseTime": 235,
+    "minResponseTime": 235,
+    "maxResponseTime": 235
   }
 ]

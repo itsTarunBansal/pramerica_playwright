@@ -3,8 +3,10 @@ import { useProject, NVEST_TENANT_ID } from "../context/ProjectContext";
 import type { PramericaTestData } from "../types";
 import { buildSteps } from "../services/playwrightSteps";
 import { buildDynamicSteps } from "../services/dynamicSteps";
-import { runTestCases, getFieldConfigs, createTestCase } from "../services/api";
 import * as XLSX from "xlsx";
+import { useAppDispatch, useAppSelector } from "../store";
+import { fetchFieldConfigs } from "../store/slices/fieldConfigsSlice";
+import { runTests, saveTestCase, clearErrors } from "../store/slices/testCasesSlice";
 import "./TestCaseGeneratorPage.css";
 const DEFAULT_ROW: PramericaTestData = {
   agentCode: "70016333", otp1: "1", otp2: "2", otp3: "3", otp4: "1", otp5: "2", otp6: "3", 
@@ -21,7 +23,7 @@ const DEFAULT_ROW: PramericaTestData = {
   spouseName: "", fatherName: "", motherName: "",
   nomineeRelation: "FTR", nomineeTitle: "DR", nomineeName: "", nomineeGender: "Male",
   nomineeSharePercentage: "100", nomineeDOB: "",
-  bankAccountNumber: "", ifscCode: "",
+  bankAccountNumber: "", ifscCode: "", pennyDrop: "",
   weightKgs: "", heightFeet: "5", heightInches: "6",
   paymentUrl: "", fundTransferNumber: "",
 };
@@ -46,60 +48,46 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
   const [rows, setRows] = useState<PramericaTestData[]>([]);
   const [dynamicExtras, setDynamicExtras] = useState<DynamicExtras[]>([]);
   const [count, setCount] = useState(1);
-  const [running, setRunning] = useState(false);
-  const [runStatus, setRunStatus] = useState<string | null>(null);
-  const [lastRunId, setLastRunId] = useState<string | null>(null);
-  const [fieldConfigs, setFieldConfigs] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
+  const { items: fieldConfigs } = useAppSelector((s) => s.fieldConfigs);
+  const { running, saving, runResults, lastRunId, runError, saveError } = useAppSelector((s) => s.testCases);
   const [useDynamicFields, setUseDynamicFields] = useState(isDynamicProject);
-  const [saving, setSaving] = useState(false);
+  const [runStatus, setRunStatus] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    loadFieldConfigs();
-  }, [activeTenantId]);
+    dispatch(fetchFieldConfigs(activeTenantId));
+    return () => { dispatch(clearErrors()); };
+  }, [activeTenantId, dispatch]);
 
   useEffect(() => {
-    // Initialize first row when field configs are loaded or when toggling dynamic fields
-    if (fieldConfigs.length > 0) {
-      if (rows.length === 0) {
-        // Create initial row
-        const initialRow = createRowWithDefaults();
-        setRows([initialRow]);
-      } else {
-        // Apply default values to existing rows when field configs change or dynamic fields toggle
-        setRows(prevRows => prevRows.map(row => {
-          const updatedRow = { ...row };
-          if (useDynamicFields) {
-            fieldConfigs.forEach(config => {
-              if (config.defaultValue && config.fieldName in updatedRow) {
-                // Only apply default if field is empty or matches old default
-                const currentValue = updatedRow[config.fieldName as keyof PramericaTestData];
-                if (!currentValue || currentValue === DEFAULT_ROW[config.fieldName as keyof PramericaTestData]) {
-                  (updatedRow as any)[config.fieldName] = config.defaultValue;
-                }
-              }
-            });
+    if (rows.length === 0) {
+      setRows([createRowWithDefaults()]);
+      setDynamicExtras([{}]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (fieldConfigs.length > 0 && useDynamicFields && rows.length > 0) {
+      setRows(prevRows => prevRows.map(row => {
+        const updatedRow = { ...row };
+        fieldConfigs.forEach(config => {
+          if (config.defaultValue && config.fieldName in updatedRow) {
+            const currentValue = updatedRow[config.fieldName as keyof PramericaTestData];
+            if (!currentValue || currentValue === DEFAULT_ROW[config.fieldName as keyof PramericaTestData]) {
+              (updatedRow as any)[config.fieldName] = config.defaultValue;
+            }
           }
-          return updatedRow;
-        }));
-      }
+        });
+        return updatedRow;
+      }));
     }
   }, [fieldConfigs, useDynamicFields]);
 
-  async function loadFieldConfigs() {
-    try {
-      const configs = await getFieldConfigs(activeTenantId);
-      setFieldConfigs(configs);
-    } catch (err: any) {
-      console.error("Failed to load field configs:", err);
-      setSaveStatus(`❌ Failed to load field configs: ${err.message}`);
-    }
-  }
-
   async function syncFieldsAndDefaults() {
-    await loadFieldConfigs();
+    await dispatch(fetchFieldConfigs(activeTenantId));
     applyDefaultsToAllRows();
   }
 
@@ -119,7 +107,7 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
   }
 
   // Merge static row + dynamic extras into one object for step building
-  function mergeRowData(rowIdx: number): any {
+  function mergeRowData(rowIdx: any): any {
     return { ...rows[rowIdx], ...(dynamicExtras[rowIdx] ?? {}) };
   }
 
@@ -148,55 +136,47 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
   }
 
   async function saveTestCases() {
-    setSaving(true);
     setSaveStatus(null);
-    try {
-      await Promise.all(
-        rows.map((testData, i) =>
-          createTestCase({
-            name: `${testData.firstName || "Test"} ${testData.lastName || "Case"} - ${testData.agentCode}`,
-            appUrl: activeProjectUrl,
-            tenantId: activeTenantId,
-            insuranceInput: { age: 0, sumInsured: 0, policyType: "term" },
-            steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs, activeProjectUrl) : buildSteps(testData, activeProjectUrl),
-          })
-        )
-      );
-      setSaveStatus(`✅ ${rows.length} test case(s) saved`);
-    } catch (err: any) {
-      setSaveStatus(`❌ Save failed: ${err.message}`);
-    } finally {
-      setSaving(false);
-    }
+    const results = await Promise.all(
+      rows.map((testData, i) =>
+        dispatch(saveTestCase({
+          name: `${testData.firstName || "Test"} ${testData.lastName || "Case"} - ${testData.agentCode}`,
+          appUrl: activeProjectUrl,
+          tenantId: activeTenantId,
+          insuranceInput: { age: 0, sumInsured: 0, policyType: "term" },
+          steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs, activeProjectUrl) : buildSteps(testData, activeProjectUrl),
+        }))
+      )
+    );
+    const failed = results.filter((r) => r.meta.requestStatus === "rejected");
+    setSaveStatus(failed.length === 0 ? `✅ ${rows.length} test case(s) saved` : `❌ ${failed.length} save(s) failed`);
   }
 
-  async function runTests() {
-    setRunning(true);
+  async function handleRunTests() {
+    console.log("handleRunTests called", { rows: rows.length, activeProjectUrl, activeTenantId });
     setRunStatus(null);
-    try {
-      const testCases = rows.map((testData, i) => ({
-        testCaseId: i + 1,
-        url: activeProjectUrl,
-        steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs, activeProjectUrl) : buildSteps(testData, activeProjectUrl),
-        testData: mergeRowData(i),
-      }));
-      console.log("Generated test cases:", testCases);
-      const { results, runId } = await runTestCases(testCases, activeTenantId);
-      if (runId) setLastRunId(runId);
-      // Build CSV/Excel content
+    console.log(rows, '--->>>>>', buildDynamicSteps(mergeRowData(rows[0]), fieldConfigs, activeProjectUrl))
+    const testCases = rows.map((testData, i) => ({
+      testCaseId: i + 1,
+      url: activeProjectUrl,
+      steps: useDynamicFields ? buildDynamicSteps(mergeRowData(i), fieldConfigs, activeProjectUrl) : buildSteps(testData, activeProjectUrl),
+      testData: mergeRowData(i),
+    }));
+    console.log("Dispatching runTests with", { testCases, projectId: activeTenantId });
+    const action = await dispatch(runTests({ testCases, projectId: activeTenantId }));
+    console.log("runTests action result", action);
+    if (action.meta.requestStatus === "fulfilled") {
+      const { results } = (action as any).payload;
       const header = "testCaseId,agentCode,proposerPAN,firstName,lastName,applicationNumber,status,error";
-      const body = results.map(r =>
+      const body = results.map((r: any) =>
         `"${r.testCaseId}","${r.agentCode}","${r.proposerPAN}","${r.firstName}","${r.lastName}","${r.applicationNumber}","${r.status}","${r.error ?? ""}"`
       ).join("\n");
       downloadFile(`${header}\n${body}`, "application-numbers.csv", "text/csv");
-      const passed = results.filter(r => r.status === "success").length;
+      const passed = results.filter((r: any) => r.status === "success").length;
       setRunStatus(`✅ ${passed}/${results.length} passed — Results downloaded`);
-    } catch (err: any) {
-      setRunStatus(`❌ ${err.message}`);
-    } finally {
-      setRunning(false);
+    } else {
+      setRunStatus(`❌ ${(action as any).error?.message ?? "Run failed"}`);
     }
-
   }
 
   function addRows() {
@@ -462,7 +442,16 @@ export default function TestCaseGeneratorPage({ tenantId, projectUrl: propProjec
           <button onClick={saveTestCases} disabled={saving || rows.length === 0} className="btn-secondary">
             {saving ? "💾 Saving..." : "💾 Save Test Cases"}
           </button>
-          <button onClick={runTests} disabled={running} className="btn-primary">
+          <button 
+            onClick={(e) => { 
+              e.preventDefault(); 
+              e.stopPropagation(); 
+              console.log("Run Tests button clicked", { running, rowsLength: rows.length }); 
+              handleRunTests(); 
+            }} 
+            disabled={running || rows.length === 0} 
+            className="btn-primary"
+          >
             {running ? "⏳ Running..." : "▶ Run Tests"}
           </button>
           <button onClick={downloadExcelFormat} className="btn-secondary">

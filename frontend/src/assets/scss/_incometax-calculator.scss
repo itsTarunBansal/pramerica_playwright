@@ -1,0 +1,451 @@
+.all-calculator-box {
+  .block-heading {
+    margin-bottom: 24px;
+  }
+}
+.all-calculator {
+  border-radius: 12px 0 0 12px;
+  padding: 32px;
+  .action-holder {
+    margin-top: 20px;
+  }
+}
+.calculating-result {
+  background-color: #bfe1e1;
+  border-radius: 12px;
+  margin-left: -12px;
+  position: relative;
+  height: 100%;
+  padding: 24px;
+  .info {
+    p {
+      color: #555;
+      text-align: center;
+      font-size: 12px;
+      line-height: 130%;
+      margin-bottom: 8px;
+    }
+  }
+}
+.calculator-fieldset {
+  .accordion-item,
+  .accordion-button {
+    background-color: transparent;
+  }
+  .accordion-item {
+    margin-bottom: 0;
+    &:last-of-type {
+      .accordion-button {
+        border-bottom: 0;
+        &.collapsed {
+          border-radius: 0;
+          border-bottom: 0;
+        }
+      }
+      .accordion-body {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+    .accordion-body {
+      padding-top: 8px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba($color: #111111, $alpha: 0.1);
+    }
+  }
+  .accordion-button {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 12px 0;
+    border-radius: 0;
+    border-bottom: 1px solid rgba($color: #111111, $alpha: 0.1);
+    box-shadow: none;
+    &:focus {
+      border-color: rgba(17, 17, 17, 0.1);
+      box-shadow: none;
+    }
+    &::after {
+      background-size: 16px;
+    }
+    &:not(.collapsed) {
+      color: #111111;
+      border-bottom: 1px solid transparent;
+    }
+  }
+  .field-group,
+  .field-group {
+    .label,
+    label {
+      margin-bottom: 6px;
+    }
+  }
+  .field-group {
+    .saving-options {
+      label {
+        line-height: 18px;
+      }
+    }
+  }
+}
+.amount-list {
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 24px;
+  .list {
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+    &:last-child {
+      border-bottom: 0;
+    }
+    p {
+      margin-bottom: 0;
+    }
+    .label {
+      color: #555;
+      font-size: 12px;
+      line-height: 130%;
+      margin-bottom: 4px;
+    }
+    .value {
+      color: #111;
+      font-family: $PrudentialBold;
+      font-size: 22px;
+      line-height: 120%;
+      letter-spacing: -0.44px;
+    }
+  }
+}
+.calculator-work-box {
+  padding-bottom: 70px;
+}
+.about-calculator {
+  padding-top: 70px;
+  padding-bottom: 90px;
+  .page-title {
+    margin-bottom: 24px;
+  }
+}
+.div-cards {
+  &.shadow-custom {
+    box-shadow: 0px 11px 20px 0px rgba(0, 0, 0, 0.04);
+  }
+}
+.features-calculator-box,
+.calculator-benefits-box {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.features-calculator-box {
+  &.wealth-maxi {
+    padding-top: 50px;
+    padding-bottom: 10px;
+  }
+  &.best-plan-box {
+    padding-top: 50px;
+    .div-cards {
+      box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+      cursor: pointer;
+      &:hover {
+        background-color: $primary;
+        box-shadow: 0px 24px 41px 0px rgba(0, 123, 195, 0.17);
+        p,
+        h5 {
+          color: $whiteColor;
+        }
+      }
+    }
+  }
+  &.should-choose-box {
+    padding: 72px 0 32px;
+    background-color: $lightSkyBlue3;
+  }
+}
+
+.tax-slab-box {
+  margin-top: 30px;
+  .tab-content {
+    border-radius: 12px;
+    padding: 24px;
+  }
+}
+.slab-table {
+  margin-bottom: 24px;
+  > * {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    &:last-child {
+      border-right-color: transparent;
+    }
+  }
+  ol {
+    list-style-type: decimal;
+    padding-left: 24px;
+    padding-right: 20px;
+    li,
+    td,
+    th,
+    p {
+      font-size: 14px;
+      color: #333333;
+    }
+    li {
+      p {
+        margin-bottom: 16px;
+      }
+    }
+    th {
+      font-family: $OpenSansBold;
+    }
+    td,
+    th {
+      padding: 4px 10px 4px 0;
+      border: 0 !important;
+      vertical-align: top;
+    }
+  }
+}
+.rebate {
+  .white-card {
+    border-radius: 12px;
+    padding: 24px;
+  }
+}
+.tax-rebate-box,
+.tax-exemptions-box,
+.tax-returns-box,
+.other-calculator-box,
+.knowledgeable-info {
+  padding-top: 100px;
+}
+.tax-exemptions-box {
+  .white-card {
+    box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.0588235294);
+  }
+  .calculator-card-box {
+    .cal-icon {
+      height: 80px;
+      width: 80px;
+    }
+    .calculator-card {
+      width: 100%;
+    }
+  }
+}
+.example {
+  position: relative;
+  padding-top: 90px;
+  padding-left: 130px;
+  min-height: 310px;
+  &:before {
+    content: '';
+    border-radius: 12px;
+    background: #e2f4ff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: calc(100% - 130px);
+    height: calc(100% - 90px);
+  }
+  .media-holder {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  .text {
+    position: relative;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-right: 16px;
+    padding-left: 160px;
+  }
+}
+.calculator-example {
+  padding-bottom: 100px;
+  p,
+  li {
+    color: #333;
+    font-size: 14px;
+    line-height: 150%;
+  }
+  ol {
+    list-style-type: decimal;
+    padding-left: 16px;
+    li {
+      padding-top: 4px;
+      padding-bottom: 8px;
+      &::marker {
+        font-family: $OpenSansBold;
+      }
+    }
+  }
+  .black-5 {
+    color: #555555;
+  }
+}
+@media (max-width: 991px) {
+  .all-calculator {
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .calculating-result {
+    margin-left: 0px;
+    height: auto;
+    display: none;
+  }
+  .tax-rebate-box,
+  .tax-exemptions-box,
+  .tax-returns-box,
+  .other-calculator-box,
+  .knowledgeable-info {
+    padding-top: 50px;
+  }
+  .features-calculator-box,
+  .calculator-benefits-box,
+  .about-calculator {
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+  .tax-exemptions-box {
+    .calculator-card-box {
+      .calculator-card {
+        width: 100%;
+      }
+    }
+  }
+  .calculator-work-box {
+    padding-bottom: 50px;
+  }
+  .slab-table {
+    margin-bottom: 0;
+    ol {
+      padding-left: 16px;
+      padding-right: 0;
+      td,
+      th {
+        width: 70%;
+        &:last-child {
+          width: 30%;
+          padding-right: 0;
+        }
+      }
+    }
+    > * {
+      border-right: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      margin-bottom: 16px;
+      padding: 0;
+      &:last-child {
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .tax-slab-box {
+    margin-top: 0px;
+  }
+  .calculator-fieldset {
+    .field-group,
+    .field-group {
+      .label,
+      label {
+        margin-bottom: 8px;
+      }
+    }
+  }
+  .example {
+    margin-top: 30px;
+    padding: 0px;
+    min-height: auto;
+    &::before {
+      background-color: transparent;
+    }
+    .text {
+      padding: 0;
+      border-radius: 12px;
+      background: #e2f4ff;
+      padding: 24px;
+    }
+    &::before {
+      height: 100%;
+      width: 100%;
+    }
+    .media-holder {
+      position: static;
+      img {
+        max-width: 70%;
+      }
+    }
+  }
+  .features-calculator-box {
+    &.wealth-maxi {
+      padding-top: 28px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .about-calculator {
+    .page-title {
+      margin-bottom: 16px;
+    }
+  }
+  .tax-rebate-box {
+    .page-title {
+      h3 {
+        span {
+          display: block;
+        }
+      }
+    }
+  }
+  .other-calculator-box {
+    .calculator-card-box {
+      .calculator-card {
+        padding: 24px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .cal-icon {
+        height: 48px;
+        width: 48px;
+        margin: 0;
+        img {
+          max-width: 65%;
+        }
+      }
+      .cal-type {
+        text-align: left;
+        padding-left: 20px;
+      }
+    }
+  }
+  .tax-exemptions-box {
+    .calculator-card-box {
+      .calculator-card {
+        width: 100%;
+      }
+    }
+  }
+  .features-calculator-box {
+    &.best-plan-box {
+      padding-top: 36px;
+      .insurance-plan-col {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+    }
+    &.should-choose-box {
+      padding: 40px 0 32px;
+    }
+    &.wealth-maxi {
+      .slick-dots {
+        bottom: -10px;
+      }
+    }
+  }
+}

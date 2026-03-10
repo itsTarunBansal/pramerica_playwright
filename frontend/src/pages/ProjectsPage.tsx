@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProject, NVEST_TENANT_ID } from "../context/ProjectContext";
-import { getProjects } from "../services/api";
+import { useAppDispatch, useAppSelector } from "../store";
+import { fetchProjects } from "../store/slices/projectsSlice";
 
 const NVEST_URL = "https://nvestuat.pramericalife.in/Life/Login.html";
 
 export default function ProjectsPage() {
   const navigate = useNavigate();
   const { projectUrl } = useProject();
-  const [dynamicProjects, setDynamicProjects] = useState<Array<{ id: string; name: string; url: string }>>([]);
+  const dispatch = useAppDispatch();
+  const { items, loading, error } = useAppSelector((s) => s.projects);
+  const dynamicProjects = items.filter((p) => p.id !== NVEST_TENANT_ID);
 
   useEffect(() => {
-    getProjects()
-      .then(all => setDynamicProjects(all.filter(p => p.id !== NVEST_TENANT_ID)))
-      .catch(() => {});
-  }, []);
+    dispatch(fetchProjects());
+  }, [dispatch]);
 
   return (
     <div className="projects-page">
@@ -22,6 +23,8 @@ export default function ProjectsPage() {
         <h1>My Projects</h1>
         <button className="btn-primary" onClick={() => navigate("/projects/new")}>+ New Project</button>
       </div>
+
+      {error && <p style={{ color: "#ef4444", padding: "8px" }}>{error}</p>}
 
       <div className="project-grid">
         {/* Nvest — always shown, hardcoded */}
@@ -41,8 +44,9 @@ export default function ProjectsPage() {
           <span className="lcard-arrow">→</span>
         </div>
 
-        {/* Dynamic projects from MongoDB */}
-        {dynamicProjects.map(p => (
+        {loading && <div style={{ padding: "20px", color: "#6b7280" }}>Loading projects...</div>}
+
+        {dynamicProjects.map((p) => (
           <div key={p.id} className="project-card" onClick={() => navigate(`/projects/${p.id}`)}>
             <div className="project-card-top">
               <div className="project-avatar">{p.name.charAt(0).toUpperCase()}</div>

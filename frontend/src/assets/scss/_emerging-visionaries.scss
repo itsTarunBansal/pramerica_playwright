@@ -1,0 +1,54 @@
+.emerging-visionaries-box {
+  .emerging-visionaries-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -32px -16px 0;
+  }
+
+  .emerging-visionaries-col {
+    width: 50%;
+    padding: 32px 16px 0;
+  }
+
+  .image-wrapper {
+    padding: 67px 65px 0 49px;
+    background-color: $lightGray7;
+    border-radius: 12px;
+  }
+
+  .content-wrapper {
+    padding-top: 36px;
+  }
+
+  .emerging-description {
+    color: $blackColorScale-1;
+    margin-top: 32px;
+    font-family: $OpenSans;
+    line-height: 28px;
+  }
+
+  .bold-text {
+    font-family: $OpenSansBold;
+  }
+
+  .read-more-text {
+    color: $primary;
+    font-family: $OpenSansBold;
+  }
+}
+
+@media (max-width: 991px) {
+  .emerging-visionaries-box {
+    .content-wrapper {
+      padding-top: 20px;
+    }
+
+    .emerging-description {
+      margin-top: px;
+    }
+
+    .emerging-visionaries-col {
+      width: 100%;
+    }
+  }
+}

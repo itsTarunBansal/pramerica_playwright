@@ -1,0 +1,298 @@
+.new-footer {
+  position: relative;
+  background-color: #0b1f42;
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 123px;
+    background-color: #fff;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+  .new-footer-inner {
+    position: relative;
+  }
+  &.no-bg {
+    &::before {
+      content: none;
+    }
+  }
+}
+
+.new-copyright-box {
+  padding: 20px 0;
+  background-color: #0b1f42;
+  &.dashboard-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    border-top: 1px solid $blackColorScale-8;
+  }
+  p,
+  a {
+    color: #fff;
+    display: block;
+  }
+  .new-copyrights {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px -30px 0;
+    li {
+      position: relative;
+      padding: 15px 30px 0;
+      &:before {
+        content: '';
+        width: 2px;
+        height: 12px;
+        background-color: #fff;
+        position: absolute;
+        left: 0px;
+        top: 17px;
+      }
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+      a {
+        &:hover {
+          color: #4b6ca1;
+        }
+      }
+      &:first-child {
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.usefull-links {
+  padding: 14px 43px 14px 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  display: block;
+  color: #111;
+  text-align: center;
+  font-family: $OpenSansSemiBold;
+  font-size: 14px;
+  line-height: 117.182%; /* 16.405px */
+  letter-spacing: -0.28px;
+  position: relative;
+  &:hover {
+    color: #111;
+    &:before {
+      right: 12px;
+    }
+  }
+  &:before {
+    content: '\e935';
+    font-family: 'icomoon';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.3s all;
+  }
+  .usefull-link-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    display: none;
+    transform: translateY(-50%);
+    font-size: 20px;
+    line-height: 20px;
+    color: #808fa2;
+  }
+}
+.useful-link-box {
+  padding: 40px 0;
+  h5 {
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .useful-link-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -16px;
+    margin-left: -8px;
+    margin-right: -8px;
+    li {
+      padding: 0 8px;
+      margin-top: 16px;
+    }
+  }
+}
+
+.new-gettouch-box {
+  .gettouch-list {
+    li {
+      position: relative;
+      margin-top: 15px;
+      padding-left: 48px;
+      min-height: 40px;
+      &:first-child {
+        margin-top: 0px;
+      }
+      p {
+        margin-bottom: 4px;
+        word-break: break-word;
+        a {
+          color: #111;
+        }
+      }
+      .getphone {
+        margin-bottom: 8px;
+        color: $blackColorScale-1;
+      }
+      .gettouch-imgs {
+        width: 40px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+    }
+  }
+  .gettouch-col {
+    padding: 32px;
+    border-radius: 12px;
+    background-color: #e2f4ff;
+    min-height: 224px;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    h5 {
+      margin-bottom: 22px;
+      color: $blackColorScale-1;
+    }
+    .gettouch-whatsapp {
+      max-width: 220px;
+      p {
+        margin-bottom: 15px;
+        &.contact-num {
+          color: $blackColorScale-1;
+        }
+      }
+    }
+    .whatsapp-img {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .new-copyright-box {
+    .new-copyrights {
+      margin: -15px -15px 0;
+      li {
+        padding: 15px 15px 0;
+      }
+    }
+  }
+  .new-gettouch-box {
+    .gettouch-col {
+      padding: 24px;
+      .gettouch-whatsapp {
+        max-width: 200px;
+      }
+      .whatsapp-img {
+        max-width: 130px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .new-copyright-box {
+    padding: 16px 0;
+    .new-copyrights {
+      justify-content: center;
+      margin-top: -8px;
+      margin-left: -8px;
+      margin-right: -8px;
+      margin-bottom: 8px;
+      li {
+        margin-top: 8px;
+        padding: 0 8px;
+        &:before {
+          display: none;
+        }
+        &:first-child {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .usefull-links {
+    text-align: left;
+    padding: 14px 40px 14px 48px;
+    &:before {
+      right: 20px;
+    }
+    &:hover {
+      &:before {
+        right: 20px;
+      }
+    }
+    .usefull-link-icon {
+      display: block;
+    }
+  }
+  .useful-link-box {
+    padding: 56px 0 32px;
+    h5 {
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+    .useful-link-list {
+      margin: 0px;
+      li {
+        padding: 0px;
+        width: 100%;
+        margin-top: 8px;
+        &:first-child {
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+  .new-gettouch-box {
+    .gettouch-col {
+      min-height: 189px;
+      h5 {
+        font-size: 18px;
+      }
+      .gettouch-whatsapp {
+        max-width: 168px;
+      }
+      .whatsapp-img {
+        max-width: initial;
+        right: -14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 359px) {
+  .new-gettouch-box {
+    .gettouch-col {
+      .whatsapp-img {
+        max-width: 130px;
+      }
+    }
+  }
+}

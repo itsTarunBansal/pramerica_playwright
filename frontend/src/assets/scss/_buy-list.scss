@@ -1,0 +1,75 @@
+.buy-list-box {
+}
+
+.buy-list-inner {
+  padding: 32px;
+  border-radius: 12px;
+  background-color: #e2f4ff;
+  max-width: 998px;
+  margin: auto;
+  ul {
+  }
+  li {
+    position: relative;
+    padding-bottom: 40px;
+    padding-top: 8px;
+    padding-left: 64px;
+    &:last-child {
+      padding-bottom: 0px;
+      &:before {
+        content: none;
+      }
+    }
+    &:before {
+      content: '';
+      height: 100%;
+      width: 2px;
+      background-color: #007bc3;
+      position: absolute;
+      left: 23px;
+      top: 0px;
+    }
+    .buy-number {
+      width: 48px;
+      height: 48px;
+      border: 2px solid #007bc3;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 120%;
+      letter-spacing: -0.78px;
+      color: #007bc3;
+      font-family: $PrudentialBold;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+    h5 {
+      margin-bottom: 8px;
+      &.step-text {
+        font-family: $Prudential;
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .buy-list-box {
+    .page-title {
+      margin-bottom: 24px;
+    }
+  }
+  .buy-list-inner {
+    padding: 24px 16px 35px;
+    li {
+      h5 {
+        font-size: 18px;
+      }
+    }
+  }
+}

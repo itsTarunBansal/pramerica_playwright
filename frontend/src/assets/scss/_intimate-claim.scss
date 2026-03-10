@@ -1,0 +1,379 @@
+.intimate-claim-text {
+  color: $blackColorScale-1 !important;
+}
+.or-cards-list {
+  display: flex;
+  padding-top: 18px;
+  //flex-wrap: wrap;
+  > li {
+    width: 100%;
+    max-width: 347px;
+    padding: 0 51px 0 0;
+    position: relative;
+
+    &.width-409 {
+      max-width: 409px;
+    }
+
+    &.width-428 {
+      max-width: 479px;
+    }
+
+    &:before {
+      content: none;
+    }
+
+    &:after {
+      content: 'or';
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #333;
+      font-family: $OpenSans;
+      font-size: 16px;
+      line-height: 140%; /* 22.4px */
+      letter-spacing: 0.16px;
+    }
+
+    &:last-child {
+      padding-right: 0;
+
+      &:after {
+        content: none;
+      }
+    }
+  }
+
+  .or-cards-item {
+    display: flex;
+    padding: 16px 16px 16px 76px;
+    border-radius: 12px;
+    border: 1px solid #fff;
+    background: #fff;
+    box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+    position: relative;
+    min-height: 80px;
+    width: 100%;
+    min-width: 296px;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .size-14 {
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .icon-wrap {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+    }
+  }
+}
+
+.or-sections {
+  margin-bottom: 32px;
+
+  .size-14 {
+    margin-top: 8px;
+    margin-bottom: 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.intimate-claim-box {
+  &:before {
+    content: '';
+    background-color: #e2f4ff;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 120px;
+  }
+  .form-row-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -16px -8px 0;
+  }
+  .intimate-claim-wrap {
+    padding: 32px 20px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+    .size-14 {
+      margin-bottom: 0;
+    }
+    .btn-controls {
+      padding-top: 32px;
+      display: flex;
+      justify-content: center;
+      .btn {
+        margin-right: 32px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .steps-wrap {
+      margin-bottom: 12px;
+    }
+    .icon-wrap {
+      margin: 0 auto 20px;
+    }
+
+    .btn-wrapper {
+      padding-top: 24px;
+      text-align: center;
+    }
+    .form-group-new {
+      margin-bottom: 0;
+    }
+    .form-row {
+      width: 50%;
+      padding: 16px 8px 0;
+    }
+    .intimate-claim-status {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 12px;
+      background: #fbf4e9;
+      max-width: 280px;
+      margin: 20px auto;
+      ul {
+        padding-left: 32px;
+        text-align: left;
+        li {
+          position: relative;
+          padding-bottom: 14px;
+          font-size: 14px;
+          line-height: 18px;
+          color: #86827d;
+          font-family: $OpenSans;
+          &.active {
+            color: #000000;
+            font-family: $OpenSansSemiBold;
+            .count {
+              color: #000000;
+              border: 1px solid #000000;
+            }
+          }
+          &.completed {
+            font-family: $OpenSansSemiBold;
+            [class^='icon-'] {
+              display: flex;
+              color: #000000;
+            }
+            .count {
+              display: none;
+            }
+            &:before {
+              border-left: 1px solid #000;
+              color: #000000;
+            }
+          }
+          &:last-child {
+            padding-bottom: 0;
+            &:before {
+              content: none;
+            }
+          }
+          &:before {
+            position: absolute;
+            content: '';
+            top: 16px;
+            left: -25px;
+            height: calc(100% - 14px);
+            border-left: 1px dashed #86827d;
+          }
+          [class^='icon-'] {
+            display: none;
+            position: absolute;
+            top: 1px;
+            left: -32px;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid #111111;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
+        .count {
+          position: absolute;
+          top: 1px;
+          left: -32px;
+          width: 15px;
+          height: 15px;
+          color: #86827d;
+          border-radius: 50%;
+          border: 1px solid #86827d;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          font-family: $PrudentialBold;
+          font-size: 10px;
+          line-height: 11px;
+        }
+      }
+    }
+  }
+}
+
+.claims-box {
+  padding-top: 10px;
+  &.space-tb50 {
+    padding-bottom: 80px;
+  }
+  .claims-points-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -32px -16px 0;
+  }
+  .claims-points-col {
+    padding: 32px 16px 0;
+    max-width: 405px;
+  }
+  .div-cards {
+    position: relative;
+    padding-right: 60px;
+    transition: all 0.3s;
+    cursor: pointer;
+    .arrow-icon {
+      color: #007bc3;
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &:hover {
+      box-shadow: 0px 10px 32px 0px rgba(20, 49, 100, 0.23);
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .or-cards-list {
+    flex-direction: column;
+
+    > li {
+      max-width: 100%;
+      padding: 0 0 39px 0;
+
+      &.width-409 {
+        max-width: 100%;
+      }
+
+      &.width-428 {
+        max-width: 100%;
+      }
+
+      &:after {
+        right: 50%;
+        top: calc(100% - 32px);
+        transform: none;
+      }
+    }
+
+    .or-cards-item {
+      padding: 12px 12px 12px 72px;
+      min-height: 72px;
+      min-width: 100%;
+
+      .size-14 {
+        margin-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .icon-wrap {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+      }
+    }
+  }
+  .or-sections {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 991px) {
+  .intimate-claim-box {
+    &:before {
+      height: 134px;
+    }
+    .form-row-wrap {
+      margin: -16px 0 0;
+    }
+    .intimate-claim-wrap {
+      padding: 16px;
+
+      .btn-wrapper {
+        padding-top: 32px;
+        text-align: left;
+      }
+      .form-group-new {
+        margin-bottom: 0;
+      }
+      .form-row {
+        width: 100%;
+        padding: 16px 0 0;
+      }
+      .icon-wrap {
+        margin: 0 auto 16px;
+      }
+      .btn-controls {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .btn {
+          margin-right: 0;
+          margin-bottom: 16px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+      .intimate-claim-status {
+        padding: 12px 16px;
+        margin: 16px auto;
+      }
+    }
+  }
+
+  .claims-box {
+    padding-top: 26px;
+    &.space-tb50 {
+      padding-bottom: 56px;
+    }
+    .claims-points-wrap {
+      flex-wrap: wrap;
+      margin: -20px 0 0;
+    }
+    .claims-points-col {
+      width: 100%;
+      max-width: 100%;
+      padding: 20px 0 0;
+    }
+    .div-cards {
+      padding: 20px 56px 20px 20px;
+      .arrow-icon {
+        right: 20px;
+      }
+    }
+  }
+}

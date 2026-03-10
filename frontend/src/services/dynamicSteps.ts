@@ -8,10 +8,17 @@ export function buildDynamicSteps(testData: any, fieldConfigs: any[], baseUrl?: 
     { action: "goto", value: baseUrl || FALLBACK_URL }
   ];
   
-  // Sort field configs by order and build steps
-  fieldConfigs
+  // Sort field configs by order and build steps (create copy to avoid mutating Redux state)
+  console.log("Building steps with fieldConfigs:", fieldConfigs);
+  [...fieldConfigs]
     .sort((a, b) => a.order - b.order)
     .forEach(config => {
+      // Skip if field is marked as skipped
+      if (config.isSkipped) {
+        console.log(`Skipping field: ${config.fieldName}`);
+        return;
+      }
+      
       const fieldValue = testData[config.fieldName];
       const valueToUse = fieldValue || config.defaultValue;
       

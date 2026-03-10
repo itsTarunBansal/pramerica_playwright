@@ -1,0 +1,249 @@
+.product-banner-box {
+  background-color: #e2f4ff;
+  &.right-img-centered {
+    .product-banner-inner {
+      padding-bottom: 75px !important;
+    }
+    .banner-produtcs {
+      top: 0;
+    }
+    .slick-dots {
+      bottom: 75px !important;
+    }
+  }
+  .product-banner-inner {
+    position: relative;
+    padding: 40px 0 91px;
+  }
+  .banner-produtcs {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
+  .product-banner-left {
+    max-width: 720px;
+    margin-left: 77px;
+    h2 {
+      margin-bottom: 8px;
+    }
+    p {
+      color: #111;
+      margin-bottom: 28px;
+    }
+  }
+  .list-img-text {
+    margin: -12px -12px 0;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      color: #111;
+      padding: 0 12px;
+      margin-top: 12px;
+      p {
+        position: relative;
+        padding-left: 26px;
+        margin-bottom: 0px;
+      }
+      .imgicon {
+        position: absolute;
+        left: 0px;
+        width: 20px;
+        top: -1px;
+        font-size: 20px;
+        line-height: 20px;
+        color: $primary;
+      }
+    }
+  }
+
+  .list-btn-info {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -8px;
+    margin-right: -8px;
+    li {
+      padding: 0 8px;
+    }
+  }
+  &.protecting-banner-box {
+    .banner-row {
+      overflow: hidden;
+    }
+    .light-blue-text {
+      color: $darkSkyBlue;
+    }
+    .product-banner-left {
+      max-width: 715px;
+    }
+    .check-underline {
+      position: relative;
+      display: inline-block;
+      &::before {
+        content: '';
+        position: absolute;
+        left: -56px;
+        bottom: 0;
+        background-image: url('../images/check-underline.svg');
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 8px;
+      }
+    }
+    .product-banner-inner {
+      padding-bottom: 220px;
+      height: 100%;
+    }
+    .slick-dots {
+      text-align: left;
+      left: 77px;
+      bottom: 160px;
+    }
+    .slick-slider {
+      margin-bottom: 0;
+    }
+  }
+  &.term-insurance-banner {
+    .product-banner-inner {
+      padding-bottom: 180px;
+    }
+    .product-banner-left {
+      max-width: 580px;
+    }
+  }
+}
+
+@media (max-width: 1439px) {
+  .product-banner-box {
+    .banner-produtcs {
+      max-width: 500px;
+    }
+  }
+}
+
+@media (max-width: 1399px) {
+  .product-banner-box {
+    &.aboutus-banner-box {
+      .product-banner-left {
+        max-width: 500px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .product-banner-box {
+    .product-banner-left {
+      margin-left: 0px;
+      max-width: 590px;
+    }
+    .product-banner-inner {
+      padding-bottom: 55px;
+    }
+    &.protection-xpert-banner {
+      .banner-produtcs {
+        max-width: 370px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .product-banner-box {
+    &.right-img-centered {
+      .product-banner-inner {
+        padding-bottom: 61px !important;
+      }
+      .slick-dots {
+        bottom: 26px !important;
+      }
+    }
+    .banner-produtcs {
+      position: static;
+      margin: 20px auto 0;
+    }
+    .product-banner-inner {
+      padding-bottom: 0px;
+    }
+    .product-banner-left {
+      max-width: 100%;
+    }
+    &.protecting-banner-box {
+      .product-banner-inner {
+        padding-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .slick-dots {
+        bottom: 23px;
+        text-align: center;
+        left: auto;
+        right: auto;
+      }
+    }
+    &.term-insurance-banner {
+      .product-banner-inner {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .product-banner-box {
+    .product-banner-inner {
+      padding-top: 16px;
+      &.product-rock-solid {
+        padding-bottom: 32px;
+      }
+    }
+    .product-banner-left {
+      p {
+        margin-bottom: 18px;
+      }
+    }
+    .list-img-text {
+      display: block;
+      margin-top: 0px;
+      li {
+        .imgicon {
+          width: 17px;
+          top: -1px;
+          font-size: 17px;
+          line-height: 17px;
+        }
+        p {
+          font-size: 14px;
+          line-height: 117%;
+        }
+      }
+    }
+    .list-btn-info {
+      margin-top: 20px;
+    }
+    .banner-produtcs {
+      margin-top: 9px;
+      max-width: 326px;
+      width: 100%;
+    }
+    &.term-insurance-banner {
+      .banner-produtcs {
+        margin-top: 27px;
+      }
+    }
+    &.protecting-banner-box {
+      .check-underline {
+        &::before {
+          content: '';
+          left: 0;
+          bottom: -6px;
+          height: 11px;
+          width: 100%;
+          background-image: url('../images/check-underline-mob.svg');
+          transform: rotate(2deg);
+        }
+      }
+    }
+  }
+}

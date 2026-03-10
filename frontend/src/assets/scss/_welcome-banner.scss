@@ -1,0 +1,124 @@
+.welcome-banner-box {
+  padding-bottom: 5px;
+  .slick-dots {
+    bottom: -28px;
+    li {
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .welcome-col {
+    border-radius: 12px;
+    border-radius: 12px;
+    background-color: $secondaryScale-3;
+    min-height: 248px;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    &.banner-blue {
+      background-color: $primary;
+      h4 {
+        color: $whiteColor;
+      }
+    }
+    .welcome-taiyar-img {
+      width: 165px;
+    }
+    .welcome-left {
+      padding: 32px 0px 32px 32px;
+      max-width: 533px;
+    }
+    h4 {
+      margin-bottom: 20px;
+    }
+    .welcome-ul {
+      .welcome-li {
+        position: relative;
+        min-height: 28px;
+        display: flex;
+        align-items: center;
+        margin-top: 16px;
+        padding-left: 36px;
+        &:first-child {
+          margin-top: 0px;
+        }
+        .welcome-icons {
+          width: 28px;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          margin-right: 8px;
+        }
+      }
+    }
+    .welcome-man-img {
+      position: absolute;
+      right: 34px;
+      bottom: 0px;
+      width: auto;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .welcome-banner-box {
+    .welcome-col {
+      .welcome-man-img {
+        width: 220px;
+      }
+      .welcome-left {
+        padding: 22px 10px 22px 22px;
+      }
+      &.banner-blue {
+        .welcome-man-img {
+          width: 180px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .welcome-banner-box {
+    .welcome-col {
+      min-height: 198px;
+      &.banner-blue {
+        h4 {
+          margin-bottom: 14px;
+        }
+        .welcome-man-img {
+          width: 148px;
+          right: -14px;
+        }
+      }
+      .welcome-left {
+        padding: 20px 18px 29px 18px;
+      }
+      h4 {
+        margin-bottom: 17px;
+        padding-right: 80px;
+      }
+      .welcome-taiyar-img {
+        width: 129px;
+      }
+      .welcome-man-img {
+        width: 177px;
+        right: -28px;
+      }
+      .welcome-ul {
+        padding-right: 90px;
+        .welcome-li {
+          font-size: 11px;
+          font-weight: 400;
+          line-height: 117%;
+          padding-left: 30px;
+          margin-top: 8px;
+          .welcome-icons {
+            width: 24px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+.settlement-box {
+  .settlement-wrap {
+    display: flex;
+  }
+  .settlement-row {
+    padding: 0 8px 32px;
+    height: 100%;
+  }
+  .settlement-item {
+    border-radius: 12px;
+    border: 1px solid #fff;
+    background: #fff;
+    padding: 24px;
+    height: 100%;
+    box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+    h4 {
+      color: #000;
+      font-family: $PrudentialBold;
+      font-size: 24px;
+      line-height: 28px;
+      letter-spacing: -0.48px;
+      margin-bottom: 20px;
+    }
+    .settlement-para {
+      margin-bottom: 20px;
+    }
+    .size-14 {
+      margin-bottom: 12px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .settlement-img {
+      width: 100%;
+      height: 222px;
+      border-radius: 8px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .settlement-box {
+    .settlement-item {
+      padding: 20px;
+      h4 {
+        font-size: 20px;
+        line-height: 117.182%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

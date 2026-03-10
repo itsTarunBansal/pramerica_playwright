@@ -1,0 +1,26 @@
+.become-advisor-box {
+  padding-bottom: 40px;
+  .become-advisor-inner {
+    background-color: $tertiary;
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .become-advisor-heads,
+  .become-advisor-text {
+    color: $blackColorScale-1;
+  }
+  .become-advisor-text {
+    margin-top: 8px;
+  }
+  .advisor-right {
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 991) {
+  .become-advisor-box {
+    .become-advisor-inner {
+      padding: 16px;
+    }
+  }
+}

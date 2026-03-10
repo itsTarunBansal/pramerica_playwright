@@ -1,0 +1,183 @@
+.eligibility-wrap {
+  .eligibility-heading,
+  .criteria-inner-heads {
+    color: $blackColorScale-1;
+  }
+  .eligibility-heading {
+    margin-bottom: 24px;
+  }
+  .eligilibility-inner-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -40px;
+  }
+  .elegilibility-row {
+    width: 50%;
+    padding: 0 40px 24px;
+    &:nth-last-of-type(1) {
+      padding-bottom: 0;
+    }
+    &:nth-last-of-type(2) {
+      padding-bottom: 0;
+    }
+    &:nth-child(odd) {
+      border-right: 1px solid $lightGray2;
+    }
+  }
+  .eligibility-row-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    align-items: center;
+    height: 100%;
+  }
+  .eligilibility-col {
+    width: 50%;
+    padding: 0 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .criteria-inner-heads {
+    font-family: $PrudentialBold;
+  }
+  .eligibility-requirement {
+    background-color: $secondary;
+    border-radius: 4px;
+    padding: 15px 26px 8px;
+    height: 100%;
+  }
+  .requirement-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -7px -12px 0;
+    height: 100%;
+  }
+  .requirement-col {
+    width: 50%;
+    padding: 7px 12px 7px;
+    border-top: 1px solid $lightSkyBlue;
+    &:nth-child(odd) {
+      border-right: 1px solid $lightSkyBlue;
+      padding-left: 0;
+    }
+    &:nth-child(even) {
+      padding-right: 0;
+    }
+    &:nth-child(1),
+    &:nth-child(2) {
+      border-top: 0;
+      padding-top: 0;
+    }
+    &:nth-last-of-type(1),
+    &:nth-last-of-type(2) {
+      padding-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+  .eligilibility-text {
+    color: $blackColorScale-5;
+    margin-bottom: 8px;
+  }
+  .month-year {
+    color: $blackColorScale-1;
+    font-family: $OpenSansSemiBold;
+    line-height: 17px;
+  }
+  &.eligibility-wrap-2 {
+    .row {
+      .col-6 {
+        &.border-end {
+          border-width: 1px;
+          border-color: rgba($color: #a1c0d2, $alpha: 0.5) !important;
+        }
+      }
+    }
+    .eligibility-criteria {
+      border-radius: 4px;
+      .title {
+        font-size: 16px;
+        font-family: $PrudentialBold;
+        margin-bottom: 8px;
+        color: #111;
+      }
+      .sub-title {
+        font-size: 12px;
+        margin-bottom: -8px;
+        color: #555;
+        margin-top: 0;
+      }
+      .value {
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 12px;
+        color: #111;
+        font-family: $OpenSansBold;
+      }
+    }
+    .max-value-wrap {
+      .value {
+        padding-bottom: 2px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .eligibility-wrap {
+    .eligilibility-inner-content {
+      margin: 0 -25px;
+    }
+    .elegilibility-row {
+      padding: 0 25px 24px;
+    }
+    .eligilibility-col {
+      width: 40%;
+      &.elegilibility-right {
+        width: 60%;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .eligibility-wrap {
+    .eligilibility-inner-content {
+      margin: -16px 0 0;
+    }
+    .elegilibility-row {
+      width: 100%;
+      border-right: 0 !important;
+      padding: 16px 0 !important;
+      border-top: 1px solid $lightGray2;
+      &:first-child {
+        border-top: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .eligibility-wrap {
+    .div-cards {
+      padding: 16px;
+    }
+    .eligibility-heading {
+      margin-bottom: 16px;
+    }
+    .eligibility-row-inner {
+      height: auto;
+    }
+    .criteria-inner-heads {
+      margin-bottom: 8px;
+    }
+    .eligilibility-col {
+      width: 100%;
+      display: block;
+      &.elegilibility-right {
+        width: 100%;
+      }
+    }
+  }
+}

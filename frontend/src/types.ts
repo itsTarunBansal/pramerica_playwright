@@ -81,6 +81,7 @@ export interface PramericaTestData {
   // Bank
   bankAccountNumber: string;
   ifscCode: string;
+  pennyDrop: string;
   // Health
   weightKgs: string;
   heightFeet: string;

@@ -1,0 +1,198 @@
+.calculator-cntr {
+  &.who-should-buy-box {
+    .nav-item {
+      margin-bottom: 8px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .nav-link {
+      padding-right: 40px;
+      &.active {
+        background: $lightYello2;
+        box-shadow: 0px 8px 50px 0px rgba(244, 228, 200, 0.26);
+      }
+      &:hover {
+        background: $lightYello2;
+      }
+    }
+    .tab-content {
+      background: $tertiary;
+      box-shadow: 0px 6px 30px 0px rgba(251, 244, 233, 0.13);
+    }
+    .white-card {
+      padding-right: 12px;
+    }
+    .nav-wrapper {
+      max-height: 464px;
+      overflow-y: auto;
+      padding-right: 12px;
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 20px $lightGray5;
+      }
+    }
+    .insurance-policy-block {
+      padding: 32px 32px 32px 0;
+    }
+    .insurance-policy-description,
+    .insurance-policy-heading {
+      color: $blackColorScale-1;
+    }
+    .insurance-policy-heading {
+      margin-bottom: 16px;
+    }
+    .insurance-policy-description {
+      margin-bottom: 12px;
+    }
+    .benefits-list-wrap {
+      padding-bottom: 12px;
+      ol {
+        list-style-type: decimal;
+        padding-left: 18px;
+        li {
+          color: $blackColorScale-3;
+          font-family: $OpenSansSemiBold;
+        }
+      }
+    }
+    .table-wrap {
+      box-shadow: 0px 8px 39px 0px rgba($blackColor, 0.04);
+      overflow: hidden;
+      overflow-x: auto;
+    }
+    .booster-table {
+      width: 100%;
+      table-layout: fixed;
+      td,
+      th {
+        border: 1px solid rgba($color: $darkGray, $alpha: 0.5);
+        border-top: none;
+        font-family: $PrudentialSemiBold;
+        color: $blackColorScale-1;
+        padding: 12px 16px;
+      }
+      thead {
+        th {
+          background-color: $lightYellow;
+          color: $blackColorScale-1;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+        }
+        tr {
+          &:first-child {
+            th {
+              &:first-child {
+                border-top-left-radius: 4px;
+                border-left: 0;
+                border-bottom: 0;
+              }
+              &:last-child {
+                border-top-right-radius: 4px;
+                border-right: 0;
+              }
+            }
+          }
+          &:last-child {
+            th {
+              border-bottom: 0;
+              &:last-child {
+                border-right: 0;
+              }
+            }
+          }
+        }
+      }
+      tbody {
+        td {
+          font-size: 12px;
+          line-height: 16px;
+        }
+        tr {
+          &:nth-child(odd) {
+            td {
+              background-color: $lightGray7;
+            }
+          }
+          &:nth-child(even) {
+            td {
+              background-color: $lightGray6;
+            }
+          }
+          &:last-child {
+            td {
+              border-bottom: 0;
+            }
+          }
+          td {
+            &:first-child {
+              border-left: 0;
+              border-bottom-left-radius: 4px;
+            }
+            &:last-child {
+              border-right: 0;
+              border-bottom-right-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .calculator-cntr {
+    &.who-should-buy-box {
+      .heading-section {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .nav-item {
+        margin-bottom: 0;
+      }
+      .nav-link {
+        padding-right: 0px;
+        padding: 12px;
+        &.active {
+          background: none;
+          box-shadow: 0;
+        }
+        &:hover {
+          background: none;
+        }
+      }
+      .insurance-policy-block {
+        padding: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .calculator-cntr {
+    &.who-should-buy-box {
+      .booster-table {
+        table-layout: initial;
+        th,
+        td {
+          min-width: 100px;
+        }
+      }
+      .nav-wrapper,
+      .white-card {
+        padding-right: 0;
+      }
+      .custom-nav-tabs {
+        margin-right: 0;
+      }
+    }
+  }
+}

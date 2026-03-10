@@ -1,0 +1,410 @@
+.getin-touch-box {
+  position: relative;
+  &::before {
+    content: '';
+    background-color: #e2f4ff;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 50%;
+  }
+  .getin-touch-inner {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: $whiteColor;
+    border-radius: 12px;
+    box-shadow: 0px 11px 41px 0px rgba(0, 0, 0, 0.07);
+  }
+  .getin-touch-left {
+    width: 374px;
+    padding: 40px 0 173px 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .getin-touch-img {
+    position: absolute;
+    right: -50px;
+    bottom: 0;
+    z-index: -1;
+  }
+  .getin-inner-wrap {
+    position: relative;
+    padding-left: 64px;
+  }
+  .left-content-col {
+    li {
+      padding: 18px 0;
+      border-top: 1px solid $secondary;
+      &:first-child {
+        padding-top: 0;
+        border-top: none;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+  .content-wrap {
+    p {
+      margin-bottom: 0;
+      color: $blackColorScale-1;
+      &.sub-text {
+        margin-bottom: 4px;
+      }
+      &.contact-text {
+        font-family: $OpenSansBold;
+        margin-bottom: 4px;
+      }
+      &.timimg-text {
+        margin-top: 4px;
+      }
+    }
+    .mail-text {
+      color: $blackColorScale-1;
+    }
+  }
+  .icon-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .getin-touch-right {
+    width: calc(100% - 374px);
+    padding: 40px 40px 24px 78px;
+  }
+  .write-us-heads,
+  .user-heading {
+    color: $blackColorScale-1;
+    margin-bottom: 10px;
+  }
+  .user-heading {
+    font-family: $OpenSansSemiBold;
+  }
+  .user-options {
+    margin-top: -17px;
+    .custom-radiobox-label {
+      margin-right: 16px;
+      margin-top: 17px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  .form-wrapper {
+    padding-top: 16px;
+  }
+  .form-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -16px -8px 0;
+  }
+  .form-row {
+    width: 50%;
+    padding: 16px 8px 0;
+  }
+  .user-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    color: $blackColorScale-1;
+    font-family: $OpenSansSemiBold;
+  }
+  .user-input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid $lightGray3;
+    background: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    outline: none;
+    color: $blackColorScale-1;
+    width: 100%;
+    &::placeholder {
+      color: $lightGray11;
+    }
+    &.textarea-input {
+      min-height: 63px;
+    }
+  }
+  .form-group-new {
+    margin-bottom: 0;
+  }
+  .btn-wrapper {
+    padding-top: 24px;
+  }
+}
+.corporate-wrap {
+  padding-top: 10px;
+  .corporate-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -16px -16px 0;
+  }
+  .corporate-row {
+    width: 50%;
+    padding: 16px 16px 0;
+  }
+  .corporate-col {
+    padding: 32px;
+    background-color: $primary;
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+  }
+  .corporate-sidebg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+  }
+  .corporate-heads {
+    color: $whiteColor;
+    margin-top: 16px;
+  }
+  .top-corporate-text {
+    color: $whiteColor;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+  .corporate-content {
+    max-width: 300px;
+    padding-top: 16px;
+    .address-text {
+      color: $whiteColor;
+    }
+  }
+  .contact-num {
+    position: relative;
+    padding-left: 28px;
+    font-family: $PrudentialBold;
+    color: $whiteColor;
+  }
+  .landline-text {
+    font-family: $OpenSans;
+  }
+  .call {
+    position: absolute;
+    left: 0;
+    top: -3px;
+    color: $whiteColor;
+    font-size: 20px;
+    line-height: 20px;
+  }
+  .timing-text {
+    position: relative;
+    color: $whiteColor;
+    padding-left: 28px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  .time-bold {
+    font-family: $OpenSansBold;
+  }
+  .time-light {
+    font-family: $OpenSans;
+  }
+  .icon-clock {
+    position: absolute;
+    font-size: 20px;
+    line-height: 20px;
+    left: 0;
+  }
+  .locate-now-btn {
+    padding-top: 24px;
+  }
+}
+
+.complaint-wrap {
+  padding-top: 40px;
+  .complaint-list-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -32px -32px 0;
+    li {
+      width: 50%;
+      padding: 32px 32px 0;
+      position: relative;
+      &::before {
+        position: absolute;
+        content: '';
+        right: 0;
+        width: 1px;
+        height: calc(100% - 24px);
+        background-color: $lightGray12;
+      }
+      &:nth-child(even) {
+        &::before {
+          content: none;
+        }
+      }
+      &:last-child {
+        &::before {
+          content: none;
+        }
+      }
+    }
+  }
+  .btn-links {
+    margin-top: 16px;
+  }
+}
+
+.your-fingertips-box {
+  padding-top: 48px;
+  .your-fingertips-inner {
+    background-color: $secondary;
+    padding: 32px 32px 32px 174px;
+    border-radius: 12px;
+    position: relative;
+  }
+  .content-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .fingertips-heads,
+  .fingertips-desc {
+    color: $blackColorScale-1;
+  }
+  .fingertips-desc {
+    margin-top: 8px;
+  }
+  .fingertips-left {
+    width: calc(100% - 157px);
+    padding-right: 24px;
+  }
+  .fingertips-right {
+    width: 157px;
+  }
+  .fingertips-img {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    width: 124px;
+  }
+}
+
+@media (max-width: 991px) {
+  .getin-touch-box {
+    .getin-touch-left {
+      width: 100%;
+      padding: 24px;
+      padding-bottom: 0;
+    }
+    .getin-touch-img {
+      display: none;
+    }
+    .getin-touch-right {
+      width: 100%;
+      padding: 32px 24px 24px;
+    }
+    .form-inner {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .form-row {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .your-fingertips-box {
+    padding-bottom: 56px !important;
+  }
+  .corporate-wrap {
+    .corporate-inner {
+      margin-left: -8px;
+      margin-right: -8px;
+    }
+    .corporate-row {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+    .corporate-col {
+      padding: 24px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .getin-touch-box {
+    .btn-wrapper {
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+  .corporate-wrap {
+    .corporate-inner {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .corporate-content {
+      width: 100%;
+    }
+    .corporate-row {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .locate-now-btn {
+      padding-top: 16px;
+    }
+    .corporate-sidebg {
+      width: 168px;
+    }
+  }
+  .complaint-wrap {
+    padding-top: 40px;
+    .complaint-list-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -16px 0px 0;
+      li {
+        width: 100%;
+        padding: 16px 0px 16px;
+        border-bottom: 1px solid $lightGray12;
+        &::before {
+          content: none;
+        }
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+      }
+    }
+    .btn-links {
+      margin-top: 16px;
+    }
+  }
+  .your-fingertips-box {
+    padding-top: 56px;
+    .your-fingertips-inner {
+      padding: 24px 24px 0;
+    }
+    .fingertips-desc {
+      margin-top: 8px;
+    }
+    .fingertips-left {
+      width: 100%;
+      padding-right: 0;
+    }
+    .fingertips-right {
+      width: 100%;
+      padding-top: 16px;
+      .btn {
+        width: 100%;
+      }
+    }
+    .fingertips-img {
+      position: static;
+      margin: 10px auto 0;
+      width: 167px;
+    }
+  }
+}

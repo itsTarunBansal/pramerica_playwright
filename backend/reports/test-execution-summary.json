@@ -1,16 +1,16 @@
 {
   "total": 1,
-  "passed": 1,
-  "failed": 0,
+  "passed": 0,
+  "failed": 1,
   "skipped": 0,
-  "totalDuration": 0,
-  "generatedAt": "2026-03-06T12:05:32.388Z",
+  "totalDuration": 161427,
+  "generatedAt": "2026-03-09T11:22:07.873Z",
   "tests": [
     {
-      "testCaseId": "1",
-      "status": "passed",
-      "duration": 0,
-      "error": null
+      "testCaseId": 1,
+      "status": "failed",
+      "duration": 161427,
+      "error": "Element not found or not clickable: locator('#Txt_Weight')\u001b[22m. The page may not have loaded correctly or the element is missing."
     }
   ]
 }

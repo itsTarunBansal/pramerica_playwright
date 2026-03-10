@@ -1,0 +1,21 @@
+.chk-additional-service {
+  padding: 32px 32px 12px;
+  border-radius: 16px;
+  background-color: #f7fbfc;
+}
+
+@media (max-width: 767px) {
+  .chk-additional-service {
+    padding: 24px 16px 10px;
+    .heading14,
+    .custom-checkbox {
+      display: block;
+    }
+    .heading14 {
+      margin-bottom: 24px;
+    }
+    .custom-checkbox {
+      margin-bottom: 16px;
+    }
+  }
+}

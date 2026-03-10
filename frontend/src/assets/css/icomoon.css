@@ -1,0 +1,639 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url('../fonts/icomoon.eot?sgl4oa');
+  src:
+    url('../fonts/icomoon.eot?sgl4oa#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?sgl4oa') format('truetype'),
+    url('../fonts/icomoon.woff?sgl4oa') format('woff'),
+    url('../fonts/icomoon.svg?sgl4oa#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-search2:before {
+  content: '\e995';
+}
+
+.icon-reload:before {
+  content: '\e994';
+}
+
+.icon-warning:before {
+  content: '\e993';
+}
+
+.icon-update-bank-account:before {
+  content: '\e986';
+}
+
+.icon-underwriting-philosophy:before {
+  content: '\e987';
+}
+
+.icon-ivr-customer-helpline:before {
+  content: '\e988';
+}
+
+.icon-irdai-consumer-education:before {
+  content: '\e989';
+}
+
+.icon-customer-notices:before {
+  content: '\e98a';
+}
+
+.icon-medical-tpa-information:before {
+  content: '\e98b';
+}
+
+.icon-e-insurance:before {
+  content: '\e98c';
+}
+
+.icon-sms-service:before {
+  content: '\e98d';
+}
+
+.icon-withdrawn-plans:before {
+  content: '\e98e';
+}
+
+.icon-advisor-certificate:before {
+  content: '\e98f';
+}
+
+.icon-claim-information:before {
+  content: '\e990';
+}
+
+.icon-earnings:before {
+  content: '\e991';
+}
+
+.icon-my-business:before {
+  content: '\e992';
+}
+
+.icon-my-customers:before {
+  content: '\e999';
+}
+
+.icon-send:before {
+  content: '\e9a0';
+}
+
+.icon-notification2:before {
+  content: '\e985';
+}
+
+.icon-claim-processing:before {
+  content: '\e980';
+}
+
+.icon-track-claim-status:before {
+  content: '\e981';
+}
+
+.icon-intimate-claim:before {
+  content: '\e982';
+}
+
+.icon-attach-file:before {
+  content: '\e983';
+}
+
+.icon-headphone:before {
+  content: '\e984';
+}
+
+.icon-envalope:before {
+  content: '\e973';
+}
+
+.icon-chat-info:before {
+  content: '\e974';
+}
+
+.icon-search-info:before {
+  content: '\e975';
+}
+
+.icon-package:before {
+  content: '\e97a';
+}
+
+.icon-commercial:before {
+  content: '\e97b';
+}
+
+.icon-circle-star:before {
+  content: '\e97c';
+}
+
+.icon-get-quote:before {
+  content: '\e979';
+}
+
+.icon-help:before {
+  content: '\e97d';
+}
+
+.icon-login:before {
+  content: '\e97e';
+}
+
+.icon-pay:before {
+  content: '\e97f';
+}
+
+.icon-arrow-up:before {
+  content: '\e977';
+}
+
+.icon-arrow-down:before {
+  content: '\e976';
+}
+
+.icon-waiver-off:before {
+  content: '\e972';
+}
+
+.icon-buildings:before {
+  content: '\e971';
+}
+
+.icon-location:before {
+  content: '\e978';
+}
+
+.icon-whatsapp2:before {
+  content: '\e96e';
+}
+
+.icon-calling2:before {
+  content: '\e96f';
+}
+
+.icon-gmail:before {
+  content: '\e970';
+}
+
+.icon-life-cover2:before {
+  content: '\e96c';
+}
+
+.icon-flexibility:before {
+  content: '\e96d';
+}
+
+.icon-right-arrow2:before {
+  content: '\e969';
+}
+
+.icon-info:before {
+  content: '\e96a';
+}
+
+.icon-left-arrow2:before {
+  content: '\e96b';
+}
+
+.icon-arrow-2:before {
+  content: '\e968';
+}
+
+.icon-long-term-protection:before {
+  content: '\e953';
+}
+
+.icon-low-entry-age:before {
+  content: '\e954';
+}
+
+.icon-payment-modes:before {
+  content: '\e955';
+}
+
+.icon-protection-against-critical-illness:before {
+  content: '\e956';
+}
+
+.icon-waiver-of-premium:before {
+  content: '\e957';
+}
+
+.icon-widespread-across-India:before {
+  content: '\e958';
+}
+
+.icon-accident-total-and-permanent-disability-driver:before {
+  content: '\e959';
+}
+
+.icon-accidental-death:before {
+  content: '\e95a';
+}
+
+.icon-add-on-cover:before {
+  content: '\e95b';
+}
+
+.icon-affordability:before {
+  content: '\e95c';
+}
+
+.icon-age:before {
+  content: '\e95d';
+}
+
+.icon-claim-settlement:before {
+  content: '\e95e';
+}
+
+.icon-easy-to-buy:before {
+  content: '\e95f';
+}
+
+.icon-family-dependents:before {
+  content: '\e960';
+}
+
+.icon-financial-liabilities:before {
+  content: '\e961';
+}
+
+.icon-financial-protection:before {
+  content: '\e962';
+}
+
+.icon-financial-support-for-disability:before {
+  content: '\e963';
+}
+
+.icon-flexible-payment-options:before {
+  content: '\e964';
+}
+
+.icon-high-coverage-at-affordable-premiums:before {
+  content: '\e965';
+}
+
+.icon-large-one-time-expense:before {
+  content: '\e966';
+}
+
+.icon-long-policy-term:before {
+  content: '\e967';
+}
+
+.icon-calling:before {
+  content: '\e952';
+}
+
+.icon-manage-policies:before {
+  content: '\e94f';
+}
+
+.icon-instant-updates:before {
+  content: '\e950';
+}
+
+.icon-help-support:before {
+  content: '\e951';
+}
+
+.icon-withdrwal-option:before {
+  content: '\e947';
+}
+
+.icon-claim-ratio:before {
+  content: '\e94d';
+}
+
+.icon-senior-citizen:before {
+  content: '\e942';
+}
+
+.icon-kisan-vikas:before {
+  content: '\e940';
+}
+
+.icon-financial-stability:before {
+  content: '\e94c';
+}
+
+.icon-sukanya-samriddhi:before {
+  content: '\e941';
+}
+
+.icon-nsc:before {
+  content: '\e943';
+}
+
+.icon-money-back:before {
+  content: '\e944';
+}
+
+.icon-monthly-income:before {
+  content: '\e945';
+}
+
+.icon-tax-savings:before {
+  content: '\e946';
+}
+
+.icon-guranted-returns:before {
+  content: '\e948';
+}
+
+.icon-shield:before {
+  content: '\e949';
+}
+
+.icon-supplementary-income:before {
+  content: '\e94a';
+}
+
+.icon-life-cover:before {
+  content: '\e94b';
+}
+
+.icon-widespread:before {
+  content: '\e94e';
+}
+
+.icon-locator:before {
+  content: '\e93f';
+}
+
+.icon-tax-benefits:before {
+  content: '\e93c';
+}
+
+.icon-returns:before {
+  content: '\e93d';
+}
+
+.icon-families:before {
+  content: '\e93e';
+}
+
+.icon-close:before {
+  content: '\e93b';
+}
+
+.icon-download-square:before {
+  content: '\e93a';
+}
+
+.icon-clock:before {
+  content: '\e938';
+}
+
+.icon-clipboard-tick:before {
+  content: '\e939';
+}
+
+.icon-blub:before {
+  content: '\e927';
+}
+
+.icon-card-tick:before {
+  content: '\e928';
+}
+
+.icon-dashboard:before {
+  content: '\e929';
+}
+
+.icon-dollar-circle:before {
+  content: '\e92a';
+}
+
+.icon-download:before {
+  content: '\e92e';
+}
+
+.icon-left-arrow:before {
+  content: '\e92f';
+}
+
+.icon-logout:before {
+  content: '\e930';
+}
+
+.icon-message-edit:before {
+  content: '\e931';
+}
+
+.icon-notification:before {
+  content: '\e932';
+}
+
+.icon-receipt-discount:before {
+  content: '\e933';
+}
+
+.icon-receipt-search:before {
+  content: '\e934';
+}
+
+.icon-right-arrow:before {
+  content: '\e935';
+}
+
+.icon-update:before {
+  content: '\e936';
+}
+
+.icon-user-square:before {
+  content: '\e937';
+}
+
+.icon-check:before {
+  content: '\e926';
+}
+
+.icon-hand-ticks:before {
+  content: '\e925';
+}
+
+.icon-note-tick:before {
+  content: '\e922';
+}
+
+.icon-days:before {
+  content: '\e923';
+}
+
+.icon-sec-tick:before {
+  content: '\e924';
+}
+
+.icon-claim-intimation:before {
+  content: '\e921';
+}
+
+.icon-advisor:before {
+  content: '\e91f';
+}
+
+.icon-buy-now:before {
+  content: '\e920';
+}
+
+.icon-customer-care:before {
+  content: '\e92b';
+}
+
+.icon-meet-advisor2:before {
+  content: '\e92c';
+}
+
+.icon-whatsapp:before {
+  content: '\e92d';
+}
+
+.icon-tax-calculation:before {
+  content: '\e91c';
+}
+
+.icon-user-friendly:before {
+  content: '\e91d';
+}
+
+.icon-tax-year-selection:before {
+  content: '\e91e';
+}
+
+.icon-about-prahri:before {
+  content: '\e918';
+}
+
+.icon-track-application:before {
+  content: '\e917';
+}
+
+.icon-about-pramerica-life:before {
+  content: '\e919';
+}
+
+.icon-meet-advisor:before {
+  content: '\e91a';
+}
+
+.icon-self-service:before {
+  content: '\e91b';
+}
+
+.icon-search:before {
+  content: '\e916';
+}
+
+.icon-like:before {
+  content: '\e913';
+}
+
+.icon-guaranteed:before {
+  content: '\e912';
+}
+
+.icon-circle-tick:before {
+  content: '\e915';
+}
+
+.icon-menu-bar:before {
+  content: '\e911';
+}
+
+.icon-timer:before {
+  content: '\e910';
+  color: #555;
+}
+
+.icon-star-fill:before {
+  content: '\e90e';
+  color: #f9d447;
+}
+
+.icon-star:before {
+  content: '\e90f';
+  color: #c4c4c4;
+}
+
+.icon-angle-down:before {
+  content: '\e90a';
+}
+
+.icon-angle-up:before {
+  content: '\e90b';
+}
+
+.icon-angle-left:before {
+  content: '\e90c';
+}
+
+.icon-angle-right:before {
+  content: '\e90d';
+}
+
+.icon-plus:before {
+  content: '\e903';
+}
+
+.icon-profile-circle:before {
+  content: '\e901';
+}
+
+.icon-share:before {
+  content: '\e902';
+}
+
+.icon-minus:before {
+  content: '\e904';
+}
+
+.icon-instagram:before {
+  content: '\e905';
+}
+
+.icon-linkedin:before {
+  content: '\e906';
+}
+
+.icon-facebook:before {
+  content: '\e907';
+}
+
+.icon-mail:before {
+  content: '\e908';
+}
+
+.icon-msg:before {
+  content: '\e909';
+}
+
+.icon-phone:before {
+  content: '\e900';
+}
+
+.icon-map-pin:before {
+  content: '\e914';
+}

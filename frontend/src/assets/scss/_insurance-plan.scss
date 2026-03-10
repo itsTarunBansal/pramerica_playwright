@@ -1,0 +1,144 @@
+.insurance-plan-box {
+  padding: 100px 0 10px;
+  .page-title {
+    margin-bottom: 0px;
+  }
+  &.product-chooses {
+    padding-top: 50px;
+  }
+  &.products-thiss {
+    padding-top: 50px;
+    padding-bottom: 60px;
+  }
+  &.insurance-plan-features {
+    padding: 72px 0 32px;
+    background-color: $lightSkyBlue3;
+  }
+  &.insurance-duration-box {
+    padding: 50px 0 10px;
+  }
+  &.take-home-box {
+    padding-top: 36px;
+    padding-bottom: 60px;
+  }
+}
+
+.insurance-plan-slider {
+  .insurance-plan-col {
+    padding: 30px 16px 40px;
+    height: 100%;
+    .div-cards {
+      height: 100%;
+    }
+  }
+  &.no-slider {
+    padding-top: 24px;
+    padding-bottom: 40px;
+    .insurance-plan-col {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.life-box {
+  padding: 70px 0 40px;
+  background-color: #e4f4fd;
+  .page-title {
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 991px) {
+  .insurance-plan-box {
+    padding-top: 56px;
+    &.product-chooses {
+      padding-top: 28px;
+    }
+    &.products-thiss {
+      padding-top: 28px;
+      padding-bottom: 26px;
+    }
+  }
+  .insurance-plan-slider {
+    .insurance-plan-col {
+      padding-left: 11px;
+      padding-right: 11px;
+      padding-bottom: 30px;
+    }
+
+    .slider-arrows {
+      .slick-arrow {
+        &.slick-prev {
+          left: -15px;
+        }
+        &.slick-next {
+          right: -15px;
+        }
+      }
+    }
+    &.no-slider {
+      padding-bottom: 30px;
+      .insurance-plan-col {
+        padding-bottom: 20px;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+  }
+  .life-box {
+    padding: 50px 0 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .insurance-plan-slider {
+    .slick-list {
+      padding-left: 13px !important;
+    }
+  }
+
+  .life-box {
+    padding: 40px 0;
+    .slick-list {
+      padding-left: 0px !important;
+    }
+    .insurance-plan-slider {
+      .insurance-plan-col {
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 20px;
+      }
+    }
+  }
+  .insurance-plan-box {
+    &.product-chooses {
+      .insurance-plan-slider {
+        .insurance-plan-col {
+          padding-top: 20px;
+        }
+      }
+    }
+    &.insurance-plan-features {
+      padding: 40px 0;
+    }
+    &.insurance-duration-box {
+      padding: 28px 0 10px;
+    }
+    &.take-home-box {
+      padding-top: 28px;
+      padding-bottom: 46px;
+      .slick-slider {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .products-thiss {
+    .insurance-plan-slider {
+      .insurance-plan-col {
+        padding-top: 16px;
+      }
+    }
+  }
+}

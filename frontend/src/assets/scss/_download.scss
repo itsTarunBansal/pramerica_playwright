@@ -1,0 +1,77 @@
+.download-wrap {
+  .downloads-heading {
+    color: $blackColorScale-1;
+    margin-bottom: 24px;
+  }
+  .download-row {
+    padding: 21px 0;
+    border-top: 1px solid $lightGray3;
+    &:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+  .download-col {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .left-col {
+    width: calc(100% - 91px);
+    padding-right: 16px;
+    padding-left: 40px;
+    position: relative;
+  }
+  .pdf-icon {
+    position: absolute;
+    left: 0;
+    top: -5px;
+    width: 24px;
+  }
+  .right-col {
+    width: 91px;
+  }
+  .download-icon {
+    margin-right: 8px;
+    width: 14px;
+  }
+  .download-btn {
+    display: flex;
+    flex-wrap: wrap;
+    color: $linkColor;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: -0.28px;
+    font-family: $OpenSansBold;
+  }
+}
+
+@media (max-width: 767px) {
+  .download-wrap {
+    .download-row {
+      padding: 16px 0;
+    }
+    .div-cards {
+      padding: 16px;
+    }
+    .downloads-heading {
+      margin-bottom: 16px;
+    }
+    .left-col {
+      width: 100%;
+      padding-left: 28px;
+      padding-right: 0px;
+    }
+    .pdf-icon {
+      width: 16px;
+      top: 0;
+    }
+    .right-col {
+      width: 100%;
+      padding-top: 16px;
+    }
+  }
+}

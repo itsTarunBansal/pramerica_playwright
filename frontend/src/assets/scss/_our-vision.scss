@@ -1,0 +1,31 @@
+.our-vision-box {
+  background-color: $secondary;
+
+  .our-vision-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -30px 15px 0;
+  }
+
+  .our-vision-col {
+    width: 50%;
+    padding: 30px 15px 0;
+  }
+
+  .vision-text {
+    color: $blackColorScale-1;
+  }
+}
+
+@media (max-width: 767px) {
+  .our-vision-box {
+    .our-vision-inner {
+      margin: -40px 0 0;
+    }
+
+    .our-vision-col {
+      width: 100%;
+      padding: 40px 0 0;
+    }
+  }
+}

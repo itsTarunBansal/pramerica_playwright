@@ -1,0 +1,39 @@
+.our-core-values-box {
+  .core-value-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: -40px -16px 0;
+  }
+
+  .core-value-col {
+    width: 33.33%;
+    padding: 40px 16px 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .our-core-values-box {
+    .core-value-inner {
+      margin: -20px -16px 0;
+    }
+
+    .core-value-col {
+      width: 50%;
+      padding: 20px 16px 0;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .our-core-values-box {
+    .core-value-inner {
+      margin: -20px 0 0;
+    }
+
+    .core-value-col {
+      width: 100%;
+      padding: 20px 0 0;
+    }
+  }
+}

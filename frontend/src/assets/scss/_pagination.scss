@@ -1,0 +1,70 @@
+.pagination {
+  .page-item {
+    margin: 0 4px;
+    .page-link {
+      min-width: 40px;
+      height: 40px;
+      padding: 8.5px 14px;
+      color: $blackColorScale-5;
+      text-align: center;
+      font-family: $OpenSans;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 23.436px;
+      letter-spacing: -0.6px;
+      background: #f0f2f4;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      &.page-link-prev,
+      &.page-link-next {
+        i {
+          font-size: 12px;
+          display: block;
+          line-height: 23px;
+        }
+      }
+      &.dots {
+        background: none;
+      }
+    }
+    &.active,
+    &:hover {
+      .page-link {
+        background: $linkColor;
+        color: $whiteColor;
+        box-shadow: 0px 4px 20px 0px rgba(0, 102, 204, 0.33);
+      }
+      .dots {
+        background: none;
+        color: $blackColorScale-5;
+        box-shadow: none;
+        pointer-events: none;
+      }
+    }
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .pagination {
+    .page-item {
+      .page-link {
+        height: 35px;
+        min-width: 35px;
+        line-height: 17px;
+        font-size: 14px;
+        &.page-link-prev i,
+        &.page-link-next i {
+          font-size: 10px;
+          display: block;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}

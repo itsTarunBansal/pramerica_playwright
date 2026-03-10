@@ -1,0 +1,168 @@
+%scrollbar-hide {
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    border-radius: 0;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    outline: none;
+    border-radius: 0;
+  }
+}
+.btn {
+  background-color: transparent;
+  cursor: pointer;
+  display: inline-block;
+}
+%btnStyle {
+  font-size: 14px;
+  line-height: 26px;
+  padding: 6px 16px;
+  min-height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid;
+  font-family: $OpenSansBold;
+  text-align: center;
+  transition: all 0.2s linear 0s;
+}
+
+$buttonSolidConfig:
+  'yellow' $yellow $blackColorScale-1 $yellowish,
+  'primary' $primary $whiteColor $linkColor,
+  'white' $whiteColor $blackColorScale-1 $whiteColor;
+
+@each $var in $buttonSolidConfig {
+  .btn-#{nth($var, 1)} {
+    background-color: #{nth($var, 2)};
+    border-color: #{nth($var, 2)};
+    color: #{nth($var, 3)};
+    @extend %btnStyle;
+    @media (max-width: 767px) {
+      min-width: auto;
+    }
+    &:hover {
+      box-shadow: 4px 8px 20px -12px #{nth($var, 2)};
+    }
+    &:hover,
+    &:focus {
+      background-color: #{nth($var, 2)};
+    }
+    &.disabled,
+    &[disabled] {
+      background-color: #{nth($var, 2)};
+      border-color: #{nth($var, 2)};
+      color: #{nth($var, 3)};
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    &:not(:disabled) {
+      &:not(.disabled) {
+        &:active {
+          background-color: #{nth($var, 2)};
+          border-color: #{nth($var, 2)};
+          color: #{nth($var, 3)};
+          &:focus {
+            background-color: #{nth($var, 2)};
+            border-color: #{nth($var, 2)};
+            color: #{nth($var, 3)};
+          }
+        }
+        &.active {
+          background-color: #{nth($var, 2)};
+          border-color: #{nth($var, 2)};
+          color: #{nth($var, 3)};
+        }
+      }
+    }
+    &.btn-md {
+      min-height: 30px;
+    }
+    &.animated-shadow {
+      position: relative;
+      &:after {
+        content: '';
+        background: #{nth($var, 2)}50;
+        border-radius: 4px;
+        animation: btnShadow 2s linear 1s infinite;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+  }
+}
+
+@keyframes btnShadow {
+  from {
+    scale: 1 1;
+  }
+  to {
+    scale: 1.2 1.6;
+  }
+}
+
+$buttonOutlineConfig:
+  'primary' transparent $primary $blackColorScale-1 $primary $primary,
+  'yellow' $whiteColor $yellow $blackColorScale-1 $yellow $blackColorScale-1,
+  'white' $whiteColor $yellow $blackColorScale-1 $yellow $blackColorScale-1;
+
+@each $var in $buttonOutlineConfig {
+  .btn-outline-#{nth($var, 1)} {
+    background-color: #{nth($var, 2)};
+    border-color: #{nth($var, 3)};
+    color: #{nth($var, 4)};
+    @extend %btnStyle;
+    @media (max-width: 767px) {
+      min-width: auto;
+    }
+    &:hover {
+      box-shadow: 4px 8px 20px -12px #{nth($var, 3)};
+    }
+    &:hover,
+    &:focus {
+      background-color: #{nth($var, 2)};
+      border-color: #{nth($var, 5)};
+      color: #{nth($var, 6)};
+    }
+    &.disabled,
+    &[disabled] {
+      background-color: #{nth($var, 2)};
+      border-color: #{nth($var, 5)};
+      color: #{nth($var, 6)};
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    &:not(:disabled) {
+      &:not(.disabled) {
+        &:active {
+          background-color: #{nth($var, 2)};
+          border-color: #{nth($var, 5)};
+          color: #{nth($var, 6)};
+          &:focus {
+            background-color: #{nth($var, 2)};
+            border-color: #{nth($var, 5)};
+            color: #{nth($var, 6)};
+          }
+        }
+        &.active {
+          background-color: #{nth($var, 2)};
+          border-color: #{nth($var, 5)};
+          color: #{nth($var, 6)};
+        }
+      }
+    }
+    &.btn-md {
+      min-height: 30px;
+    }
+  }
+}

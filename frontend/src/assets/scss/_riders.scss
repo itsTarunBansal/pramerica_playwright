@@ -1,0 +1,177 @@
+.about-video-box {
+  .about-video-left {
+    h3 {
+      margin-bottom: 24px;
+    }
+    p {
+      margin-bottom: 40px;
+    }
+  }
+  .about-video-btn {
+    .btn {
+      margin-right: 10px;
+      &.btn-links {
+        text-decoration: underline;
+      }
+    }
+  }
+  .about-video-right {
+    position: relative;
+    border-radius: 12px;
+    float: right;
+    .about-btn-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+    .about-video-caption {
+      padding: 24px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.58);
+      h5 {
+        margin-bottom: 4px;
+        color: #fff;
+      }
+      .video-times {
+        color: #fff;
+        font-size: 12px;
+        line-height: 130%;
+        letter-spacing: 0.12px;
+        display: block;
+      }
+    }
+  }
+}
+
+.rider-box {
+  .rider-card-outer {
+    margin-top: -32px;
+  }
+  .rider-cards {
+    margin-top: 32px;
+    .div-cards {
+      height: 100%;
+    }
+  }
+}
+
+.illustration-box {
+  .illustration-cards {
+    padding: 32px;
+  }
+
+  .illustration-left {
+    padding-right: 45px;
+    border-right: 1px solid #d7d7d7;
+    height: 100%;
+    .illustration-img {
+      width: 64px;
+      margin-bottom: 16px;
+    }
+    h6 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+  }
+  .illustration-right {
+    padding-left: 15px;
+    padding-top: 5px;
+  }
+}
+
+@media (max-width: 991px) {
+  .illustration-box {
+    .illustration-cards {
+      padding: 24px;
+    }
+    .illustration-left {
+      padding-right: 20px;
+    }
+    .illustration-right {
+      padding-left: 5px;
+    }
+  }
+  .about-video-box {
+    .about-video-btn {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .about-video-right {
+      max-width: 453px;
+      margin: auto;
+      float: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .rider-box {
+    .rider-card-outer {
+      margin-top: 0px;
+    }
+    .rider-cards {
+      margin-top: 16px;
+    }
+  }
+
+  .illustration-box {
+    .illustration-cards {
+      padding: 16px;
+    }
+
+    .illustration-left {
+      padding-right: 0px;
+      border-right: none;
+      height: 100%;
+      margin-bottom: 24px;
+      .illustration-img {
+        width: 50px;
+      }
+      h6 {
+        margin-bottom: 12px;
+      }
+    }
+    .illustration-right {
+      padding-left: 0px;
+    }
+  }
+  .about-video-box {
+    .about-video-left {
+      h3 {
+        margin-bottom: 16px;
+      }
+      p {
+        margin-bottom: 24px;
+      }
+    }
+    .about-video-btn {
+      margin-top: 6px;
+      .btn {
+        margin: 18px 6px 0;
+        &.btn-links {
+          text-decoration: none;
+        }
+      }
+    }
+    .about-video-right {
+      max-width: 312px;
+      .about-video-caption {
+        padding: 16px;
+        .video-times {
+          font-size: 10px;
+        }
+      }
+      .about-btn-play {
+        width: 32px;
+      }
+    }
+  }
+}

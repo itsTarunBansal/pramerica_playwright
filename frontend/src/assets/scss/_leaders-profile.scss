@@ -1,0 +1,120 @@
+.leaders-profile-box {
+  padding-top: 5px;
+  .leader-profile-inner {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .leader-profile-left {
+    width: 395px;
+  }
+  .top-profile-info {
+    &.mob-top-profile-info {
+      display: none;
+    }
+  }
+  .leaders-img-wrap {
+    padding: 37px 8px 0;
+    background-color: $secondary;
+    border-radius: 12px;
+  }
+  .actuary-wrap {
+    padding-top: 16px;
+    padding-bottom: 24px;
+  }
+  .actuary-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -16px -8px 0;
+  }
+  .actuary-col {
+    padding: 16px 8px 0;
+  }
+  .social-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -12px -6px 0;
+    li {
+      padding: 12px 6px 0;
+    }
+  }
+  .social-link {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: $darkBlue2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .leader-profile-right {
+    width: calc(100% - 395px);
+    padding-left: 85px;
+  }
+  .leaders-description {
+    p {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.14px;
+      color: $blackColorScale-3;
+      margin-top: 20px;
+      margin-bottom: 0;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.meet-team-box {
+  padding-bottom: 68px;
+  .meet-team-row {
+    padding: 0 16px 32px;
+  }
+}
+
+@media (max-width: 991px) {
+  .leaders-profile-box {
+    .leader-profile-left {
+      width: 250px;
+    }
+    .leader-profile-right {
+      width: calc(100% - 250px);
+      padding-left: 25px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .leaders-profile-box {
+    padding-top: 0;
+    .leader-profile-left {
+      width: 100%;
+    }
+    .leader-profile-right {
+      width: 100%;
+      padding-left: 0;
+      padding-top: 28px;
+    }
+    .leaders-img-wrap {
+      padding: 24px 5px 0;
+    }
+    .top-profile-info {
+      display: none;
+      &.mob-top-profile-info {
+        display: block;
+        .actuary-wrap {
+          padding: 16px 0;
+        }
+      }
+    }
+  }
+  .meet-team-box {
+    padding-bottom: 56px;
+    .meet-team-inner {
+      margin-top: -24px;
+    }
+    .meet-team-row {
+      padding: 24px 0 0;
+    }
+  }
+}

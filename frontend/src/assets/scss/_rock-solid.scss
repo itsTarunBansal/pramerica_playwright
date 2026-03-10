@@ -1,0 +1,28 @@
+.rock-solid-calculator {
+  border-radius: 8px;
+  padding: 28px 32px 32px 32px;
+  margin: -65px 0 0;
+  background-color: $secondaryScale-3 !important;
+}
+
+@media (max-width: 767px) {
+  .rock-solid-calculator {
+    margin: 24px 0 0;
+    padding: 24px;
+    h5 {
+      text-align: center;
+    }
+    .talk-to-us {
+      text-align: center;
+    }
+    .saving-options {
+      flex-direction: row;
+    }
+    .row {
+      margin: 0 -8px;
+      [class^='col-'] {
+        padding: 0 8px;
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getApiLogs, deleteProjectApiLogs, deleteApiLogRun } from "../services/api";
+import { useAppDispatch, useAppSelector } from "../store";
+import { fetchApiLogs, deleteProjectLogs, deleteLogRun } from "../store/slices/apiLogsSlice";
 
 const NVEST_TENANT_ID = "00000000-0000-0000-0000-000000000001";
 
@@ -83,39 +84,28 @@ function LogTable({ logs }: { logs: ApiLogEntry[] }) {
 export default function ApiLogDashboard() {
   const { projectId: rawId } = useParams<{ projectId: string }>();
   const isNvest = rawId === "nvest" || rawId === NVEST_TENANT_ID;
-  const projectId = isNvest ? NVEST_TENANT_ID : rawId;
+  const projectId = isNvest ? NVEST_TENANT_ID : rawId!;
   const backPath = isNvest ? "/projects/nvest" : `/projects/${rawId}`;
   const navigate = useNavigate();
-  const [runs, setRuns] = useState<RunGroup[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState<string | null>(null);
+
+  const dispatch = useAppDispatch();
+  const { logs: runs, loading, error } = useAppSelector((s) => s.apiLogs);
+
   const [expandedRuns, setExpandedRuns] = useState<Set<string>>(new Set());
   const [expandedTcs, setExpandedTcs] = useState<Set<string>>(new Set());
 
-  const load = useCallback(async () => {
-    if (!projectId) { setLoading(false); return; }
-    setLoading(true);
-    setLoadError(null);
-    try { setRuns(await getApiLogs(projectId)); }
-    catch (e: any) {
-      console.error("Failed to load API logs:", e);
-      setLoadError(e?.message ?? "Failed to load logs");
-    }
-    finally { setLoading(false); }
-  }, [projectId]);
-
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    if (projectId) dispatch(fetchApiLogs(projectId));
+  }, [projectId, dispatch]);
 
   async function handleDeleteAll() {
     if (!projectId || !window.confirm("Delete all API logs for this project?")) return;
-    await deleteProjectApiLogs(projectId);
-    setRuns([]);
+    dispatch(deleteProjectLogs(projectId));
   }
 
   async function handleDeleteRun(runId: string) {
     if (!projectId || !window.confirm("Delete this run's logs?")) return;
-    await deleteApiLogRun(projectId, runId);
-    setRuns(r => r.filter(x => x.runId !== runId));
+    dispatch(deleteLogRun({ projectId, runId }));
   }
 
   function toggleRun(runId: string) {
@@ -126,8 +116,7 @@ export default function ApiLogDashboard() {
     setExpandedTcs(prev => { const n = new Set(prev); n.has(key) ? n.delete(key) : n.add(key); return n; });
   }
 
-  // Overall stats across all runs
-  const allLogs = runs.flatMap(r => r.testCases.flatMap(tc => tc.logs));
+  const allLogs = (runs as RunGroup[]).flatMap(r => r.testCases?.flatMap(tc => tc.logs) ?? []);
   const totalFailed = allLogs.filter(l => isFail(l.statusCode)).length;
   const overallAvg = allLogs.length ? Math.round(allLogs.reduce((s, l) => s + l.responseTime, 0) / allLogs.length) : 0;
 
@@ -143,7 +132,7 @@ export default function ApiLogDashboard() {
           </p>
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <button className="btn-secondary" onClick={load} disabled={loading}>
+          <button className="btn-secondary" onClick={() => dispatch(fetchApiLogs(projectId))} disabled={loading}>
             {loading ? "Loading..." : "🔄 Refresh"}
           </button>
           {runs.length > 0 && (
@@ -155,7 +144,6 @@ export default function ApiLogDashboard() {
         </div>
       </div>
 
-      {/* Overall summary */}
       {allLogs.length > 0 && (
         <div className="detail-section" style={{ marginBottom: 20 }}>
           <h3>Overall Summary</h3>
@@ -171,13 +159,13 @@ export default function ApiLogDashboard() {
 
       {loading && <p style={{ color: "var(--muted)", fontSize: 14 }}>Loading logs...</p>}
 
-      {loadError && (
+      {error && (
         <div className="detail-section" style={{ borderColor: "var(--danger)" }}>
-          <p style={{ color: "var(--danger)", fontSize: 14, margin: 0 }}>❌ Error: {loadError}</p>
+          <p style={{ color: "var(--danger)", fontSize: 14, margin: 0 }}>❌ Error: {error}</p>
         </div>
       )}
 
-      {!loading && !loadError && runs.length === 0 && (
+      {!loading && !error && runs.length === 0 && (
         <div className="detail-section">
           <p style={{ color: "var(--muted)", fontSize: 14 }}>
             No API logs yet. Run test cases from the Test Case Generator to see logs here.
@@ -185,19 +173,16 @@ export default function ApiLogDashboard() {
         </div>
       )}
 
-      {runs.map(run => {
-        const runLogs = run.testCases.flatMap(tc => tc.logs);
+      {(runs as RunGroup[]).map(run => {
+        const runLogs = run.testCases?.flatMap(tc => tc.logs) ?? [];
         const runOpen = expandedRuns.has(run.runId);
         const runDate = new Date(run.runId).toLocaleString();
         return (
           <div key={run.runId} className="detail-section" style={{ marginBottom: 16 }}>
-            {/* Run header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}
               onClick={() => toggleRun(run.runId)}>
               <div>
-                <h3 style={{ margin: 0 }}>
-                  {runOpen ? "▼" : "▶"} Run — {runDate}
-                </h3>
+                <h3 style={{ margin: 0 }}>{runOpen ? "▼" : "▶"} Run — {runDate}</h3>
                 <div style={{ marginTop: 6 }}><RunStats logs={runLogs} /></div>
               </div>
               <button className="btn-secondary"
@@ -207,20 +192,16 @@ export default function ApiLogDashboard() {
               </button>
             </div>
 
-            {/* Test cases inside run */}
-            {runOpen && run.testCases.map(tc => {
+            {runOpen && run.testCases?.map(tc => {
               const tcKey = `${run.runId}-${tc.testCaseId}`;
               const tcOpen = expandedTcs.has(tcKey);
               const tcFailed = tc.logs.filter(l => isFail(l.statusCode)).length;
               return (
                 <div key={tcKey} style={{ marginTop: 14, borderTop: "1px solid #eef4f5", paddingTop: 12 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-                    cursor: "pointer", marginBottom: tcOpen ? 10 : 0 }}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", marginBottom: tcOpen ? 10 : 0 }}
                     onClick={() => toggleTc(tcKey)}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span style={{ fontWeight: 600, fontSize: 14 }}>
-                        {tcOpen ? "▼" : "▶"} Test Case #{tc.testCaseId}
-                      </span>
+                      <span style={{ fontWeight: 600, fontSize: 14 }}>{tcOpen ? "▼" : "▶"} Test Case #{tc.testCaseId}</span>
                       <span className="api-stat" style={{ fontSize: 11 }}>{tc.logs.length} calls</span>
                       {tcFailed > 0 && <span className="api-stat fail" style={{ fontSize: 11 }}>{tcFailed} failed</span>}
                     </div>
