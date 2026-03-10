@@ -16,6 +16,7 @@
     "exceljs": "^4.4.0",
     "express": "^4.21.1",
     "mongoose": "^8.17.1",
+    "multer": "^2.1.1",
     "playwright": "^1.52.0",
     "uuid": "^11.0.2"
   }

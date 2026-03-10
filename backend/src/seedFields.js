@@ -16,14 +16,14 @@ const allFields = [
   { fieldName: "otp6", label: "OTP Digit 6", section: "Login", actionType: "fill", selector: "#agentotp6", inputType: "text", defaultValue: "3", order: 7 },
   { fieldName: "signInBtn", label: "Sign In Button", section: "Login", actionType: "click", selector: "role=button[name='Sign In']", inputType: "text", defaultValue: "click", order: 8 },
   { fieldName: "forceLoginBtn", label: "Force Login Button", section: "Login", actionType: "click", selector: "role=button[name='Yes, Force Login']", inputType: "text", defaultValue: "click", order: 9 },
-  
+
   // Application Start
   { fieldName: "startAppBtn", label: "Start New Application", section: "Application", actionType: "click", selector: "role=heading[name='Start New Application']", inputType: "text", defaultValue: "click", order: 10 },
   { fieldName: "proposerPAN", label: "Proposer PAN", section: "Application", actionType: "fill", selector: "role=textbox[name='Enter Proposer PAN']", inputType: "text", defaultValue: "LLLLL9999H", order: 11 },
   { fieldName: "mobileNumber", label: "Mobile Number", section: "Application", actionType: "fill", selector: "role=textbox[name='Enter your mobile number']", inputType: "text", defaultValue: "8888888888", order: 12 },
   { fieldName: "kycCheck", label: "KYC Checkbox", section: "Application", actionType: "check", selector: "#kycckecked", inputType: "checkbox", defaultValue: "check", order: 13 },
   { fieldName: "submitBtn", label: "Submit Button", section: "Application", actionType: "click", selector: "role=button[name='Submit']", inputType: "text", defaultValue: "click", order: 14 },
-  
+
   // KYC
   { fieldName: "proceedEKycBtn", label: "Proceed without e-KYC", section: "KYC", actionType: "click", selector: "role=heading[name='Proceed without e-KYC']", inputType: "text", defaultValue: "click", order: 15 },
   { fieldName: "sameProposer", label: "Same Proposer", section: "KYC", actionType: "check", selector: "#sameProposerYes", inputType: "checkbox", defaultValue: "check", order: 16 },
@@ -35,7 +35,7 @@ const allFields = [
   { fieldName: "gender", label: "Gender", section: "Personal Information", actionType: "select", selector: "#kyc_Gender", inputType: "select", selectOptions: ["Male", "Female"], defaultValue: "Male", order: 22 },
   { fieldName: "dateOfBirth", label: "Date of Birth", section: "Personal Information", actionType: "fill", selector: "role=textbox[name='DD/MM/YYYY']", inputType: "date", defaultValue: "22/10/1990", order: 23 },
   { fieldName: "email", label: "Email", section: "Personal Information", actionType: "fill", selector: "role=textbox[name='Enter E-mail ID']", inputType: "text", defaultValue: "test@pramericalife.in", order: 24 },
-  
+
   // Address
   { fieldName: "address1", label: "Address Line 1", section: "Address", actionType: "fill", selector: "#kyc_TempAddress1", inputType: "text", defaultValue: "gggui", order: 25 },
   { fieldName: "address2", label: "Address Line 2", section: "Address", actionType: "fill", selector: "#kyc_TempAddress2", inputType: "text", defaultValue: "gugiuhg", order: 26 },
@@ -53,7 +53,7 @@ const allFields = [
   { fieldName: "nextBtn1", label: "Next Button 1", section: "Address", actionType: "click", selector: "button.border-0.button-filled.ml-2.h-100 >> nth=1", inputType: "text", defaultValue: "click", order: 38 },
   { fieldName: "wait5sec", label: "Wait 5 seconds", section: "Address", actionType: "wait", selector: "", inputType: "text", defaultValue: "5000", order: 39 },
   { fieldName: "thankYouBtn", label: "Thank You Proceed Button", section: "Address", actionType: "click", selector: "role=button[name='Thank you and Proceed']", inputType: "text", defaultValue: "click", order: 40 },
-  
+
   // Financial
   { fieldName: "monthlyIncome", label: "Monthly Income", section: "Financial", actionType: "fill", selector: "role=textbox[name='Enter total monthly income']", inputType: "text", defaultValue: "1,00,0000", order: 41 },
   { fieldName: "monthlyExpenses", label: "Monthly Expenses", section: "Financial", actionType: "fill", selector: "role=textbox[name='Enter total monthly expenses']", inputType: "text", defaultValue: "1,0000", order: 42 },
@@ -63,7 +63,7 @@ const allFields = [
   { fieldName: "timeHorizon", label: "Time Horizon", section: "Financial", actionType: "click", selector: "#lb_time_2", inputType: "text", defaultValue: "click", order: 46 },
   { fieldName: "wait3sec", label: "Wait 3 seconds", section: "Financial", actionType: "wait", selector: "", inputType: "text", defaultValue: "3000", order: 47 },
   { fieldName: "nextBtn2", label: "Next Button 2", section: "Financial", actionType: "click", selector: "role=button[name='Next']", inputType: "text", defaultValue: "click", order: 48 },
-  
+
   // Product
   { fieldName: "wait3sec2", label: "Wait 3 seconds 2", section: "Product", actionType: "wait", selector: "", inputType: "text", defaultValue: "3000", order: 49 },
   { fieldName: "buyNowBtn", label: "Buy Now Button", section: "Product", actionType: "click", selector: "role=button[name='Buy Now'] >> nth=0", inputType: "text", defaultValue: "click", order: 50 },
@@ -79,7 +79,7 @@ const allFields = [
   { fieldName: "calculateBtn", label: "Calculate Button", section: "Policy", actionType: "click", selector: "role=button[name='Calculate']", inputType: "text", defaultValue: "click", order: 60 },
   { fieldName: "nextBtn4", label: "Next Button 4", section: "Policy", actionType: "click", selector: "role=button[name='Next']", inputType: "text", defaultValue: "click", order: 61 },
   { fieldName: "submitContinueBtn", label: "Submit & Continue Button", section: "Policy", actionType: "click", selector: "role=button[name='Submit & Continue']", inputType: "text", defaultValue: "click", order: 62 },
-  
+
   // Occupation
   { fieldName: "education", label: "Education", section: "Occupation", actionType: "select", selector: "#Drd_Education", inputType: "select", selectOptions: ["PGA"], defaultValue: "PGA", order: 63 },
   { fieldName: "occupation", label: "Occupation", section: "Occupation", actionType: "select", selector: "#Drd_Occupation", inputType: "select", selectOptions: ["SL"], defaultValue: "SL", order: 64 },
@@ -88,39 +88,40 @@ const allFields = [
   { fieldName: "employerAddress", label: "Employer Address", section: "Occupation", actionType: "fill", selector: "role=textbox[name='Please Enter Address']", inputType: "text", defaultValue: "", order: 67 },
   { fieldName: "designation", label: "Designation", section: "Occupation", actionType: "fill", selector: "role=textbox[name='Please Enter Designation']", inputType: "text", defaultValue: "", order: 68 },
   { fieldName: "nextBtn5", label: "NEXT Button 5", section: "Occupation", actionType: "click", selector: "role=button[name='NEXT']", inputType: "text", defaultValue: "click", order: 69 },
-  
+
   // Family
   { fieldName: "spouseName", label: "Spouse Name", section: "Family", actionType: "fill", selector: "#Txt_SpouseNAME", inputType: "text", defaultValue: "", order: 70 },
   { fieldName: "fatherName", label: "Father Name", section: "Family", actionType: "fill", selector: "#Txt_FatherNAME", inputType: "text", defaultValue: "", order: 71 },
   { fieldName: "motherName", label: "Mother Name", section: "Family", actionType: "fill", selector: "#TxtMotherName", inputType: "text", defaultValue: "", order: 72 },
-  
+
   // Nominee
   { fieldName: "wait10sec", label: "Wait 10 seconds", section: "Nominee", actionType: "wait", selector: "", inputType: "text", defaultValue: "10000", order: 73 },
   { fieldName: "nomineeRelation", label: "Nominee Relation", section: "Nominee", actionType: "select", selector: "#Drd_NomineeRelation", inputType: "select", selectOptions: ["FTR"], defaultValue: "FTR", order: 74 },
   { fieldName: "nomineeTitle", label: "Nominee Title", section: "Nominee", actionType: "select", selector: "#drd_NomineeTitle", inputType: "select", selectOptions: ["DR", "MR", "MRS"], defaultValue: "DR", order: 75 },
-  { fieldName: "nomineeName", label: "Nominee Name", section: "Nominee", actionType: "fill", selector: "role=textbox", inputType: "text", defaultValue: "", order: 76 },
+  { fieldName: "nomineeName", label: "Nominee Name", section: "Nominee", actionType: "fill", selector: "#Txt_NomineeName", inputType: "text", defaultValue: "", order: 76 },
   { fieldName: "wait10sec2", label: "Wait 10 seconds 2", section: "Nominee", actionType: "wait", selector: "", inputType: "text", defaultValue: "10000", order: 77 },
-  { fieldName: "nomineeSharePercentage", label: "Nominee Share %", section: "Nominee", actionType: "fill", selector: "role=textbox", inputType: "text", defaultValue: "100", order: 78 },
-  { fieldName: "nomineeDOB", label: "Nominee DOB", section: "Nominee", actionType: "fill", selector: "role=textbox[name='DD/MM/YYYY']", inputType: "date", defaultValue: "", order: 79 },
+  { fieldName: "nomineeSharePercentage", label: "Nominee Share %", section: "Nominee", actionType: "fill", selector: "#Txt_SharePercentage", inputType: "text", defaultValue: "100", order: 78 },
+  { fieldName: "nomineeDOB", label: "Nominee DOB", section: "Nominee", actionType: "fill", selector: "#Txt_NomineeDOB", inputType: "date", defaultValue: "", order: 79 },
   { fieldName: "wait30sec", label: "Wait 30 seconds", section: "Nominee", actionType: "wait", selector: "", inputType: "text", defaultValue: "30000", order: 80 },
   { fieldName: "saveNomineeBtn", label: "Save Nominee Button", section: "Nominee", actionType: "click", selector: "role=button[name='Save Nominee']", inputType: "text", defaultValue: "click", order: 81 },
-  
+
   // FATCA
   { fieldName: "usPersonNo", label: "US Person - No", section: "FATCA", actionType: "click", selector: "#rad_USPerson > div > .text-center >> nth=0", inputType: "text", defaultValue: "click", order: 82 },
   { fieldName: "residentIndiaYes", label: "Resident of India - Yes", section: "FATCA", actionType: "click", selector: "#Drd_ResidentOfIndia > div:nth-child(2) > .text-center", inputType: "text", defaultValue: "click", order: 83 },
-  
+
   // Bank
-  { fieldName: "bankAccountNumber", label: "Bank Account Number", section: "Bank", actionType: "fill", selector: "role=textbox[name='Please Enter Account number']", inputType: "text", defaultValue: "", order: 84 },
-  { fieldName: "ifscCode", label: "IFSC Code", section: "Bank", actionType: "fill", selector: "role=textbox[name='Please Enter IFSC code']", inputType: "text", defaultValue: "", order: 85 },
+  { fieldName: "bankAccountNumber", label: "Bank Account Number", section: "Bank", actionType: "fill", selector: "#Txt_PayerAccNumber", inputType: "text", defaultValue: "", order: 84 },
+  { fieldName: "ifscCode", label: "IFSC Code", section: "Bank", actionType: "fill", selector: "#Txt_PayerBankIFSCCode", inputType: "text", defaultValue: "", order: 85 },
   { fieldName: "wait15sec", label: "Wait 15 seconds", section: "Bank", actionType: "wait", selector: "", inputType: "text", defaultValue: "15000", order: 86 },
-  { fieldName: "bankConsentYes", label: "Bank Consent - Yes", section: "Bank", actionType: "click", selector: "#rad_BankConsent > div:nth-child(2) > .text-center", inputType: "text", defaultValue: "click", order: 87 },
-  
+  { fieldName: "verifyBankDetailsBtn", label: "Verify Bank Details Button", section: "Bank", actionType: "click", selector: "role=button[name='Verify Bank Details']", inputType: "text", defaultValue: "click", order: 87 },
+  { fieldName: "verifyBankOkBtn", label: "Verify Bank OK Button", section: "Bank", actionType: "click", selector: "role=button[name='OK']", inputType: "text", defaultValue: "click", order: 88 },
+
   // EIA
   { fieldName: "openEIANo", label: "Open EIA - No", section: "EIA", actionType: "click", selector: "#rad_OpenEIA > div > .text-center > .p-0 >> nth=0", inputType: "text", defaultValue: "click", order: 88 },
   { fieldName: "nextBtn6", label: "NEXT Button 6", section: "EIA", actionType: "click", selector: "role=button[name='NEXT']", inputType: "text", defaultValue: "click", order: 89 },
-  
+
   // Health
-  { fieldName: "weightKgs", label: "Weight (kg)", section: "Health", actionType: "fill", selector: "role=textbox[name='Please Enter Weight (kgs)']", inputType: "text", defaultValue: "", order: 90 },
+  { fieldName: "weightKgs", label: "Weight (kg)", section: "Health", actionType: "fill", selector: "#Txt_Weight", inputType: "text", defaultValue: "", order: 90 },
   { fieldName: "heightFeet", label: "Height (feet)", section: "Health", actionType: "select", selector: "#Txt_Height_feetDrd", inputType: "select", selectOptions: ["4", "5", "6"], defaultValue: "5", order: 91 },
   { fieldName: "heightInches", label: "Height (inches)", section: "Health", actionType: "select", selector: "#Txt_Height_InchesDrd", inputType: "select", selectOptions: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"], defaultValue: "6", order: 92 },
   { fieldName: "tobaccoNo", label: "Tobacco Consumed - No", section: "Health", actionType: "click", selector: "#rad_isTobaccoConsumed > div > .text-center > .p-0 >> nth=0", inputType: "text", defaultValue: "click", order: 93 },
@@ -136,7 +137,7 @@ const allFields = [
   { fieldName: "smq1No", label: "SMQ1 - No", section: "Health", actionType: "click", selector: "#rad_SMQ1 > div:nth-child(2) > .text-center > .p-0", inputType: "text", defaultValue: "click", order: 103 },
   { fieldName: "smq2No", label: "SMQ2 - No", section: "Health", actionType: "click", selector: "#rad_SMQ2 > div:nth-child(2) > .text-center > .p-0", inputType: "text", defaultValue: "click", order: 104 },
   { fieldName: "nextBtn7", label: "NEXT Button 7", section: "Health", actionType: "click", selector: "role=button[name='NEXT']", inputType: "text", defaultValue: "click", order: 105 },
-  
+
   // Final Submission
   { fieldName: "reviewPolicyCheck", label: "Review Policy Checkbox", section: "Final Submission", actionType: "check", selector: "role=checkbox[name='I have reviewed the policy ']", inputType: "checkbox", defaultValue: "check", order: 106 },
   { fieldName: "agreeEnrollCheck", label: "Agree & Enroll Checkbox", section: "Final Submission", actionType: "check", selector: "role=checkbox[name='I agree, confirm and enroll ']", inputType: "checkbox", defaultValue: "check", order: 107 },

@@ -9,13 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/joy": "^5.0.0-beta.52",
+    "@mui/material": "^7.3.9",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.6",
     "crypto-js": "^4.2.0",
+    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.27.0",
+    "secure-ls": "^2.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

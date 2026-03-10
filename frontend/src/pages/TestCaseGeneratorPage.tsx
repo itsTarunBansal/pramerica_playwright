@@ -23,7 +23,7 @@ const DEFAULT_ROW: PramericaTestData = {
   spouseName: "", fatherName: "", motherName: "",
   nomineeRelation: "FTR", nomineeTitle: "DR", nomineeName: "", nomineeGender: "Male",
   nomineeSharePercentage: "100", nomineeDOB: "",
-  bankAccountNumber: "", ifscCode: "", pennyDrop: "",
+  bankAccountNumber: "", ifscCode: "", 
   weightKgs: "", heightFeet: "5", heightInches: "6",
   paymentUrl: "", fundTransferNumber: "",
 };

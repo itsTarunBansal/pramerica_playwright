@@ -5,6 +5,7 @@ Complete test automation platform with dynamic field management.
 ## ✨ Features
 
 - 🎯 **Dynamic Field Manager** - Add/Edit/Delete fields without code
+- 📤 **File Upload Support** - Upload files (PDF/images) for test automation
 - 🔄 **Drag & Drop** - Reorder fields visually
 - 🎨 **Modern UI** - Card-based, responsive design
 - 🤖 **Playwright Integration** - Auto-generate test steps
@@ -70,10 +71,11 @@ backend/
       testCase.js
       execution.js
     routes/
-      fieldConfig.js       # Field CRUD API
+      fieldConfig.js       # Field CRUD API (with file upload)
       testCases.js
       runTests.js
     seedFields.js          # Initial data seeder
+  test-files/              # Uploaded test files storage
     
 frontend/
   src/
@@ -99,6 +101,15 @@ frontend/
    - Selector: `role=textbox[name='Age']`
 4. Save and use in Test Generator
 
+### Uploading Files for Tests
+
+1. Open Field Manager
+2. Create/Edit a field with Action Type: `uploadFile`
+3. In "Default Value", click "Choose File"
+4. Select your PDF or image file
+5. Save - file is stored in `backend/test-files/`
+6. Tests will automatically use the uploaded file
+
 ### Creating Tests
 
 1. Open Test Generator: http://localhost:5173/generator
@@ -111,6 +122,7 @@ frontend/
 
 - 📖 [Quick Start Guide](START-HERE.md)
 - 📖 [Setup Instructions](SETUP-NODEJS.md)
+- 📖 [File Upload Guide](docs/FILE-UPLOAD-GUIDE.md)
 - 📖 [Complete Feature Guide](docs/dynamic-fields-guide.md)
 - 📖 [Implementation Details](DYNAMIC-FIELDS-COMPLETE.md)
 
@@ -151,5 +163,6 @@ POST   /api/v1/field-configs/reorder      # Reorder fields
 
 - Backend connects to MongoDB on startup
 - Field configurations are tenant-isolated
-- Supports all Playwright action types
+- Supports all Playwright action types including file uploads
 - Dynamic form generation from database
+- Uploaded files stored in `backend/test-files/`

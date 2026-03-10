@@ -6,6 +6,7 @@ import { getProject } from "./services/api";
 import { clearSession, getSession } from "./auth/authService";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
+//import LoginPage from "./components/Login";
 import AdminPage from "./pages/AdminPage";
 import LandingPage from "./pages/LandingPage";
 import ProjectsPage from "./pages/ProjectsPage";

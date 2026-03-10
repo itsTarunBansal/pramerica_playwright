@@ -87,7 +87,7 @@ export default function PramericaTestPage() {
       nomineeDOB: "",
       bankAccountNumber: "",
       ifscCode: "",
-      pennyDrop: "",
+      //pennyDrop: "",
       weightKgs: "",
       heightFeet: "",
       heightInches: "",

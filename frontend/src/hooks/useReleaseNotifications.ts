@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { io, Socket } from 'socket.io-client';
+// import { io, Socket } from 'socket.io-client';
 import SecureStorage from '../utils/SecureStorage';
 
 interface ReleaseData {
@@ -18,7 +18,7 @@ interface UseReleaseNotificationsReturn {
 
 export const useReleaseNotifications = (): UseReleaseNotificationsReturn => {
   const [releaseData, setReleaseData] = useState<ReleaseData | null>(null);
-  const [socket, setSocket] = useState<Socket | null>(null);
+  // const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   const checkReleaseStatus = useCallback(async () => {

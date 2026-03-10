@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../Header/header';
 import PageTitle from './PageTitle';
 import Footer from '../Footer/footer';
-//import { loginMe, changePassword, adloginMe } from '../../features/auth/authActions';
+import { loginMe, changePassword, adloginMe } from '../../features/auth/authActions';
 import { AppDispatch } from '../../redux/store';
 import LoginForm from './LoginForm';
-// import { setSnackBar } from '../../features/snackbar/snackBarSlice';
+import { setSnackBar } from '../../features/snackbar/snackBarSlice';
 import { useAxiosInterceptor } from '../../hooks/useAxiosInterceptor';
 import CryptoJS from 'crypto-js';
 const LoginPage = () => {
@@ -39,7 +39,7 @@ const LoginPage = () => {
     };
     try {
       console.log('Dispatching login...');
-      //await dispatch(adloginMe(body)); // Check if this is actually being called
+      await dispatch(adloginMe(body)); // Check if this is actually being called
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error); // Log any error here
@@ -50,14 +50,14 @@ const LoginPage = () => {
     <>
       <NavBar />
       <PageTitle />
-      {/* <LoginForm
+      <LoginForm
         email={email}
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
         handleLogin={handleLogin}
         changePassword={changePassword}
-      /> */}
+      />
       <Footer />
     </>
   );

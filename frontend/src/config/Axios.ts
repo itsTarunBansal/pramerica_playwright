@@ -8,7 +8,7 @@ import { logout } from '../features/auth/authSlice';
 
 
 const AXIOS: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_PATH || '',
+  baseURL: import.meta.env.VITE_API_PATH || '',
   headers: {
     'Content-Type': 'application/json',
   },

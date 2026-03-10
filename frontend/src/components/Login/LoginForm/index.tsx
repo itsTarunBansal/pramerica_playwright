@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import SashaktLogo from '../../../assets/Logo/sashaktlogo.png';
 import ForgotPassword from './forgotPassword';
 import { connect } from 'react-redux';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ButtonHoc from '../../Shared/Button/ButtonHoc';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -50,7 +49,7 @@ const LoginFormContainer: React.FC<Props> = ({
           <div className="mx-842">
             <div className="cutomer-login-card">
               <div className="cutomer-login-left">
-                <img src={SashaktLogo} alt="" />
+                {/* <img src={SashaktLogo} alt="" /> */}
               </div>
               <div className="cutomer-login-right">
                 <div className="d-flex pd-b28 pd-x-b24">

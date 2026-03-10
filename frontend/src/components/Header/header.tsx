@@ -19,6 +19,7 @@ const NavBar = () => {
                 <div className="brand-logo">
                   {/* <a href="/" className="brand"> */}
                     <img src={BrandLogo} alt="brand" />
+                    gjgh
                   {/* </a> */}
                 </div>
               </div>
