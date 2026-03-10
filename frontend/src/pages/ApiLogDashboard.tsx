@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import { fetchApiLogs, deleteProjectLogs, deleteLogRun } from "../store/slices/apiLogsSlice";
 
 const NVEST_TENANT_ID = "00000000-0000-0000-0000-000000000001";

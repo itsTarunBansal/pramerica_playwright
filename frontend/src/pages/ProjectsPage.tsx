@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProject, NVEST_TENANT_ID } from "../context/ProjectContext";
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import { fetchProjects } from "../store/slices/projectsSlice";
 
 const NVEST_URL = "https://nvestuat.pramericalife.in/Life/Login.html";

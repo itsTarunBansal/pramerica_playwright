@@ -4,7 +4,7 @@ import type { PramericaTestData } from "../types";
 import { buildSteps } from "../services/playwrightSteps";
 import { buildDynamicSteps } from "../services/dynamicSteps";
 import * as XLSX from "xlsx";
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import { fetchFieldConfigs } from "../store/slices/fieldConfigsSlice";
 import { runTests, saveTestCase, clearErrors } from "../store/slices/testCasesSlice";
 import "./TestCaseGeneratorPage.css";
