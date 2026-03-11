@@ -3,14 +3,14 @@
   "passed": 0,
   "failed": 1,
   "skipped": 0,
-  "totalDuration": 161427,
-  "generatedAt": "2026-03-09T11:22:07.873Z",
+  "totalDuration": 148302,
+  "generatedAt": "2026-03-10T10:01:33.986Z",
   "tests": [
     {
       "testCaseId": 1,
       "status": "failed",
-      "duration": 161427,
-      "error": "Element not found or not clickable: locator('#Txt_Weight')\u001b[22m. The page may not have loaded correctly or the element is missing."
+      "duration": 148302,
+      "error": "Element not found or not clickable: locator('#Txt_Height_feetDrd')\u001b[22m. The page may not have loaded correctly or the element is missing."
     }
   ]
 }
